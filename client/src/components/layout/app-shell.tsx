@@ -171,9 +171,21 @@ export function CommandPalette({
     if (cmdkOpen) {
       setQuery('');
       setActiveIndex(0);
-      setTimeout(() => inputRef.current?.focus(), 20);
+      inputRef.current?.focus();
     }
   }, [cmdkOpen]);
+
+  useEffect(() => {
+    if (!cmdkOpen) return;
+    const onEsc = (e: KeyboardEvent) => {
+      if (e.key === 'Escape') {
+        e.preventDefault();
+        setCmdkOpen(false);
+      }
+    };
+    document.addEventListener('keydown', onEsc);
+    return () => document.removeEventListener('keydown', onEsc);
+  }, [cmdkOpen, setCmdkOpen]);
 
   if (!cmdkOpen) return null;
 
@@ -190,6 +202,7 @@ export function CommandPalette({
           <AnimatedIcon name="search" />
           <input
             ref={inputRef}
+            autoFocus
             type="text"
             placeholder="Jump to page, meeting, or action..."
             aria-label="Command palette search"

@@ -28,8 +28,6 @@ export async function fetchDecisions(
     params: {
       status: filters.status,
       meetingId: filters.meetingId,
-      decidedById: filters.decidedById,
-      q: filters.q,
       page: filters.page ?? 1,
       limit: filters.limit ?? 50,
     },

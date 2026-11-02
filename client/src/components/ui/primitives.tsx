@@ -591,6 +591,8 @@ export function DrawerSheet({
     return () => document.removeEventListener('keydown', handleKey);
   }, [open, onClose]);
 
+  if (!open) return null;
+
   return (
     <>
       <div className={cn('scrim', open && 'on')} onClick={onClose} aria-hidden="true" />

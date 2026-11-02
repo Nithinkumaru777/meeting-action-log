@@ -8,8 +8,8 @@ import {
 
 export interface MeetingsFilter {
   filter?: 'all' | 'upcoming' | 'past';
+  status?: 'all' | 'upcoming' | 'past';
   q?: string;
-  attendeeId?: string;
   page?: number;
   limit?: number;
 }
@@ -19,9 +19,8 @@ export async function fetchMeetings(
 ): Promise<PaginatedResponse<MeetingDTO>> {
   return apiFetch<PaginatedResponse<MeetingDTO>>('/meetings', {
     params: {
-      filter: filters.filter ?? 'all',
+      status: filters.status ?? filters.filter ?? 'all',
       q: filters.q,
-      attendeeId: filters.attendeeId,
       page: filters.page ?? 1,
       limit: filters.limit ?? 50,
     },
