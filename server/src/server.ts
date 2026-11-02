@@ -8,18 +8,26 @@ config({ path: [path.resolve('.env'), path.resolve('..', '.env')], quiet: true }
 const { env } = await import('./config/env');
 const { createApp } = await import('./app');
 const { connectDB, registerGracefulShutdown } = await import('./db/connect');
+const { MemberModel } = await import('./models/Member');
+const { seedDatabase } = await import('./seed/seed');
 
 try {
   const db = await connectDB(env.MONGODB_URI, {
-    maxRetries: 3,
-    retryDelayMs: 1000,
-    serverSelectionTimeoutMS: 2000,
-    allowMemoryFallback: env.NODE_ENV !== 'production',
+    maxRetries: 2,
+    retryDelayMs: 500,
+    serverSelectionTimeoutMS: 1500,
+    allowMemoryFallback: true,
   });
-  if (db.inMemory)
+  if (db.inMemory) {
     console.warn(
-      'MongoDB at MONGODB_URI is unreachable; using an embedded in-memory database. Data is lost on exit.',
+      'MongoDB at MONGODB_URI is unreachable; using an embedded in-memory database and seeding demo data.',
     );
+  }
+  const existingMembers = await MemberModel.countDocuments({});
+  if (existingMembers === 0) {
+    await seedDatabase();
+    console.info('Database was empty; seeded initial MeetingActionLog demo data.');
+  }
 } catch (err) {
   console.error((err as Error).message);
   process.exit(1);
