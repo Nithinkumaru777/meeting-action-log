@@ -9,6 +9,10 @@
   "scripts": {
     "typecheck": "tsc --noEmit -p .",
     "lint": "eslint .",
-    "test": "vitest run --passWithNoTests"
+    "test": "vitest run --passWithNoTests",
+    "test:coverage": "vitest run --coverage --retry=0"
+  },
+  "dependencies": {
+    "zod": "^4.6.7"
   }
 }
