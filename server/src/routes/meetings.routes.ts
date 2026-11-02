@@ -1,10 +1,13 @@
 import { Router } from 'express';
 import {
+  decisionCreateSchema,
   idParamSchema,
+  listQueryMeetingDecisionsSchema,
   listQueryMeetingsSchema,
   meetingCreateSchema,
   meetingUpdateSchema,
 } from '@mal/shared';
+import { createMeetingDecision, listMeetingDecisions } from '../controllers/decisions.controller';
 import {
   createMeeting,
   deleteMeeting,
@@ -25,3 +28,14 @@ meetingsRouter.patch(
   updateMeeting,
 );
 meetingsRouter.delete('/:id', validate({ params: idParamSchema }), deleteMeeting);
+
+meetingsRouter.get(
+  '/:id/decisions',
+  validate({ params: idParamSchema, query: listQueryMeetingDecisionsSchema }),
+  listMeetingDecisions,
+);
+meetingsRouter.post(
+  '/:id/decisions',
+  validate({ params: idParamSchema, body: decisionCreateSchema }),
+  createMeetingDecision,
+);
