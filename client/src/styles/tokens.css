@@ -1,0 +1,122 @@
+:root {
+  /* Signal Ledger v2 — Cloud Dancer paper + Transformative Teal spine */
+  --paper: #F0EEE9;
+  --paper-2: #E6E3DB;
+  --sheet: #F8F7F3;
+  --rule: #D3CEC3;
+  --rule-2: #B4AEA1;
+  --ink: #13201F;
+  --ink-2: #47524F;
+  --ink-3: #5A6663;
+  --teal: #0F5257;
+  --teal-2: #0B4246;
+  --teal-ink: #F0EEE9;
+  --teal-soft: #D3E5E2;
+  --coral: #A8321F;
+  --coral-hi: #E0533A;
+  --coral-soft: #F5DDD5;
+  --amber: #8A5A00;
+  --amber-hi: #E3A21A;
+  --amber-soft: #F4E5C2;
+  --done: #2F6B3A;
+  --done-hi: #4E9B5C;
+  --done-soft: #DCEAD3;
+  --fuchsia: #A0216E;
+  --fuchsia-hi: #D63C97;
+  --fuchsia-soft: #F5D9E8;
+  --spine: #0F5257;
+  --spine-ink: #F0EEE9;
+  --spine-2: rgba(240, 238, 233, 0.76);
+  --spine-line: rgba(240, 238, 233, 0.16);
+  --spine-hi: rgba(240, 238, 233, 0.09);
+  --av-s: 45%;
+  --av-bg: 86%;
+  --av-fg: 26%;
+  --shadow: 0 18px 50px -18px rgba(19, 32, 31, 0.35);
+  --f-display: "Newsreader", Georgia, "Times New Roman", serif;
+  --f-ui: "Schibsted Grotesk", ui-sans-serif, system-ui, -apple-system, "Segoe UI", sans-serif;
+  --f-mono: "IBM Plex Mono", ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+  --e-out: cubic-bezier(0.22, 1, 0.36, 1);
+  --e-io: cubic-bezier(0.65, 0, 0.35, 1);
+  --e-spring: cubic-bezier(0.34, 1.56, 0.64, 1);
+  --t-feedback: 100ms;
+  --t-state: 220ms;
+  --t-layout: 360ms;
+  color-scheme: light;
+}
+
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    --paper: #0C1716;
+    --paper-2: #13211F;
+    --sheet: #101D1C;
+    --rule: #253634;
+    --rule-2: #3D5350;
+    --ink: #ECEAE4;
+    --ink-2: #AAB6B2;
+    --ink-3: #909D99;
+    --teal: #6CC6BC;
+    --teal-2: #8AD6CD;
+    --teal-ink: #0C1716;
+    --teal-soft: #173533;
+    --coral: #FF8C75;
+    --coral-hi: #FF6B50;
+    --coral-soft: #3A1C16;
+    --amber: #F0C05E;
+    --amber-hi: #F0C05E;
+    --amber-soft: #33280F;
+    --done: #93D69E;
+    --done-hi: #6DBF7B;
+    --done-soft: #16301B;
+    --fuchsia: #F48CC9;
+    --fuchsia-hi: #F06BB6;
+    --fuchsia-soft: #3A1630;
+    --spine: #0A2627;
+    --spine-ink: #ECEAE4;
+    --spine-2: rgba(236, 234, 228, 0.74);
+    --spine-line: rgba(236, 234, 228, 0.1);
+    --spine-hi: rgba(236, 234, 228, 0.07);
+    --av-s: 30%;
+    --av-bg: 22%;
+    --av-fg: 84%;
+    --shadow: 0 18px 50px -18px rgba(0, 0, 0, 0.8);
+    color-scheme: dark;
+  }
+}
+
+:root[data-theme="dark"] {
+  --paper: #0C1716;
+  --paper-2: #13211F;
+  --sheet: #101D1C;
+  --rule: #253634;
+  --rule-2: #3D5350;
+  --ink: #ECEAE4;
+  --ink-2: #AAB6B2;
+  --ink-3: #909D99;
+  --teal: #6CC6BC;
+  --teal-2: #8AD6CD;
+  --teal-ink: #0C1716;
+  --teal-soft: #173533;
+  --coral: #FF8C75;
+  --coral-hi: #FF6B50;
+  --coral-soft: #3A1C16;
+  --amber: #F0C05E;
+  --amber-hi: #F0C05E;
+  --amber-soft: #33280F;
+  --done: #93D69E;
+  --done-hi: #6DBF7B;
+  --done-soft: #16301B;
+  --fuchsia: #F48CC9;
+  --fuchsia-hi: #F06BB6;
+  --fuchsia-soft: #3A1630;
+  --spine: #0A2627;
+  --spine-ink: #ECEAE4;
+  --spine-2: rgba(236, 234, 228, 0.74);
+  --spine-line: rgba(236, 234, 228, 0.1);
+  --spine-hi: rgba(236, 234, 228, 0.07);
+  --av-s: 30%;
+  --av-bg: 22%;
+  --av-fg: 84%;
+  --shadow: 0 18px 50px -18px rgba(0, 0, 0, 0.8);
+  color-scheme: dark;
+}

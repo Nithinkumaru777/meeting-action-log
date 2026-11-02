@@ -1,0 +1,21 @@
+# Step 09 Result — Client Foundation + Signal Ledger v2 Design System
+
+- **Status**: Completed and verified
+- **Files Created / Updated**:
+  - `client/index.html` (Newsreader, Schibsted Grotesk, IBM Plex Mono fonts + title)
+  - `client/vite.config.ts` (Tailwind v4 + `/api` proxy to `http://127.0.0.1:5000`)
+  - `client/vitest.config.ts` (jsdom environment + setup file)
+  - `client/src/styles/tokens.css` (Signal Ledger v2 light/dark tokens)
+  - `client/src/styles/globals.css` (Complete editorial rules-not-boxes stylesheet)
+  - `client/src/lib/cn.ts`, `client/src/lib/motion.ts`, `client/src/lib/store.ts`
+  - `client/src/components/ui/animated-icon.tsx` (29 custom animated SVG icons)
+  - `client/src/components/ui/primitives.tsx` (Button, Tag, PriorityBars, PriorityPicker, Avatar, AvatarStack, Who, Odometer, Ruler, Masthead, Section, Tabs, DrawerSheet, EmptyState, SkeletonRows, ErrorState, ActionRow, DecisionRow, MeetingRow)
+  - `client/src/components/charts/charts.tsx` (`Sparkline`, `BarList`)
+  - `client/src/components/feedback/toast-store.tsx` & `error-boundary.tsx`
+  - `client/src/components/layout/app-shell.tsx` (`AppShell`, `CommandPalette`, `useShellStore`)
+  - `client/src/features/design-system/design-system-page.tsx` (`/design-system`)
+  - `client/src/features/not-found/not-found-page.tsx`
+  - `client/src/__tests__/setup.ts` & `client/src/__tests__/design-system.test.tsx` (`{ repeats: 100 }`)
+- **Verification**:
+  - `no-emoji.test.ts` (100x repeats) — 0 emojis across entire workspace
+  - `design-system.test.tsx` (100x repeats) — all primitives, icons, charts, shell, toast, and `/design-system` verified

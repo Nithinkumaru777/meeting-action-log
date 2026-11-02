@@ -28,7 +28,9 @@
     "test:report": "node scripts/test-report.mjs"
   },
   "devDependencies": {
+    "@axe-core/playwright": "^4.10.1",
     "@eslint/js": "^9.39.5",
+    "@playwright/test": "^1.52.0",
     "@types/node": "^26.6.6",
     "@vitest/coverage-v8": "^5.0.5",
     "concurrently": "^10.0.6",
