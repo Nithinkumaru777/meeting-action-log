@@ -39,7 +39,7 @@ const server = setupServer(
           ...body,
         },
       },
-      { status: 201 }
+      { status: 201 },
     );
   }),
   http.delete('*/api/members/:id', () =>
@@ -51,8 +51,8 @@ const server = setupServer(
           details: [],
         },
       },
-      { status: 409 }
-    )
+      { status: 409 },
+    ),
   ),
   http.get('*/api/insights/summary', () =>
     HttpResponse.json({
@@ -67,7 +67,7 @@ const server = setupServer(
         oldestOverdueDays: 4,
         totalMeetings: 3,
       },
-    })
+    }),
   ),
   http.get('*/api/insights/overdue', () =>
     HttpResponse.json({
@@ -97,7 +97,7 @@ const server = setupServer(
           ],
         },
       ],
-    })
+    }),
   ),
   http.post('*/api/actions/:id/extend', ({ params }) =>
     HttpResponse.json({
@@ -117,7 +117,7 @@ const server = setupServer(
         daysOverdue: 0,
         dueState: { kind: 'soon', days: 3 },
       },
-    })
+    }),
   ),
   http.get('*/api/decisions', () =>
     HttpResponse.json({
@@ -152,7 +152,7 @@ const server = setupServer(
         },
       ],
       meta: { page: 1, limit: 100, total: 2, totalPages: 1 },
-    })
+    }),
   ),
   http.post('*/api/decisions/:id/dismiss', ({ params }) =>
     HttpResponse.json({
@@ -168,7 +168,7 @@ const server = setupServer(
         noActionReason: 'No action needed',
         actionIds: [],
       },
-    })
+    }),
   ),
   http.post('*/api/decisions/:id/reopen', ({ params }) =>
     HttpResponse.json({
@@ -184,7 +184,7 @@ const server = setupServer(
         noActionReason: '',
         actionIds: [],
       },
-    })
+    }),
   ),
   http.get('*/api/insights/unconverted-decisions', () => HttpResponse.json({ data: [] })),
   http.get('*/api/insights/weekly-completion', () => HttpResponse.json({ data: [] })),
@@ -192,8 +192,8 @@ const server = setupServer(
     HttpResponse.json({
       data: [],
       meta: { page: 1, limit: 50, total: 0, totalPages: 1 },
-    })
-  )
+    }),
+  ),
 );
 
 beforeAll(() => server.listen({ onUnhandledRequest: 'error' }));
@@ -211,87 +211,81 @@ afterEach(() => {
 afterAll(() => server.close());
 
 describe('Step 13: Overdue + Decision Inbox + Members + Guided Demo Tour (100x)', () => {
-  test('OverduePage and DecisionsInboxPage handle +3 days extend, tabs, dismiss, and reopen', { repeats: 100 }, async () => {
-    const qc = createQueryClient();
-    const { unmount } = render(
-      <QueryClientProvider client={qc}>
-        <MemoryRouter>
-          <OverduePage />
-          <DecisionsInboxPage />
-        </MemoryRouter>
-      </QueryClientProvider>
-    );
+  test(
+    'OverduePage and DecisionsInboxPage handle +3 days extend, tabs, dismiss, and reopen',
+    { repeats: 100 },
+    async () => {
+      const qc = createQueryClient();
+      const { unmount } = render(
+        <QueryClientProvider client={qc}>
+          <MemoryRouter>
+            <OverduePage />
+            <DecisionsInboxPage />
+          </MemoryRouter>
+        </QueryClientProvider>,
+      );
 
-    await waitFor(() =>
-      expect(screen.getByText('Renew SSL certificate')).toBeInTheDocument()
-    );
-    const extendBtn = screen.getByRole('button', { name: /\+3 days/i });
-    fireEvent.click(extendBtn);
+      await waitFor(() => expect(screen.getByText('Renew SSL certificate')).toBeInTheDocument());
+      const extendBtn = screen.getByRole('button', { name: /\+3 days/i });
+      fireEvent.click(extendBtn);
 
-    await waitFor(() =>
-      expect(screen.getByText(/Rotate on-call weekly/)).toBeInTheDocument()
-    );
+      await waitFor(() => expect(screen.getByText(/Rotate on-call weekly/)).toBeInTheDocument());
 
-    const noActionTab = screen.getByRole('button', { name: /^No action\s*1$/i });
-    fireEvent.click(noActionTab);
-    await waitFor(() =>
-      expect(
-        screen.getByText(/Keep the status page on the current provider/)
-      ).toBeInTheDocument()
-    );
+      const noActionTab = screen.getByRole('button', { name: /^No action\s*1$/i });
+      fireEvent.click(noActionTab);
+      await waitFor(() =>
+        expect(
+          screen.getByText(/Keep the status page on the current provider/),
+        ).toBeInTheDocument(),
+      );
 
-    const reopenBtn = screen.getByRole('button', { name: /Reopen/i });
-    fireEvent.click(reopenBtn);
+      const reopenBtn = screen.getByRole('button', { name: /Reopen/i });
+      fireEvent.click(reopenBtn);
 
-    unmount();
-    qc.clear();
-  });
+      unmount();
+      qc.clear();
+    },
+  );
 
-  test('MembersPage CRUD and 409 delete conflict toast + 8-step GuidedTourOverlay + AppRoutes', { repeats: 100 }, async () => {
-    expect(TOUR_STEPS.length).toBe(8);
-    const qc = createQueryClient();
-    const { unmount } = render(
-      <QueryClientProvider client={qc}>
-        <MemoryRouter initialEntries={['/members']}>
-          <AppRoutes />
-          <MembersPage />
-          <GuidedTourOverlay />
-        </MemoryRouter>
-      </QueryClientProvider>
-    );
+  test(
+    'MembersPage CRUD and 409 delete conflict toast + 8-step GuidedTourOverlay + AppRoutes',
+    { repeats: 100 },
+    async () => {
+      expect(TOUR_STEPS.length).toBe(8);
+      const qc = createQueryClient();
+      const { unmount } = render(
+        <QueryClientProvider client={qc}>
+          <MemoryRouter initialEntries={['/members']}>
+            <AppRoutes />
+            <MembersPage />
+            <GuidedTourOverlay />
+          </MemoryRouter>
+        </QueryClientProvider>,
+      );
 
-    await waitFor(() =>
-      expect(screen.getAllByText('Ananya Rao').length).toBeGreaterThan(0)
-    );
+      await waitFor(() => expect(screen.getAllByText('Ananya Rao').length).toBeGreaterThan(0));
 
-    const removeBtns = screen.getAllByRole('button', {
-      name: /Remove Ananya Rao/i,
-    });
-    fireEvent.click(removeBtns[0]!);
+      const removeBtns = screen.getAllByRole('button', {
+        name: /Remove Ananya Rao/i,
+      });
+      fireEvent.click(removeBtns[0]!);
 
-    await waitFor(() =>
-      expect(
-        useToastStore
-          .getState()
-          .toasts.some((t) => t.title === 'Cannot remove member')
-      ).toBe(true)
-    );
+      await waitFor(() =>
+        expect(
+          useToastStore.getState().toasts.some((t) => t.title === 'Cannot remove member'),
+        ).toBe(true),
+      );
 
-    useShellStore.getState().startTour();
-    await waitFor(() =>
-      expect(screen.getAllByText(/Step 1 of 8/i).length).toBeGreaterThan(0)
-    );
+      useShellStore.getState().startTour();
+      await waitFor(() => expect(screen.getAllByText(/Step 1 of 8/i).length).toBeGreaterThan(0));
 
-    fireEvent.keyDown(document, { key: 'ArrowRight' });
-    await waitFor(() =>
-      expect(useShellStore.getState().tourStep).toBe(1)
-    );
-    fireEvent.keyDown(document, { key: 'Escape' });
-    await waitFor(() =>
-      expect(useShellStore.getState().tourStep).toBe(-1)
-    );
+      fireEvent.keyDown(document, { key: 'ArrowRight' });
+      await waitFor(() => expect(useShellStore.getState().tourStep).toBe(1));
+      fireEvent.keyDown(document, { key: 'Escape' });
+      await waitFor(() => expect(useShellStore.getState().tourStep).toBe(-1));
 
-    unmount();
-    qc.clear();
-  });
+      unmount();
+      qc.clear();
+    },
+  );
 });

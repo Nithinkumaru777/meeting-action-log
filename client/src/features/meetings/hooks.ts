@@ -39,8 +39,7 @@ export function useCreateMeetingMutation() {
 export function useUpdateMeetingMutation() {
   const qc = useQueryClient();
   return useMutation({
-    mutationFn: ({ id, input }: { id: string; input: MeetingUpdate }) =>
-      updateMeeting(id, input),
+    mutationFn: ({ id, input }: { id: string; input: MeetingUpdate }) => updateMeeting(id, input),
     onSuccess: (_data, vars) => {
       void qc.invalidateQueries({ queryKey: ['meetings'] });
       void qc.invalidateQueries({ queryKey: queryKeys.meeting(vars.id) });

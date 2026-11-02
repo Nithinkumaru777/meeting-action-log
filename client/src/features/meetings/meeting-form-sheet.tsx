@@ -2,12 +2,7 @@ import { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router';
 import { meetingCreateSchema, todayISO } from '@mal/shared';
 import { AnimatedIcon } from '../../components/ui/animated-icon';
-import {
-  Avatar,
-  Button,
-  DrawerSheet,
-  fmtShort,
-} from '../../components/ui/primitives';
+import { Avatar, Button, DrawerSheet, fmtShort } from '../../components/ui/primitives';
 import { toast } from '../../components/feedback/toast-store';
 import { applyServerErrorsToForm, type MeetingDTO } from '../../lib/api';
 import { useMembersQuery } from '../members/hooks';
@@ -19,11 +14,7 @@ export interface MeetingFormSheetProps {
   editingMeeting?: MeetingDTO | null;
 }
 
-export function MeetingFormSheet({
-  open,
-  onClose,
-  editingMeeting = null,
-}: MeetingFormSheetProps) {
+export function MeetingFormSheet({ open, onClose, editingMeeting = null }: MeetingFormSheetProps) {
   const navigate = useNavigate();
   const { data: members = [] } = useMembersQuery();
   const createMutation = useCreateMeetingMutation();
@@ -60,9 +51,7 @@ export function MeetingFormSheet({
   }, [open, editingMeeting]);
 
   const toggleAttendee = (id: string) => {
-    setAttendeeIds((prev) =>
-      prev.includes(id) ? prev.filter((x) => x !== id) : [...prev, id]
-    );
+    setAttendeeIds((prev) => (prev.includes(id) ? prev.filter((x) => x !== id) : [...prev, id]));
     setErrors((prev) => {
       if (!prev.attendeeIds) return prev;
       const copy = { ...prev };

@@ -74,150 +74,159 @@ describe('Step 09: Client Foundation & Signal Ledger v2 Design System (100x)', (
         {names.map((n) => (
           <AnimatedIcon key={n} name={n} loop={n === 'flame'} play={n === 'check'} />
         ))}
-      </div>
+      </div>,
     );
     const svgs = container.querySelectorAll('svg.ico');
     expect(svgs.length).toBe(names.length);
     unmount();
   });
 
-  test('primitives, rows, charts, shell, toast, and design system page render and interact', { repeats: 100 }, () => {
-    useToastStore.getState().clear();
-    useShellStore.setState({
-      searchQuery: '',
-      newMeetingOpen: false,
-      cmdkOpen: false,
-      tourStep: -1,
-      theme: 'light',
-    });
+  test(
+    'primitives, rows, charts, shell, toast, and design system page render and interact',
+    { repeats: 100 },
+    () => {
+      useToastStore.getState().clear();
+      useShellStore.setState({
+        searchQuery: '',
+        newMeetingOpen: false,
+        cmdkOpen: false,
+        tourStep: -1,
+        theme: 'light',
+      });
 
-    let pickedPriority = 'medium' as const;
-    let currentTab: 'all' | 'upcoming' = 'all';
+      let pickedPriority = 'medium' as const;
+      let currentTab: 'all' | 'upcoming' = 'all';
 
-    const { unmount } = render(
-      <MemoryRouter initialEntries={['/design-system']}>
-        <ErrorBoundary>
-          <AppShell openActionsCount={6} overdueCount={3} pendingDecisionsCount={2}>
-            <Masthead eyebrow="TEST" title="Heading" dek="Subtitle" side={<Tag tone="teal">Live</Tag>} />
-            <Section tone="late" title="Overdue" count={3} hotDot note="Past due">
-              <Button variant="primary" icon="plus" state="idle">
-                Action
-              </Button>
-              <Button variant="line" state="loading">
-                Saving
-              </Button>
-              <Button variant="dec" state="success">
-                Done
-              </Button>
-              <PriorityBars priority="critical" />
-              <PriorityPicker
-                value={pickedPriority}
-                onChange={(v) => {
-                  pickedPriority = v as 'medium';
-                }}
+      const { unmount } = render(
+        <MemoryRouter initialEntries={['/design-system']}>
+          <ErrorBoundary>
+            <AppShell openActionsCount={6} overdueCount={3} pendingDecisionsCount={2}>
+              <Masthead
+                eyebrow="TEST"
+                title="Heading"
+                dek="Subtitle"
+                side={<Tag tone="teal">Live</Tag>}
               />
-              <Avatar member={{ name: 'Ananya Rao', avatarHue: 176 }} size="lg" />
-              <AvatarStack
-                members={[
-                  { id: 'm1', name: 'Ananya Rao', avatarHue: 176 },
-                  { id: 'm2', name: 'Karthik Shetty', avatarHue: 28 },
-                ]}
-              />
-              <Who member={{ name: 'Meera Iyer', avatarHue: 320 }} firstNameOnly />
-              <Odometer value={42} suffix="%" />
-              <Ruler rate={65} />
-              <Tabs
-                ariaLabel="Filter"
-                value={currentTab}
-                onChange={(v) => {
-                  currentTab = v;
-                }}
-                options={[
-                  { key: 'all', label: 'All', count: 5 },
-                  { key: 'upcoming', label: 'Upcoming', count: 2 },
-                ]}
-              />
-              <ActionRow
-                action={{
-                  id: 'a1',
-                  meetingId: 'mt1',
-                  meetingTitle: 'Sprint 14',
-                  decisionId: 'dc1',
-                  title: 'Renew SSL cert',
-                  ownerId: 'm1',
-                  owner: { id: 'm1', name: 'Ananya Rao', role: 'Lead', avatarHue: 176 },
-                  dueDate: new Date(Date.now() - 86400000 * 3),
-                  priority: 'critical',
-                  status: 'open',
-                }}
-                showQuickExtend
-                onToggle={() => {}}
-                onExtend={() => {}}
-              />
-              <DecisionRow
-                decision={{
-                  id: 'dc1',
-                  meetingId: 'mt1',
-                  meetingTitle: 'Sprint 14',
-                  summary: 'Ship without dark mode',
-                  decidedBy: 'm1',
-                  decidedByMember: { id: 'm1', name: 'Ananya Rao', role: 'Lead', avatarHue: 176 },
-                  decidedAt: new Date(),
-                  status: 'pending',
-                }}
-                onConvert={() => {}}
-                onDismiss={() => {}}
-              />
-              <MeetingRow
-                meeting={{
-                  id: 'mt1',
-                  title: 'Sprint 14 planning',
-                  date: new Date(),
-                  startTime: '10:00',
-                  durationMin: 45,
-                  attendeeIds: ['m1'],
-                  attendees: [{ id: 'm1', name: 'Ananya Rao', role: 'Lead', avatarHue: 176 }],
-                  agenda: 'Scope review',
-                  totalActions: 4,
-                  doneActions: 2,
-                  overdueActions: 1,
-                  pendingDecisions: 1,
-                }}
-              />
-              <Sparkline values={[2, 4, 6, 5, 8, 7, 9, 10]} />
-              <BarList
-                items={[
-                  {
-                    member: { id: 'm1', name: 'Ananya Rao', role: 'Lead', avatarHue: 176 },
-                    count: 3,
-                  },
-                ]}
-              />
-              <EmptyState title="Clean" description="Nothing left" />
-              <SkeletonRows count={2} />
-              <ErrorState onRetry={() => {}} />
-            </Section>
-            <DesignSystemPage />
-            <NotFoundPage />
-          </AppShell>
-          <DrawerSheet open={false} onClose={() => {}} eyebrow="Sheet" title="Test Drawer">
-            <p>Body</p>
-          </DrawerSheet>
-          <ToastViewport />
-        </ErrorBoundary>
-      </MemoryRouter>
-    );
+              <Section tone="late" title="Overdue" count={3} hotDot note="Past due">
+                <Button variant="primary" icon="plus" state="idle">
+                  Action
+                </Button>
+                <Button variant="line" state="loading">
+                  Saving
+                </Button>
+                <Button variant="dec" state="success">
+                  Done
+                </Button>
+                <PriorityBars priority="critical" />
+                <PriorityPicker
+                  value={pickedPriority}
+                  onChange={(v) => {
+                    pickedPriority = v as 'medium';
+                  }}
+                />
+                <Avatar member={{ name: 'Ananya Rao', avatarHue: 176 }} size="lg" />
+                <AvatarStack
+                  members={[
+                    { id: 'm1', name: 'Ananya Rao', avatarHue: 176 },
+                    { id: 'm2', name: 'Karthik Shetty', avatarHue: 28 },
+                  ]}
+                />
+                <Who member={{ name: 'Meera Iyer', avatarHue: 320 }} firstNameOnly />
+                <Odometer value={42} suffix="%" />
+                <Ruler rate={65} />
+                <Tabs
+                  ariaLabel="Filter"
+                  value={currentTab}
+                  onChange={(v) => {
+                    currentTab = v;
+                  }}
+                  options={[
+                    { key: 'all', label: 'All', count: 5 },
+                    { key: 'upcoming', label: 'Upcoming', count: 2 },
+                  ]}
+                />
+                <ActionRow
+                  action={{
+                    id: 'a1',
+                    meetingId: 'mt1',
+                    meetingTitle: 'Sprint 14',
+                    decisionId: 'dc1',
+                    title: 'Renew SSL cert',
+                    ownerId: 'm1',
+                    owner: { id: 'm1', name: 'Ananya Rao', role: 'Lead', avatarHue: 176 },
+                    dueDate: new Date(Date.now() - 86400000 * 3),
+                    priority: 'critical',
+                    status: 'open',
+                  }}
+                  showQuickExtend
+                  onToggle={() => {}}
+                  onExtend={() => {}}
+                />
+                <DecisionRow
+                  decision={{
+                    id: 'dc1',
+                    meetingId: 'mt1',
+                    meetingTitle: 'Sprint 14',
+                    summary: 'Ship without dark mode',
+                    decidedBy: 'm1',
+                    decidedByMember: { id: 'm1', name: 'Ananya Rao', role: 'Lead', avatarHue: 176 },
+                    decidedAt: new Date(),
+                    status: 'pending',
+                  }}
+                  onConvert={() => {}}
+                  onDismiss={() => {}}
+                />
+                <MeetingRow
+                  meeting={{
+                    id: 'mt1',
+                    title: 'Sprint 14 planning',
+                    date: new Date(),
+                    startTime: '10:00',
+                    durationMin: 45,
+                    attendeeIds: ['m1'],
+                    attendees: [{ id: 'm1', name: 'Ananya Rao', role: 'Lead', avatarHue: 176 }],
+                    agenda: 'Scope review',
+                    totalActions: 4,
+                    doneActions: 2,
+                    overdueActions: 1,
+                    pendingDecisions: 1,
+                  }}
+                />
+                <Sparkline values={[2, 4, 6, 5, 8, 7, 9, 10]} />
+                <BarList
+                  items={[
+                    {
+                      member: { id: 'm1', name: 'Ananya Rao', role: 'Lead', avatarHue: 176 },
+                      count: 3,
+                    },
+                  ]}
+                />
+                <EmptyState title="Clean" description="Nothing left" />
+                <SkeletonRows count={2} />
+                <ErrorState onRetry={() => {}} />
+              </Section>
+              <DesignSystemPage />
+              <NotFoundPage />
+            </AppShell>
+            <DrawerSheet open={false} onClose={() => {}} eyebrow="Sheet" title="Test Drawer">
+              <p>Body</p>
+            </DrawerSheet>
+            <ToastViewport />
+          </ErrorBoundary>
+        </MemoryRouter>,
+      );
 
-    expect(screen.getByText('The design system')).toBeInTheDocument();
-    expect(screen.getByText('What this design refuses')).toBeInTheDocument();
+      expect(screen.getByText('The design system')).toBeInTheDocument();
+      expect(screen.getByText('What this design refuses')).toBeInTheDocument();
 
-    const validateBtn = screen.getByRole('button', { name: /validate/i });
-    fireEvent.click(validateBtn);
-    expect(screen.getByText(/at least 3 characters/i)).toBeInTheDocument();
+      const validateBtn = screen.getByRole('button', { name: /validate/i });
+      fireEvent.click(validateBtn);
+      expect(screen.getByText(/at least 3 characters/i)).toBeInTheDocument();
 
-    toast({ title: 'Test notification', tone: 'ok' });
-    expect(useToastStore.getState().toasts.length).toBeGreaterThan(0);
+      toast({ title: 'Test notification', tone: 'ok' });
+      expect(useToastStore.getState().toasts.length).toBeGreaterThan(0);
 
-    unmount();
-  });
+      unmount();
+    },
+  );
 });

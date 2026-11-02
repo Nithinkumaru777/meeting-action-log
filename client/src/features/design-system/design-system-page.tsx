@@ -36,12 +36,7 @@ const TOKENS = [
     '#D63C97',
     'Decisions without tasks. From WGSN S/S 26 key colours',
   ],
-  [
-    '--amber-hi',
-    'Amber haze',
-    '#E3A21A',
-    'Due today or soon. From WGSN S/S 26 key colours',
-  ],
+  ['--amber-hi', 'Amber haze', '#E3A21A', 'Due today or soon. From WGSN S/S 26 key colours'],
   ['--done-hi', 'Done green', '#4E9B5C', 'Completed work, success'],
   ['--rule', 'Rule', '#D3CEC3', 'Hairlines between rows and sections'],
 ] as const;
@@ -133,11 +128,7 @@ export function DesignSystemPage() {
         dek="Every token here traces back to a source: the 2026 colour forecasts for palette, Linear, Plausible and Todoist for layout, and Nielsen Norman Group timing for motion."
       />
 
-      <Section
-        index={0}
-        title="Palette, with sources"
-        right={<Tag>Updates with theme</Tag>}
-      >
+      <Section index={0} title="Palette, with sources" right={<Tag>Updates with theme</Tag>}>
         <div className="swatches">
           {TOKENS.map(([tok, name, hex, usage]) => (
             <div className="sw" key={tok}>
@@ -159,16 +150,16 @@ export function DesignSystemPage() {
           <div className="ref">
             <h3>Linear</h3>
             <p>
-              Dense list rows that stay calm: softer borders, quieter separation, high
-              information density. Used for the ledger rows and the spine.
+              Dense list rows that stay calm: softer borders, quieter separation, high information
+              density. Used for the ledger rows and the spine.
             </p>
             <p className="eyebrow">Ledger rows · sidebar</p>
           </div>
           <div className="ref">
             <h3>Plausible</h3>
             <p>
-              A one-page dashboard with restrained charts and plain numbers. Used for the
-              figures strip and single-line charts.
+              A one-page dashboard with restrained charts and plain numbers. Used for the figures
+              strip and single-line charts.
             </p>
             <p className="eyebrow">Figures strip · charts</p>
           </div>
@@ -243,15 +234,8 @@ export function DesignSystemPage() {
           </Button>
         </div>
         <div className="brow">
-          <span className="eyebrow">
-            Async: label fades, spinner, then a check draws
-          </span>
-          <Button
-            variant="primary"
-            icon="check"
-            state={saveState}
-            onClick={handleAsyncSave}
-          >
+          <span className="eyebrow">Async: label fades, spinner, then a check draws</span>
+          <Button variant="primary" icon="check" state={saveState} onClick={handleAsyncSave}>
             Save changes
           </Button>
         </div>
@@ -261,12 +245,7 @@ export function DesignSystemPage() {
         index={4}
         title="Motion timing"
         right={
-          <Button
-            variant="line"
-            size="sm"
-            icon="arrow"
-            onClick={() => setMotionRunning((v) => !v)}
-          >
+          <Button variant="line" size="sm" icon="arrow" onClick={() => setMotionRunning((v) => !v)}>
             Run
           </Button>
         }
@@ -352,11 +331,7 @@ export function DesignSystemPage() {
 
           <div className="demo">
             <h3>Done: tick draws, strike draws</h3>
-            <ActionRow
-              action={demoAction}
-              hideMeeting
-              onToggle={() => setDemoDone((v) => !v)}
-            />
+            <ActionRow action={demoAction} hideMeeting onToggle={() => setDemoDone((v) => !v)} />
           </div>
 
           <div className="demo">

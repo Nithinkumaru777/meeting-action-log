@@ -20,9 +20,7 @@ export async function fetchUnconvertedDecisions(limit = 20): Promise<DecisionDTO
   });
 }
 
-export async function fetchWeeklyCompletion(
-  weeks = 8
-): Promise<WeeklyCompletionBucketDTO[]> {
+export async function fetchWeeklyCompletion(weeks = 8): Promise<WeeklyCompletionBucketDTO[]> {
   return apiFetch<WeeklyCompletionBucketDTO[]>('/insights/weekly-completion', {
     params: { weeks },
   });

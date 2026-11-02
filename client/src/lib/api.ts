@@ -1,10 +1,4 @@
-import type {
-  ActionStatus,
-  DecisionStatus,
-  DueState,
-  ErrorCode,
-  Priority,
-} from '@mal/shared';
+import type { ActionStatus, DecisionStatus, DueState, ErrorCode, Priority } from '@mal/shared';
 
 export interface ApiErrorDetail {
   path: string;
@@ -33,15 +27,9 @@ export class ApiError extends Error {
   }
 }
 
-export type FieldErrorSetter = (
-  field: string,
-  error: { type?: string; message?: string }
-) => void;
+export type FieldErrorSetter = (field: string, error: { type?: string; message?: string }) => void;
 
-export function applyServerErrorsToForm(
-  err: unknown,
-  setError: FieldErrorSetter
-): boolean {
+export function applyServerErrorsToForm(err: unknown, setError: FieldErrorSetter): boolean {
   if (!(err instanceof ApiError) || err.details.length === 0) {
     return false;
   }
@@ -170,7 +158,7 @@ export interface ApiFetchOptions extends Omit<RequestInit, 'body'> {
 
 function buildUrl(
   path: string,
-  params?: Record<string, string | number | boolean | undefined | null>
+  params?: Record<string, string | number | boolean | undefined | null>,
 ): string {
   const normalized = path.startsWith('http')
     ? path
@@ -188,10 +176,7 @@ function buildUrl(
   return qs ? `${normalized}?${qs}` : normalized;
 }
 
-export async function apiFetch<T>(
-  path: string,
-  options: ApiFetchOptions = {}
-): Promise<T> {
+export async function apiFetch<T>(path: string, options: ApiFetchOptions = {}): Promise<T> {
   const { params, body, rawEnvelope = false, headers, ...rest } = options;
   const url = buildUrl(path, params);
 
@@ -260,12 +245,7 @@ export async function apiFetch<T>(
     return parsed as T;
   }
 
-  if (
-    parsed &&
-    typeof parsed === 'object' &&
-    'data' in parsed &&
-    !('meta' in parsed)
-  ) {
+  if (parsed && typeof parsed === 'object' && 'data' in parsed && !('meta' in parsed)) {
     return (parsed as { data: T }).data;
   }
 

@@ -1,10 +1,4 @@
-import {
-  useEffect,
-  useMemo,
-  useRef,
-  useState,
-  type ReactNode,
-} from 'react';
+import { useEffect, useMemo, useRef, useState, type ReactNode } from 'react';
 import { Link, useLocation, useNavigate } from 'react-router';
 import { createStore } from '../../lib/store';
 import { AnimatedIcon, type IconName } from '../ui/animated-icon';
@@ -27,7 +21,22 @@ export interface ShellUiState {
   setTheme: (theme: 'light' | 'dark') => void;
 }
 
+const THEME_STORAGE_KEY = 'mal.theme';
+
 function getInitialTheme(): 'light' | 'dark' {
+  if (typeof window !== 'undefined') {
+    try {
+      const saved = window.localStorage.getItem(THEME_STORAGE_KEY);
+      if (saved === 'dark' || saved === 'light') {
+        if (typeof document !== 'undefined') {
+          document.documentElement.dataset.theme = saved;
+        }
+        return saved;
+      }
+    } catch {
+      // Ignore storage access errors
+    }
+  }
   if (typeof document !== 'undefined') {
     const attr = document.documentElement.dataset.theme;
     if (attr === 'dark' || attr === 'light') return attr;
@@ -56,6 +65,13 @@ export const useShellStore = createStore<ShellUiState>((set) => ({
     if (typeof document !== 'undefined') {
       document.documentElement.dataset.theme = theme;
     }
+    if (typeof window !== 'undefined') {
+      try {
+        window.localStorage.setItem(THEME_STORAGE_KEY, theme);
+      } catch {
+        // Ignore storage errors
+      }
+    }
     set({ theme });
   },
   toggleTheme: () =>
@@ -63,6 +79,13 @@ export const useShellStore = createStore<ShellUiState>((set) => ({
       const next = s.theme === 'dark' ? 'light' : 'dark';
       if (typeof document !== 'undefined') {
         document.documentElement.dataset.theme = next;
+      }
+      if (typeof window !== 'undefined') {
+        try {
+          window.localStorage.setItem(THEME_STORAGE_KEY, next);
+        } catch {
+          // Ignore storage errors
+        }
       }
       return { theme: next };
     }),
@@ -78,11 +101,29 @@ export interface NavItem {
 
 export const NAV_ITEMS: NavItem[] = [
   { key: 'dashboard', path: '/', label: 'Today', mobileLabel: 'Today', icon: 'grid' },
-  { key: 'meetings', path: '/meetings', label: 'Meetings', mobileLabel: 'Meetings', icon: 'calendar' },
+  {
+    key: 'meetings',
+    path: '/meetings',
+    label: 'Meetings',
+    mobileLabel: 'Meetings',
+    icon: 'calendar',
+  },
   { key: 'overdue', path: '/overdue', label: 'Overdue', mobileLabel: 'Overdue', icon: 'flame' },
-  { key: 'decisions', path: '/decisions', label: 'Decision inbox', mobileLabel: 'Inbox', icon: 'bulb' },
+  {
+    key: 'decisions',
+    path: '/decisions',
+    label: 'Decision inbox',
+    mobileLabel: 'Inbox',
+    icon: 'bulb',
+  },
   { key: 'members', path: '/members', label: 'Members', mobileLabel: 'Members', icon: 'users' },
-  { key: 'system', path: '/design-system', label: 'Design system', mobileLabel: 'System', icon: 'palette' },
+  {
+    key: 'system',
+    path: '/design-system',
+    label: 'Design system',
+    mobileLabel: 'System',
+    icon: 'palette',
+  },
 ];
 
 export const MOBILE_NAV_ITEMS: NavItem[] = [
@@ -117,11 +158,7 @@ export interface CommandPaletteItem {
   onSelect: () => void;
 }
 
-export function CommandPalette({
-  extraItems = [],
-}: {
-  extraItems?: CommandPaletteItem[];
-}) {
+export function CommandPalette({ extraItems = [] }: { extraItems?: CommandPaletteItem[] }) {
   const { cmdkOpen, setCmdkOpen, setNewMeetingOpen, toggleTheme, startTour } = useShellStore();
   const navigate = useNavigate();
   const [query, setQuery] = useState('');
@@ -162,9 +199,7 @@ export function CommandPalette({
     ];
     const q = query.trim().toLowerCase();
     if (!q) return base;
-    return base.filter((it) =>
-      `${it.label} ${it.sublabel ?? ''}`.toLowerCase().includes(q)
-    );
+    return base.filter((it) => `${it.label} ${it.sublabel ?? ''}`.toLowerCase().includes(q));
   }, [extraItems, navigate, query, setNewMeetingOpen, startTour, toggleTheme]);
 
   useEffect(() => {
@@ -220,9 +255,7 @@ export function CommandPalette({
                 setActiveIndex((i) => (items.length ? (i + 1) % items.length : 0));
               } else if (e.key === 'ArrowUp') {
                 e.preventDefault();
-                setActiveIndex((i) =>
-                  items.length ? (i - 1 + items.length) % items.length : 0
-                );
+                setActiveIndex((i) => (items.length ? (i - 1 + items.length) % items.length : 0));
               } else if (e.key === 'Enter' && items[activeIndex]) {
                 e.preventDefault();
                 const chosen = items[activeIndex];
@@ -389,9 +422,7 @@ export function AppShell({
             <span className="big" id="sideOpen">
               <Odometer value={openActionsCount} />
             </span>
-            <p>
-              Tick boxes, convert decisions into tasks, log meetings, and switch theme.
-            </p>
+            <p>Tick boxes, convert decisions into tasks, log meetings, and switch theme.</p>
           </div>
         </aside>
 

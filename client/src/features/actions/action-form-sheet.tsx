@@ -13,14 +13,8 @@ import { toast } from '../../components/feedback/toast-store';
 import { applyServerErrorsToForm } from '../../lib/api';
 import { collapseElement, flyToCounter } from '../../lib/motion';
 import { useMembersQuery } from '../members/hooks';
-import {
-  useConvertDecisionMutation,
-  useReopenDecisionMutation,
-} from '../decisions/hooks';
-import {
-  useCreateActionMutation,
-  useDeleteActionMutation,
-} from './hooks';
+import { useConvertDecisionMutation, useReopenDecisionMutation } from '../decisions/hooks';
+import { useCreateActionMutation, useDeleteActionMutation } from './hooks';
 
 export interface ActionFormSheetProps {
   open: boolean;
@@ -190,9 +184,7 @@ export function ActionFormSheet({
     }
   };
 
-  const eyebrowText = meetingDate
-    ? `${meetingTitle} · ${fmtShort(meetingDate)}`
-    : meetingTitle;
+  const eyebrowText = meetingDate ? `${meetingTitle} · ${fmtShort(meetingDate)}` : meetingTitle;
 
   return (
     <DrawerSheet

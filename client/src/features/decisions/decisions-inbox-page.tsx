@@ -14,22 +14,13 @@ import { toast } from '../../components/feedback/toast-store';
 import { collapseElement } from '../../lib/motion';
 import { toDecisionView } from '../../lib/mappers';
 import { useMembersQuery } from '../members/hooks';
-import {
-  useDecisionsQuery,
-  useDismissDecisionMutation,
-  useReopenDecisionMutation,
-} from './hooks';
+import { useDecisionsQuery, useDismissDecisionMutation, useReopenDecisionMutation } from './hooks';
 
 export interface DecisionsInboxPageProps {
-  onConvertDecision?: (
-    decision: DecisionItemView,
-    cardEl: HTMLElement | null
-  ) => void;
+  onConvertDecision?: (decision: DecisionItemView, cardEl: HTMLElement | null) => void;
 }
 
-export function DecisionsInboxPage({
-  onConvertDecision,
-}: DecisionsInboxPageProps) {
+export function DecisionsInboxPage({ onConvertDecision }: DecisionsInboxPageProps) {
   const [tab, setTab] = useState<DecisionStatus>('pending');
   const decisionsQuery = useDecisionsQuery({ limit: 100 });
   const membersQuery = useMembersQuery();
@@ -46,18 +37,15 @@ export function DecisionsInboxPage({
   }, [membersQuery.data]);
 
   const allDecisions = useMemo(() => {
-    return (decisionsQuery.data?.data ?? []).map((d) =>
-      toDecisionView(d, membersMap)
-    );
+    return (decisionsQuery.data?.data ?? []).map((d) => toDecisionView(d, membersMap));
   }, [decisionsQuery.data, membersMap]);
 
   const counts = useMemo(() => {
     return {
       pending: allDecisions.filter((d) => d.status === 'pending').length,
       converted: allDecisions.filter((d) => d.status === 'converted').length,
-      'no-action': allDecisions.filter(
-        (d) => d.status === 'no-action' || d.status === 'dismissed'
-      ).length,
+      'no-action': allDecisions.filter((d) => d.status === 'no-action' || d.status === 'dismissed')
+        .length,
     };
   }, [allDecisions]);
 
@@ -69,16 +57,10 @@ export function DecisionsInboxPage({
         }
         return d.status === tab;
       })
-      .sort(
-        (a, b) =>
-          new Date(a.decidedAt).getTime() - new Date(b.decidedAt).getTime()
-      );
+      .sort((a, b) => new Date(a.decidedAt).getTime() - new Date(b.decidedAt).getTime());
   }, [allDecisions, tab]);
 
-  const handleDismiss = (
-    decision: DecisionItemView,
-    cardEl: HTMLElement | null
-  ) => {
+  const handleDismiss = (decision: DecisionItemView, cardEl: HTMLElement | null) => {
     collapseElement(cardEl, () => {
       dismissMutation.mutate(
         { id: decision.id, input: { reason: 'No action needed' } },
@@ -93,7 +75,7 @@ export function DecisionsInboxPage({
               },
             });
           },
-        }
+        },
       );
     });
   };
@@ -164,11 +146,7 @@ export function DecisionsInboxPage({
             ))
           ) : (
             <EmptyState
-              title={
-                tab === 'pending'
-                  ? 'Every decision has an owner'
-                  : 'Nothing here yet'
-              }
+              title={tab === 'pending' ? 'Every decision has an owner' : 'Nothing here yet'}
               description={
                 tab === 'pending'
                   ? 'When a meeting logs a decision without a task, it lands here.'

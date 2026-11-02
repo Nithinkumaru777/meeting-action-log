@@ -62,9 +62,7 @@ export function TodayPage({ onConvertDecision }: TodayPageProps) {
   const overdueList = useMemo(() => {
     const groups = overdueQuery.data ?? [];
     const flat = groups.flatMap((g) => g.actions.map((a) => toActionView(a, membersMap)));
-    return flat.sort(
-      (a, b) => new Date(a.dueDate).getTime() - new Date(b.dueDate).getTime()
-    );
+    return flat.sort((a, b) => new Date(a.dueDate).getTime() - new Date(b.dueDate).getTime());
   }, [overdueQuery.data, membersMap]);
 
   const ownerBars = useMemo(() => {
@@ -120,14 +118,11 @@ export function TodayPage({ onConvertDecision }: TodayPageProps) {
             },
           });
         },
-      }
+      },
     );
   };
 
-  const handleDismissDecision = (
-    decision: DecisionItemView,
-    cardEl: HTMLElement | null
-  ) => {
+  const handleDismissDecision = (decision: DecisionItemView, cardEl: HTMLElement | null) => {
     collapseElement(cardEl, () => {
       dismissDecisionMutation.mutate(
         { id: decision.id, input: { reason: 'Marked no action from dashboard' } },
@@ -142,7 +137,7 @@ export function TodayPage({ onConvertDecision }: TodayPageProps) {
               },
             });
           },
-        }
+        },
       );
     });
   };
@@ -261,14 +256,11 @@ export function TodayPage({ onConvertDecision }: TodayPageProps) {
           {overdueQuery.isLoading ? (
             <SkeletonRows count={3} />
           ) : overdueList.length > 0 ? (
-            overdueList.slice(0, 4).map((a, i) => (
-              <ActionRow
-                key={a.id}
-                action={a}
-                index={i + 2}
-                onToggle={handleToggleAction}
-              />
-            ))
+            overdueList
+              .slice(0, 4)
+              .map((a, i) => (
+                <ActionRow key={a.id} action={a} index={i + 2} onToggle={handleToggleAction} />
+              ))
           ) : (
             <EmptyState
               title="Nothing overdue"
@@ -293,15 +285,17 @@ export function TodayPage({ onConvertDecision }: TodayPageProps) {
           {unconvertedQuery.isLoading ? (
             <SkeletonRows count={3} />
           ) : pendingDecisions.length > 0 ? (
-            pendingDecisions.slice(0, 3).map((d, i) => (
-              <DecisionRow
-                key={d.id}
-                decision={d}
-                index={i + 3}
-                onConvert={(dec, cardEl) => onConvertDecision?.(dec, cardEl)}
-                onDismiss={handleDismissDecision}
-              />
-            ))
+            pendingDecisions
+              .slice(0, 3)
+              .map((d, i) => (
+                <DecisionRow
+                  key={d.id}
+                  decision={d}
+                  index={i + 3}
+                  onConvert={(dec, cardEl) => onConvertDecision?.(dec, cardEl)}
+                  onDismiss={handleDismissDecision}
+                />
+              ))
           ) : (
             <EmptyState
               title="Every decision has an owner"
@@ -312,11 +306,7 @@ export function TodayPage({ onConvertDecision }: TodayPageProps) {
       </div>
 
       <div className="cols even">
-        <Section
-          index={6}
-          title="Completed per week"
-          right={<Tag>8 weeks</Tag>}
-        >
+        <Section index={6} title="Completed per week" right={<Tag>8 weeks</Tag>}>
           <Sparkline values={velocityValues} />
           <div className="caption">Last 8 weeks · dot marks this week</div>
         </Section>
@@ -330,12 +320,7 @@ export function TodayPage({ onConvertDecision }: TodayPageProps) {
         index={8}
         title="Coming up"
         right={
-          <Button
-            variant="ghost"
-            size="sm"
-            icon="plus"
-            onClick={() => setNewMeetingOpen(true)}
-          >
+          <Button variant="ghost" size="sm" icon="plus" onClick={() => setNewMeetingOpen(true)}>
             Schedule
           </Button>
         }
@@ -343,9 +328,7 @@ export function TodayPage({ onConvertDecision }: TodayPageProps) {
         {upcomingQuery.isLoading ? (
           <SkeletonRows count={2} />
         ) : upcomingMeetings.length > 0 ? (
-          upcomingMeetings.map((m, i) => (
-            <MeetingRow key={m.id} meeting={m} index={i + 9} />
-          ))
+          upcomingMeetings.map((m, i) => <MeetingRow key={m.id} meeting={m} index={i + 9} />)
         ) : (
           <p className="muted">Nothing scheduled.</p>
         )}

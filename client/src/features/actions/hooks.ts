@@ -36,8 +36,7 @@ export function useCreateActionMutation() {
 export function useUpdateActionMutation() {
   const qc = useQueryClient();
   return useMutation({
-    mutationFn: ({ id, input }: { id: string; input: ActionUpdate }) =>
-      updateAction(id, input),
+    mutationFn: ({ id, input }: { id: string; input: ActionUpdate }) => updateAction(id, input),
     onSuccess: (res) => {
       void qc.invalidateQueries({ queryKey: queryKeys.meeting(res.meetingId) });
       void qc.invalidateQueries({ queryKey: ['actions'] });
@@ -84,7 +83,7 @@ export function useToggleActionStatusMutation() {
                     status,
                     completedAt: status === 'done' ? new Date().toISOString() : null,
                   }
-                : a
+                : a,
             ),
           });
         }

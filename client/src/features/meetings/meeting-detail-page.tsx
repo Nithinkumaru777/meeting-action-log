@@ -76,11 +76,7 @@ export function MeetingDetailPage() {
   if (detailQuery.isError || !detailQuery.data) {
     return (
       <div>
-        <Masthead
-          eyebrow="Not found"
-          title="Meeting not found"
-          dek="It may have been deleted."
-        />
+        <Masthead eyebrow="Not found" title="Meeting not found" dek="It may have been deleted." />
         <Link to="/meetings" className="back ah">
           <AnimatedIcon name="back" />
           All meetings
@@ -105,7 +101,7 @@ export function MeetingDetailPage() {
 
   const doneCount = actions.filter((a) => a.status === 'done').length;
   const overdueCount = actions.filter(
-    (a) => a.status !== 'done' && String(a.dueDate) < today
+    (a) => a.status !== 'done' && String(a.dueDate) < today,
   ).length;
   const pendingCount = decisions.filter((d) => d.status === 'pending').length;
 
@@ -119,8 +115,7 @@ export function MeetingDetailPage() {
       return;
     }
     setDecisionError(null);
-    const defaultDecidedBy =
-      meeting.attendeeIds[0] ?? membersQuery.data?.[0]?.id ?? '';
+    const defaultDecidedBy = meeting.attendeeIds[0] ?? membersQuery.data?.[0]?.id ?? '';
     try {
       const created = await createDecisionMutation.mutateAsync({
         meetingId: meeting.id,
@@ -165,7 +160,7 @@ export function MeetingDetailPage() {
             },
           });
         },
-      }
+      },
     );
   };
 
@@ -183,7 +178,7 @@ export function MeetingDetailPage() {
             },
           });
         },
-      }
+      },
     );
   };
 
@@ -221,12 +216,7 @@ export function MeetingDetailPage() {
             <span className="muted" style={{ fontSize: '13px' }}>
               {attendees.length} attendees
             </span>
-            <Button
-              variant="line"
-              size="sm"
-              icon="doc"
-              onClick={() => setEditSheetOpen(true)}
-            >
+            <Button variant="line" size="sm" icon="doc" onClick={() => setEditSheetOpen(true)}>
               Edit
             </Button>
             <Button
@@ -281,9 +271,7 @@ export function MeetingDetailPage() {
                 index={i + 2}
                 hideMeeting
                 flash={d.id === flashDecisionId}
-                onConvert={(dec, cardEl) =>
-                  setConvertingDecision({ decision: dec, cardEl })
-                }
+                onConvert={(dec, cardEl) => setConvertingDecision({ decision: dec, cardEl })}
                 onDismiss={handleDismissDecision}
                 onReopen={(dec) => reopenDecisionMutation.mutate(dec.id)}
               />

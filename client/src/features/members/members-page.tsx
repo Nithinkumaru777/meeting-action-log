@@ -118,10 +118,7 @@ export function MembersPage() {
     } catch (err) {
       toast({
         title: 'Cannot remove member',
-        body:
-          err instanceof Error
-            ? err.message
-            : 'Member still owns active records.',
+        body: err instanceof Error ? err.message : 'Member still owns active records.',
         tone: 'err',
       });
     }
@@ -160,12 +157,7 @@ export function MembersPage() {
           />
         ) : members.length > 0 ? (
           members.map((m) => (
-            <div
-              key={m.id}
-              className="drow ah"
-              style={{ alignItems: 'center' }}
-              data-member={m.id}
-            >
+            <div key={m.id} className="drow ah" style={{ alignItems: 'center' }} data-member={m.id}>
               <Avatar member={m} size="lg" />
               <div>
                 <div style={{ fontWeight: 600, fontSize: '16px' }}>{m.name}</div>
@@ -178,11 +170,7 @@ export function MembersPage() {
               </div>
               <div className="dact">
                 <div className="row">
-                  <Button
-                    variant="line"
-                    size="sm"
-                    onClick={() => handleOpenEdit(m)}
-                  >
+                  <Button variant="line" size="sm" onClick={() => handleOpenEdit(m)}>
                     Edit
                   </Button>
                   <Button
@@ -212,19 +200,10 @@ export function MembersPage() {
         title={editingMember ? 'Update team member' : 'Add team member'}
         footer={
           <>
-            <Button
-              variant="ghost"
-              type="button"
-              onClick={() => setSheetOpen(false)}
-            >
+            <Button variant="ghost" type="button" onClick={() => setSheetOpen(false)}>
               Cancel
             </Button>
-            <Button
-              variant="primary"
-              type="submit"
-              form="memberForm"
-              icon="check"
-            >
+            <Button variant="primary" type="submit" form="memberForm" icon="check">
               {editingMember ? 'Save changes' : 'Add member'}
             </Button>
           </>

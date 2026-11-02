@@ -1,9 +1,5 @@
 import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
-import type {
-  DecisionConvert,
-  DecisionCreate,
-  DecisionDismiss,
-} from '@mal/shared';
+import type { DecisionConvert, DecisionCreate, DecisionDismiss } from '@mal/shared';
 import { queryKeys } from '../../lib/queryClient';
 import {
   convertDecisionToAction,

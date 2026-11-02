@@ -5,12 +5,7 @@ import type {
   DecisionStatus,
   DecisionUpdate,
 } from '@mal/shared';
-import {
-  apiFetch,
-  type ActionDTO,
-  type DecisionDTO,
-  type PaginatedResponse,
-} from '../../lib/api';
+import { apiFetch, type ActionDTO, type DecisionDTO, type PaginatedResponse } from '../../lib/api';
 
 export interface DecisionsFilter {
   status?: DecisionStatus;
@@ -22,7 +17,7 @@ export interface DecisionsFilter {
 }
 
 export async function fetchDecisions(
-  filters: DecisionsFilter = {}
+  filters: DecisionsFilter = {},
 ): Promise<PaginatedResponse<DecisionDTO>> {
   return apiFetch<PaginatedResponse<DecisionDTO>>('/decisions', {
     params: {
@@ -37,7 +32,7 @@ export async function fetchDecisions(
 
 export async function createMeetingDecision(
   meetingId: string,
-  input: DecisionCreate
+  input: DecisionCreate,
 ): Promise<DecisionDTO> {
   return apiFetch<DecisionDTO>(`/meetings/${meetingId}/decisions`, {
     method: 'POST',
@@ -45,10 +40,7 @@ export async function createMeetingDecision(
   });
 }
 
-export async function updateDecision(
-  id: string,
-  input: DecisionUpdate
-): Promise<DecisionDTO> {
+export async function updateDecision(id: string, input: DecisionUpdate): Promise<DecisionDTO> {
   return apiFetch<DecisionDTO>(`/decisions/${id}`, {
     method: 'PATCH',
     body: input,
@@ -68,7 +60,7 @@ export interface ConvertDecisionResult {
 
 export async function convertDecisionToAction(
   id: string,
-  input: DecisionConvert
+  input: DecisionConvert,
 ): Promise<ConvertDecisionResult> {
   return apiFetch<ConvertDecisionResult>(`/decisions/${id}/convert`, {
     method: 'POST',
@@ -78,7 +70,7 @@ export async function convertDecisionToAction(
 
 export async function dismissDecision(
   id: string,
-  input: DecisionDismiss = {}
+  input: DecisionDismiss = {},
 ): Promise<DecisionDTO> {
   return apiFetch<DecisionDTO>(`/decisions/${id}/dismiss`, {
     method: 'POST',

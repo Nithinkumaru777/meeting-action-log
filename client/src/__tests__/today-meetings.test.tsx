@@ -53,7 +53,7 @@ const server = setupServer(
         oldestOverdueDays: 6,
         totalMeetings: 5,
       },
-    })
+    }),
   ),
   http.get('*/api/insights/overdue', () =>
     HttpResponse.json({
@@ -83,7 +83,7 @@ const server = setupServer(
           ],
         },
       ],
-    })
+    }),
   ),
   http.get('*/api/insights/unconverted-decisions', () =>
     HttpResponse.json({
@@ -103,7 +103,7 @@ const server = setupServer(
           actionIds: [],
         },
       ],
-    })
+    }),
   ),
   http.get('*/api/insights/weekly-completion', () =>
     HttpResponse.json({
@@ -111,13 +111,13 @@ const server = setupServer(
         { week: '2026-W40', completed: 3 },
         { week: '2026-W41', completed: 6 },
       ],
-    })
+    }),
   ),
   http.get('*/api/meetings', () =>
     HttpResponse.json({
       data: [MEETING_1],
       meta: { page: 1, limit: 50, total: 1, totalPages: 1 },
-    })
+    }),
   ),
   http.post('*/api/meetings', async ({ request }) => {
     const body = (await request.json()) as {
@@ -141,9 +141,9 @@ const server = setupServer(
           agenda: body.agenda ?? '',
         },
       },
-      { status: 201 }
+      { status: 201 },
     );
-  })
+  }),
 );
 
 beforeAll(() => server.listen({ onUnhandledRequest: 'error' }));
@@ -154,63 +154,65 @@ afterEach(() => {
 afterAll(() => server.close());
 
 describe('Step 11: Today Dashboard + Meetings List + Meeting Form Sheet (100x)', () => {
-  test('TodayPage renders figures strip, overdue list, decisions without tasks, and charts', { repeats: 100 }, async () => {
-    const qc = createQueryClient();
-    const { unmount } = render(
-      <QueryClientProvider client={qc}>
-        <MemoryRouter>
-          <TodayPage />
-        </MemoryRouter>
-      </QueryClientProvider>
-    );
+  test(
+    'TodayPage renders figures strip, overdue list, decisions without tasks, and charts',
+    { repeats: 100 },
+    async () => {
+      const qc = createQueryClient();
+      const { unmount } = render(
+        <QueryClientProvider client={qc}>
+          <MemoryRouter>
+            <TodayPage />
+          </MemoryRouter>
+        </QueryClientProvider>,
+      );
 
-    await waitFor(() =>
+      await waitFor(() =>
+        expect(screen.getByText('Re-plan export tickets into sprint 15')).toBeInTheDocument(),
+      );
+      expect(screen.getByText(/Every repository gets a pull-request template/)).toBeInTheDocument();
+      expect(screen.getByText('Completed per week')).toBeInTheDocument();
+      expect(screen.getByText('Late, by owner')).toBeInTheDocument();
+
+      unmount();
+      qc.clear();
+    },
+  );
+
+  test(
+    'MeetingsPage filters by tab and search query, and MeetingFormSheet validates and submits',
+    { repeats: 100 },
+    async () => {
+      const qc = createQueryClient();
+      let closed = false;
+      const { unmount } = render(
+        <QueryClientProvider client={qc}>
+          <MemoryRouter>
+            <MeetingsPage />
+            <MeetingFormSheet open={true} onClose={() => (closed = true)} />
+          </MemoryRouter>
+        </QueryClientProvider>,
+      );
+
+      await waitFor(() => expect(screen.getByText('Sprint 14 planning')).toBeInTheDocument());
+
+      const createBtn = screen.getByRole('button', { name: /create meeting/i });
+      fireEvent.click(createBtn);
       expect(
-        screen.getByText('Re-plan export tickets into sprint 15')
-      ).toBeInTheDocument()
-    );
-    expect(
-      screen.getByText(/Every repository gets a pull-request template/)
-    ).toBeInTheDocument();
-    expect(screen.getByText('Completed per week')).toBeInTheDocument();
-    expect(screen.getByText('Late, by owner')).toBeInTheDocument();
+        screen.getByText(/Give the meeting a title of 3 to 100 characters/i),
+      ).toBeInTheDocument();
 
-    unmount();
-    qc.clear();
-  });
+      fireEvent.change(screen.getByLabelText('Title'), {
+        target: { value: 'Sprint 15 planning' },
+      });
+      const attendeeCheckbox = await screen.findByLabelText(/Ananya Rao/i);
+      fireEvent.click(attendeeCheckbox);
+      fireEvent.click(createBtn);
 
-  test('MeetingsPage filters by tab and search query, and MeetingFormSheet validates and submits', { repeats: 100 }, async () => {
-    const qc = createQueryClient();
-    let closed = false;
-    const { unmount } = render(
-      <QueryClientProvider client={qc}>
-        <MemoryRouter>
-          <MeetingsPage />
-          <MeetingFormSheet open={true} onClose={() => (closed = true)} />
-        </MemoryRouter>
-      </QueryClientProvider>
-    );
+      await waitFor(() => expect(closed).toBe(true));
 
-    await waitFor(() =>
-      expect(screen.getByText('Sprint 14 planning')).toBeInTheDocument()
-    );
-
-    const createBtn = screen.getByRole('button', { name: /create meeting/i });
-    fireEvent.click(createBtn);
-    expect(
-      screen.getByText(/Give the meeting a title of 3 to 100 characters/i)
-    ).toBeInTheDocument();
-
-    fireEvent.change(screen.getByLabelText('Title'), {
-      target: { value: 'Sprint 15 planning' },
-    });
-    const attendeeCheckbox = await screen.findByLabelText(/Ananya Rao/i);
-    fireEvent.click(attendeeCheckbox);
-    fireEvent.click(createBtn);
-
-    await waitFor(() => expect(closed).toBe(true));
-
-    unmount();
-    qc.clear();
-  });
+      unmount();
+      qc.clear();
+    },
+  );
 });

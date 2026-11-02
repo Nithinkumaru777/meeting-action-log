@@ -1,15 +1,5 @@
-import type {
-  ActionCreate,
-  ActionExtend,
-  ActionStatus,
-  ActionUpdate,
-  Priority,
-} from '@mal/shared';
-import {
-  apiFetch,
-  type ActionDTO,
-  type PaginatedResponse,
-} from '../../lib/api';
+import type { ActionCreate, ActionExtend, ActionStatus, ActionUpdate, Priority } from '@mal/shared';
+import { apiFetch, type ActionDTO, type PaginatedResponse } from '../../lib/api';
 
 export interface ActionsFilter {
   status?: ActionStatus;
@@ -22,7 +12,7 @@ export interface ActionsFilter {
 }
 
 export async function fetchActions(
-  filters: ActionsFilter = {}
+  filters: ActionsFilter = {},
 ): Promise<PaginatedResponse<ActionDTO>> {
   return apiFetch<PaginatedResponse<ActionDTO>>('/actions', {
     params: {
@@ -39,7 +29,7 @@ export async function fetchActions(
 
 export async function createMeetingAction(
   meetingId: string,
-  input: ActionCreate
+  input: ActionCreate,
 ): Promise<ActionDTO> {
   return apiFetch<ActionDTO>(`/meetings/${meetingId}/actions`, {
     method: 'POST',
@@ -47,20 +37,14 @@ export async function createMeetingAction(
   });
 }
 
-export async function updateAction(
-  id: string,
-  input: ActionUpdate
-): Promise<ActionDTO> {
+export async function updateAction(id: string, input: ActionUpdate): Promise<ActionDTO> {
   return apiFetch<ActionDTO>(`/actions/${id}`, {
     method: 'PATCH',
     body: input,
   });
 }
 
-export async function setActionStatus(
-  id: string,
-  status: ActionStatus
-): Promise<ActionDTO> {
+export async function setActionStatus(id: string, status: ActionStatus): Promise<ActionDTO> {
   return apiFetch<ActionDTO>(`/actions/${id}/status`, {
     method: 'PATCH',
     body: { status },
@@ -69,7 +53,7 @@ export async function setActionStatus(
 
 export async function extendActionDueDate(
   id: string,
-  input: ActionExtend = { days: 3 }
+  input: ActionExtend = { days: 3 },
 ): Promise<ActionDTO> {
   return apiFetch<ActionDTO>(`/actions/${id}/extend`, {
     method: 'POST',

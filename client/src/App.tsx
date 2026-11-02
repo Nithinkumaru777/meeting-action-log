@@ -64,9 +64,7 @@ export function AppRoutes() {
             path="/"
             element={
               <TodayPage
-                onConvertDecision={(decision, cardEl) =>
-                  setConvertingState({ decision, cardEl })
-                }
+                onConvertDecision={(decision, cardEl) => setConvertingState({ decision, cardEl })}
               />
             }
           />
@@ -77,9 +75,7 @@ export function AppRoutes() {
             path="/decisions"
             element={
               <DecisionsInboxPage
-                onConvertDecision={(decision, cardEl) =>
-                  setConvertingState({ decision, cardEl })
-                }
+                onConvertDecision={(decision, cardEl) => setConvertingState({ decision, cardEl })}
               />
             }
           />
@@ -89,10 +85,7 @@ export function AppRoutes() {
         </Routes>
       </AppShell>
 
-      <MeetingFormSheet
-        open={newMeetingOpen}
-        onClose={() => setNewMeetingOpen(false)}
-      />
+      <MeetingFormSheet open={newMeetingOpen} onClose={() => setNewMeetingOpen(false)} />
 
       <ActionFormSheet
         open={Boolean(convertingState)}

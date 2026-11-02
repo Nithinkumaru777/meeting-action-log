@@ -11,8 +11,7 @@ export const queryKeys = {
     filters ? (['decisions', filters] as const) : (['decisions'] as const),
   insightsOverview: () => ['insights', 'overview'] as const,
   insightsByOwner: () => ['insights', 'by-owner'] as const,
-  insightsUnconverted: (limit?: number) =>
-    ['insights', 'unconverted', limit ?? 20] as const,
+  insightsUnconverted: (limit?: number) => ['insights', 'unconverted', limit ?? 20] as const,
   insightsVelocity: (weeks: number = 8) => ['insights', 'velocity', weeks] as const,
 };
 

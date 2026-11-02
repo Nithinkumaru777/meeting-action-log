@@ -1,4 +1,11 @@
-import { useCallback, useEffect, useRef, useState, type CSSProperties, type ReactNode } from 'react';
+import {
+  useCallback,
+  useEffect,
+  useRef,
+  useState,
+  type CSSProperties,
+  type ReactNode,
+} from 'react';
 import { useLocation, useNavigate } from 'react-router';
 import { AnimatedIcon } from '../../components/ui/animated-icon';
 import { useShellStore } from '../../components/layout/app-shell';
@@ -206,7 +213,7 @@ export function GuidedTourOverlay() {
         });
       }
     },
-    [endTour]
+    [endTour],
   );
 
   const handleNext = useCallback(() => {
@@ -263,12 +270,7 @@ export function GuidedTourOverlay() {
 
   return (
     <>
-      <div
-        className="tour-ring on"
-        id="tourRing"
-        style={ringStyle}
-        aria-hidden="true"
-      />
+      <div className="tour-ring on" id="tourRing" style={ringStyle} aria-hidden="true" />
       <div
         ref={popRef}
         className={`tour-pop on ${placement}`}

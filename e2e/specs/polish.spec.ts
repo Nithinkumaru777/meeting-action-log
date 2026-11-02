@@ -160,11 +160,9 @@ test.describe('Step 14: Responsive, Accessibility, Dark Mode, Keyboard & Screens
     for (const route of routes) {
       await page.goto(route);
       await expect(page.locator('h1')).toBeVisible();
-      const results = await new AxeBuilder({ page })
-        .withTags(['wcag2a', 'wcag2aa'])
-        .analyze();
+      const results = await new AxeBuilder({ page }).withTags(['wcag2a', 'wcag2aa']).analyze();
       const severe = results.violations.filter(
-        (v) => v.impact === 'critical' || v.impact === 'serious'
+        (v) => v.impact === 'critical' || v.impact === 'serious',
       );
       expect(severe, `Axe violations on ${route}`).toEqual([]);
     }

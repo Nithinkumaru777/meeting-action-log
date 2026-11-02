@@ -22,14 +22,7 @@ export function Sparkline({ values }: { values: number[] }) {
       role="img"
       aria-label={`Completed actions per week, from ${first} to ${last}`}
     >
-      <line
-        className="gr"
-        x1={px}
-        x2={W - px}
-        y1={Y(max)}
-        y2={Y(max)}
-        strokeDasharray="2 4"
-      />
+      <line className="gr" x1={px} x2={W - px} y1={Y(max)} y2={Y(max)} strokeDasharray="2 4" />
       <line className="gr" x1={px} x2={W - px} y1={H - py} y2={H - py} />
       <text x={px} y={Y(max) - 6}>
         {max}
@@ -56,10 +49,7 @@ export function BarList({ items }: { items: OwnerBarItem[] }) {
   const active = items.filter((x) => x.count > 0).sort((a, b) => b.count - a.count);
   if (active.length === 0) {
     return (
-      <EmptyState
-        title="No one is behind"
-        description="Owners with overdue actions appear here."
-      />
+      <EmptyState title="No one is behind" description="Owners with overdue actions appear here." />
     );
   }
   const max = Math.max(1, ...active.map((x) => x.count));

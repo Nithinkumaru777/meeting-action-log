@@ -1,9 +1,4 @@
-import type {
-  ActionDTO,
-  DecisionDTO,
-  MeetingDTO,
-  MemberDTO,
-} from './api';
+import type { ActionDTO, DecisionDTO, MeetingDTO, MemberDTO } from './api';
 import type {
   ActionItemView,
   DecisionItemView,
@@ -11,10 +6,7 @@ import type {
   MemberView,
 } from '../components/ui/primitives';
 
-export function toMemberView(
-  m: MemberDTO | undefined,
-  fallbackId = 'unknown'
-): MemberView {
+export function toMemberView(m: MemberDTO | undefined, fallbackId = 'unknown'): MemberView {
   if (!m) {
     return {
       id: fallbackId,
@@ -32,10 +24,7 @@ export function toMemberView(
   };
 }
 
-export function toActionView(
-  a: ActionDTO,
-  membersMap?: Map<string, MemberDTO>
-): ActionItemView {
+export function toActionView(a: ActionDTO, membersMap?: Map<string, MemberDTO>): ActionItemView {
   const ownerDto = a.owner ?? membersMap?.get(a.ownerId);
   return {
     id: a.id,
@@ -55,7 +44,7 @@ export function toActionView(
 
 export function toDecisionView(
   d: DecisionDTO,
-  membersMap?: Map<string, MemberDTO>
+  membersMap?: Map<string, MemberDTO>,
 ): DecisionItemView {
   const byDto = d.decidedBy ?? membersMap?.get(d.decidedById);
   return {
@@ -72,10 +61,7 @@ export function toDecisionView(
   };
 }
 
-export function toMeetingView(
-  m: MeetingDTO,
-  membersMap?: Map<string, MemberDTO>
-): MeetingItemView {
+export function toMeetingView(m: MeetingDTO, membersMap?: Map<string, MemberDTO>): MeetingItemView {
   const attendees: MemberView[] =
     m.attendees && m.attendees.length > 0
       ? m.attendees.map((att) => toMemberView(att, att.id))

@@ -52,7 +52,7 @@ export function MeetingsPage() {
   const filteredList = useMemo(() => {
     const q = searchQuery.trim().toLowerCase();
     let list = [...allMeetings].sort(
-      (a, b) => new Date(b.date).getTime() - new Date(a.date).getTime()
+      (a, b) => new Date(b.date).getTime() - new Date(a.date).getTime(),
     );
     if (filter === 'upcoming') {
       list = list.filter((m) => String(m.date) >= today).reverse();
@@ -60,9 +60,7 @@ export function MeetingsPage() {
       list = list.filter((m) => String(m.date) < today);
     }
     if (q) {
-      list = list.filter((m) =>
-        `${m.title} ${m.agenda}`.toLowerCase().includes(q)
-      );
+      list = list.filter((m) => `${m.title} ${m.agenda}`.toLowerCase().includes(q));
     }
     return list;
   }, [allMeetings, filter, searchQuery, today]);
@@ -122,11 +120,7 @@ export function MeetingsPage() {
             description="Try another word, or clear the search."
             action={
               searchQuery.trim() ? (
-                <Button
-                  variant="line"
-                  size="sm"
-                  onClick={() => setSearchQuery('')}
-                >
+                <Button variant="line" size="sm" onClick={() => setSearchQuery('')}>
                   <AnimatedIcon name="x" />
                   Clear search
                 </Button>

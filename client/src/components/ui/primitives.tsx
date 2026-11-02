@@ -116,7 +116,7 @@ export function Button({
         variantCls,
         size === 'sm' && 'btn-sm',
         iconOnly && 'btn-icon',
-        className
+        className,
       )}
       data-state={state === 'idle' ? undefined : state}
       aria-busy={state === 'loading' ? 'true' : undefined}
@@ -171,14 +171,7 @@ export function Tag({
   children,
 }: TagProps) {
   return (
-    <span
-      className={cn(
-        'tag',
-        tone !== 'default' && tone,
-        outline && 'outline',
-        className
-      )}
-    >
+    <span className={cn('tag', tone !== 'default' && tone, outline && 'outline', className)}>
       {icon && <AnimatedIcon name={icon} loop={loopIcon} />}
       {children}
     </span>
@@ -332,11 +325,7 @@ export function Ruler({ rate }: { rate: number }) {
   return (
     <span className="ruler" aria-hidden="true">
       {Array.from({ length: 20 }, (_, k) => (
-        <i
-          key={k}
-          className={k < on ? 'on' : ''}
-          style={{ '--k': k } as CSSProperties}
-        />
+        <i key={k} className={k < on ? 'on' : ''} style={{ '--k': k } as CSSProperties} />
       ))}
     </span>
   );
@@ -565,7 +554,7 @@ export function DrawerSheet({
       document.body.classList.add('dw-open');
       const timer = setTimeout(() => {
         const first = drawerRef.current?.querySelector<HTMLElement>(
-          'input:not([type=radio]):not([type=checkbox]), select, textarea'
+          'input:not([type=radio]):not([type=checkbox]), select, textarea',
         );
         first?.focus({ preventScroll: true });
       }, 60);
@@ -842,13 +831,7 @@ export function DecisionRow({
     >
       <span className="dmark">
         <AnimatedIcon
-          name={
-            decision.status === 'converted'
-              ? 'check'
-              : isDismissed
-                ? 'ban'
-                : 'bulb'
-          }
+          name={decision.status === 'converted' ? 'check' : isDismissed ? 'ban' : 'bulb'}
         />
       </span>
       <div>
@@ -921,13 +904,7 @@ export interface MeetingItemView {
   pendingDecisions?: number;
 }
 
-export function MeetingRow({
-  meeting,
-  index = 0,
-}: {
-  meeting: MeetingItemView;
-  index?: number;
-}) {
+export function MeetingRow({ meeting, index = 0 }: { meeting: MeetingItemView; index?: number }) {
   const dt = toDate(meeting.date);
   const today = startOfLocalDay(new Date());
   const isUpcoming = dt >= today;

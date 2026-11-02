@@ -15,7 +15,7 @@ export interface MeetingsFilter {
 }
 
 export async function fetchMeetings(
-  filters: MeetingsFilter = {}
+  filters: MeetingsFilter = {},
 ): Promise<PaginatedResponse<MeetingDTO>> {
   return apiFetch<PaginatedResponse<MeetingDTO>>('/meetings', {
     params: {
@@ -39,10 +39,7 @@ export async function createMeeting(input: MeetingCreate): Promise<MeetingDTO> {
   });
 }
 
-export async function updateMeeting(
-  id: string,
-  input: MeetingUpdate
-): Promise<MeetingDTO> {
+export async function updateMeeting(id: string, input: MeetingUpdate): Promise<MeetingDTO> {
   return apiFetch<MeetingDTO>(`/meetings/${id}`, {
     method: 'PATCH',
     body: input,

@@ -47,7 +47,7 @@ export function burst(el: HTMLElement | null): void {
           { transform: 'translate(0,0) scale(1)', opacity: 1 },
           { transform: `translate(${dx}px,${dy}px) rotate(${i * 45}deg) scale(.2)`, opacity: 0 },
         ],
-        { duration: 520, easing: 'cubic-bezier(.22,1,.36,1)' }
+        { duration: 520, easing: 'cubic-bezier(.22,1,.36,1)' },
       ).onfinish = () => p.remove();
     } else {
       p.remove();
@@ -62,7 +62,7 @@ export function flyToCounter(
   fromEl: HTMLElement | null,
   toEl: HTMLElement | null,
   innerHtml: string,
-  onArrive?: () => void
+  onArrive?: () => void,
 ): void {
   if (prefersReducedMotion() || !fromEl || !toEl || typeof document === 'undefined') {
     onArrive?.();
@@ -93,7 +93,7 @@ export function flyToCounter(
         },
         { transform: `translate(${dx}px,${dy}px) scale(.35)`, opacity: 0.15 },
       ],
-      { duration: 540, easing: 'cubic-bezier(.22,1,.36,1)' }
+      { duration: 540, easing: 'cubic-bezier(.22,1,.36,1)' },
     ).onfinish = () => {
       g.remove();
       toEl.classList.remove('bump');
@@ -126,6 +126,6 @@ export function collapseElement(el: HTMLElement | null, done?: () => void): void
       { height: `${h}px`, opacity: 1, paddingTop: '12px', paddingBottom: '12px' },
       { height: '0px', opacity: 0, paddingTop: '0px', paddingBottom: '0px' },
     ],
-    { duration: 300, easing: 'cubic-bezier(.65,0,.35,1)' }
+    { duration: 300, easing: 'cubic-bezier(.65,0,.35,1)' },
   ).onfinish = () => done?.();
 }

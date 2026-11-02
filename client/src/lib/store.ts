@@ -1,8 +1,6 @@
 import { useSyncExternalStore } from 'react';
 
-export type SetState<T> = (
-  partial: Partial<T> | ((state: T) => Partial<T>)
-) => void;
+export type SetState<T> = (partial: Partial<T> | ((state: T) => Partial<T>)) => void;
 
 export interface StoreApi<T> {
   getState: () => T;
@@ -12,7 +10,7 @@ export interface StoreApi<T> {
 }
 
 export function createStore<T extends object>(
-  initializer: (set: SetState<T>, get: () => T) => T
+  initializer: (set: SetState<T>, get: () => T) => T,
 ): StoreApi<T> {
   let state: T;
   const listeners = new Set<() => void>();

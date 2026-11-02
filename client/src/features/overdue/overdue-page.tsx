@@ -54,10 +54,7 @@ export function OverduePage() {
   }, [overdueQuery.data, membersMap]);
 
   const totalOverdue = groups.reduce((acc, g) => acc + g.actions.length, 0);
-  const oldestDays = groups.reduce(
-    (max, g) => Math.max(max, g.oldestDaysOverdue),
-    0
-  );
+  const oldestDays = groups.reduce((max, g) => Math.max(max, g.oldestDaysOverdue), 0);
   const openActions = overviewQuery.data?.openActions ?? totalOverdue;
   const stillOnTime = Math.max(0, openActions - totalOverdue);
 
@@ -81,7 +78,7 @@ export function OverduePage() {
             },
           });
         },
-      }
+      },
     );
   };
 
@@ -104,7 +101,7 @@ export function OverduePage() {
               },
             });
           },
-        }
+        },
       );
     });
   };

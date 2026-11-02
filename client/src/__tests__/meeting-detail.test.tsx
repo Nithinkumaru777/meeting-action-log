@@ -73,7 +73,7 @@ const server = setupServer(
           },
         ],
       },
-    })
+    }),
   ),
   http.post(`*/api/meetings/${MEETING_ID}/decisions`, async ({ request }) => {
     const body = (await request.json()) as { text: string; decidedById: string };
@@ -93,7 +93,7 @@ const server = setupServer(
           actionIds: [],
         },
       },
-      { status: 201 }
+      { status: 201 },
     );
   }),
   http.post('*/api/decisions/:id/convert', async ({ params, request }) => {
@@ -136,7 +136,7 @@ const server = setupServer(
           ],
         },
       },
-      { status: 201 }
+      { status: 201 },
     );
   }),
   http.patch('*/api/actions/:id/status', async ({ params, request }) => {
@@ -159,7 +159,7 @@ const server = setupServer(
         dueState: { kind: body.status === 'done' ? 'done' : 'later', days: 0 },
       },
     });
-  })
+  }),
 );
 
 beforeAll(() => server.listen({ onUnhandledRequest: 'error' }));
@@ -167,53 +167,51 @@ afterEach(() => server.resetHandlers());
 afterAll(() => server.close());
 
 describe('Step 12: Meeting Detail + Convert Decision Sheet + Action Sheet (100x)', () => {
-  test('MeetingDetailPage logs decisions, toggles actions, and converts decisions to tasks', { repeats: 100 }, async () => {
-    const qc = createQueryClient();
-    const { unmount } = render(
-      <QueryClientProvider client={qc}>
-        <MemoryRouter initialEntries={[`/meetings/${MEETING_ID}`]}>
-          <Routes>
-            <Route path="/meetings/:id" element={<MeetingDetailPage />} />
-          </Routes>
-        </MemoryRouter>
-      </QueryClientProvider>
-    );
+  test(
+    'MeetingDetailPage logs decisions, toggles actions, and converts decisions to tasks',
+    { repeats: 100 },
+    async () => {
+      const qc = createQueryClient();
+      const { unmount } = render(
+        <QueryClientProvider client={qc}>
+          <MemoryRouter initialEntries={[`/meetings/${MEETING_ID}`]}>
+            <Routes>
+              <Route path="/meetings/:id" element={<MeetingDetailPage />} />
+            </Routes>
+          </MemoryRouter>
+        </QueryClientProvider>,
+      );
 
-    await waitFor(() =>
-      expect(screen.getByText('Sprint 14 planning')).toBeInTheDocument()
-    );
-    expect(screen.getByText('Fix the flaky login test in CI')).toBeInTheDocument();
+      await waitFor(() => expect(screen.getByText('Sprint 14 planning')).toBeInTheDocument());
+      expect(screen.getByText('Fix the flaky login test in CI')).toBeInTheDocument();
 
-    const logBtn = screen.getByRole('button', { name: /^log$/i });
-    fireEvent.click(logBtn);
-    expect(
-      screen.getByText(/Write the decision in at least 5 characters/i)
-    ).toBeInTheDocument();
+      const logBtn = screen.getByRole('button', { name: /^log$/i });
+      fireEvent.click(logBtn);
+      expect(screen.getByText(/Write the decision in at least 5 characters/i)).toBeInTheDocument();
 
-    const decInput = screen.getByPlaceholderText(/Log a decision/i);
-    fireEvent.change(decInput, {
-      target: { value: 'Ship v1 without dark mode' },
-    });
-    fireEvent.click(logBtn);
+      const decInput = screen.getByPlaceholderText(/Log a decision/i);
+      fireEvent.change(decInput, {
+        target: { value: 'Ship v1 without dark mode' },
+      });
+      fireEvent.click(logBtn);
 
-    const convertBtn = screen.getByRole('button', { name: /Convert to task/i });
-    fireEvent.click(convertBtn);
+      const convertBtn = screen.getByRole('button', { name: /Convert to task/i });
+      fireEvent.click(convertBtn);
 
-    await waitFor(() =>
-      expect(screen.getByLabelText('Owner')).toBeInTheDocument()
-    );
-    fireEvent.change(screen.getByLabelText('Owner'), {
-      target: { value: MEMBER_1.id },
-    });
-    const submitConvertBtn = screen.getByRole('button', { name: /Create task/i });
-    fireEvent.click(submitConvertBtn);
+      await waitFor(() => expect(screen.getByLabelText('Owner')).toBeInTheDocument());
+      fireEvent.change(screen.getByLabelText('Owner'), {
+        target: { value: MEMBER_1.id },
+      });
+      const submitConvertBtn = screen.getByRole('button', { name: /Create task/i });
+      fireEvent.click(submitConvertBtn);
 
-    const chk = screen.getByRole('checkbox', {
-      name: /Mark "Fix the flaky login test in CI" done/i,
-    });
-    fireEvent.click(chk);
+      const chk = screen.getByRole('checkbox', {
+        name: /Mark "Fix the flaky login test in CI" done/i,
+      });
+      fireEvent.click(chk);
 
-    unmount();
-    qc.clear();
-  });
+      unmount();
+      qc.clear();
+    },
+  );
 });
