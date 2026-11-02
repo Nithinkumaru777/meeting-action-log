@@ -1,0 +1,43 @@
+{
+  "name": "meeting-action-log",
+  "version": "0.1.0",
+  "private": true,
+  "type": "module",
+  "workspaces": [
+    "shared",
+    "server",
+    "client"
+  ],
+  "overrides": {
+    "@typescript-eslint/typescript-estree": {
+      "minimatch": "^9.0.5"
+    }
+  },
+  "scripts": {
+    "dev": "concurrently -n server,client -c cyan,magenta \"npm run dev -w @mal/server\" \"npm run dev -w @mal/client\"",
+    "build": "npm run build -w @mal/client && npm run build -w @mal/server",
+    "start": "npm run start -w @mal/server",
+    "seed": "npm run seed -w @mal/server",
+    "lint": "eslint . && prettier --check .",
+    "format": "prettier --write .",
+    "typecheck": "npm run typecheck --workspaces",
+    "test": "vitest run",
+    "test:100": "vitest run --retry=0 --reporter=verbose",
+    "test:e2e": "playwright test -c e2e/playwright.config.ts --retries=0",
+    "test:e2e:100": "playwright test -c e2e/playwright.config.ts --repeat-each=100 --retries=0 --workers=4",
+    "test:report": "node scripts/test-report.mjs"
+  },
+  "devDependencies": {
+    "@eslint/js": "^9.39.5",
+    "@types/node": "^26.6.6",
+    "@vitest/coverage-v8": "^5.0.5",
+    "concurrently": "^10.0.6",
+    "eslint": "^9.39.5",
+    "fast-check": "^4.10.2",
+    "globals": "^17.14.0",
+    "prettier": "^3.9.10",
+    "typescript": "^6.0.3",
+    "typescript-eslint": "^8.72.1",
+    "vitest": "^5.0.5"
+  }
+}
