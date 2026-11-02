@@ -1,12 +1,15 @@
 import { Router } from 'express';
 import {
+  actionCreateSchema,
   decisionCreateSchema,
   idParamSchema,
+  listQueryMeetingActionsSchema,
   listQueryMeetingDecisionsSchema,
   listQueryMeetingsSchema,
   meetingCreateSchema,
   meetingUpdateSchema,
 } from '@mal/shared';
+import { createMeetingAction, listMeetingActions } from '../controllers/actions.controller';
 import { createMeetingDecision, listMeetingDecisions } from '../controllers/decisions.controller';
 import {
   createMeeting,
@@ -38,4 +41,15 @@ meetingsRouter.post(
   '/:id/decisions',
   validate({ params: idParamSchema, body: decisionCreateSchema }),
   createMeetingDecision,
+);
+
+meetingsRouter.get(
+  '/:id/actions',
+  validate({ params: idParamSchema, query: listQueryMeetingActionsSchema }),
+  listMeetingActions,
+);
+meetingsRouter.post(
+  '/:id/actions',
+  validate({ params: idParamSchema, body: actionCreateSchema }),
+  createMeetingAction,
 );

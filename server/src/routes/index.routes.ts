@@ -1,5 +1,6 @@
 import { Router } from 'express';
 import { getDbHealth } from '../db/connect';
+import { actionsRouter } from './actions.routes';
 import { decisionsRouter } from './decisions.routes';
 import { meetingsRouter } from './meetings.routes';
 import { membersRouter } from './members.routes';
@@ -13,3 +14,4 @@ apiRouter.get('/health', (_req, res) => {
 apiRouter.use('/members', membersRouter);
 apiRouter.use('/meetings', meetingsRouter);
 apiRouter.use('/decisions', decisionsRouter);
+apiRouter.use('/actions', actionsRouter);
