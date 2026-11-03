@@ -1,4 +1,5 @@
 import type { ActionStatus, DecisionStatus, DueState, ErrorCode, Priority } from '@mal/shared';
+import { CLIENT_ID } from './live';
 
 export interface ApiErrorDetail {
   path: string;
@@ -187,6 +188,7 @@ export async function apiFetch<T>(path: string, options: ApiFetchOptions = {}): 
   if (!reqHeaders.has('Accept')) {
     reqHeaders.set('Accept', 'application/json');
   }
+  reqHeaders.set('x-client-id', CLIENT_ID);
 
   let res: Response;
   try {

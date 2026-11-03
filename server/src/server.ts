@@ -16,7 +16,8 @@ try {
     maxRetries: 2,
     retryDelayMs: 500,
     serverSelectionTimeoutMS: 1500,
-    allowMemoryFallback: true,
+    // Never silently swap to a RAM database in production: data would vanish on restart.
+    allowMemoryFallback: env.NODE_ENV !== 'production',
   });
   if (db.inMemory) {
     console.warn(

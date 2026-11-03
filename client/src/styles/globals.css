@@ -2985,6 +2985,60 @@ body.dw-open .tour-pop {
   }
 }
 
+/* Live-sync indicator (topbar). Mono eyebrow type like .crumb; colour carries state. */
+.live {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 4px 9px;
+  border: 1px solid var(--rule);
+  border-radius: 999px;
+  font: 500 11px var(--f-mono);
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: var(--ink-2);
+  white-space: nowrap;
+}
+
+.live .pulse {
+  width: 7px;
+  height: 7px;
+  border-radius: 50%;
+  background: var(--amber-hi);
+}
+
+.live[data-state='live'] .pulse {
+  background: var(--done-hi);
+  animation: live-pulse 2.4s ease-out infinite;
+}
+
+.live[data-state='offline'] .pulse {
+  background: var(--coral-hi);
+}
+
+@keyframes live-pulse {
+  0% {
+    box-shadow: 0 0 0 0 color-mix(in srgb, var(--done-hi) 55%, transparent);
+  }
+  70%,
+  100% {
+    box-shadow: 0 0 0 6px transparent;
+  }
+}
+
+@media (max-width: 760px) {
+  .live .txt {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    overflow: hidden;
+    clip: rect(0 0 0 0);
+  }
+  .live {
+    padding: 6px;
+  }
+}
+
 @media (prefers-reduced-motion: reduce) {
   *,
   *::before,

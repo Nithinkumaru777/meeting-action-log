@@ -2,6 +2,7 @@ import type { Server } from 'node:http';
 import { setTimeout as sleep } from 'node:timers/promises';
 import mongoose from 'mongoose';
 import type { MongoMemoryServer } from 'mongodb-memory-server';
+import { closeEventStreams } from '../realtime/events';
 
 export interface ConnectOptions {
   maxRetries?: number;
@@ -90,12 +91,18 @@ export function registerGracefulShutdown(
     if (shuttingDown) return;
     shuttingDown = true;
     console.info(`${signal} received, shutting down.`);
+    // Hard stop if something keeps the server open (slow client, stuck query).
+    const force = setTimeout(() => exit(1), 10_000);
+    force.unref();
     try {
+      closeEventStreams(); // SSE streams never end on their own and would block server.close()
       if (server) await new Promise<void>((resolve) => server.close(() => resolve()));
       await disconnectDB();
+      clearTimeout(force);
       exit(0);
     } catch (err) {
       console.error('Shutdown failed:', err);
+      clearTimeout(force);
       exit(1);
     }
   };

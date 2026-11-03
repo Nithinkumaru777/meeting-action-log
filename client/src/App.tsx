@@ -17,11 +17,13 @@ import { DesignSystemPage } from './features/design-system/design-system-page';
 import { NotFoundPage } from './features/not-found/not-found-page';
 import { ActionFormSheet } from './features/actions/action-form-sheet';
 import { GuidedTourOverlay } from './features/tour/tour-overlay';
+import { useLiveUpdates } from './lib/live';
 
 export function AppRoutes() {
   const location = useLocation();
   const { newMeetingOpen, setNewMeetingOpen } = useShellStore();
   const overviewQuery = useInsightsOverviewQuery();
+  useLiveUpdates();
 
   const [convertingState, setConvertingState] = useState<{
     decision: DecisionItemView;

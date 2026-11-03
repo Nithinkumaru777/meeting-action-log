@@ -35,6 +35,8 @@ const envSchema = z.object({
     .refine(isTimezone, 'must be a valid IANA timezone')
     .default(DEFAULT_TIMEZONE),
   RATE_LIMIT_PER_MIN: intVar(1, 100_000, 300),
+  /** Number of reverse-proxy hops to trust for client IPs (0 = none, direct exposure). */
+  TRUST_PROXY: intVar(0, 10, 0),
 });
 
 export type Env = Readonly<z.output<typeof envSchema>>;

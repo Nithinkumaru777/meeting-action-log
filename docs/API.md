@@ -67,6 +67,27 @@ Returns service and MongoDB connectivity status.
 }
 ```
 
+### `GET /api/events`
+Real-time change feed (Server-Sent Events, `Content-Type: text/event-stream`). The connection stays open; the server sends a `: ping` comment every 25 s so proxies keep it alive, and `retry: 3000` tells the browser to reconnect after 3 s.
+
+After every **successful** (`< 400`) `POST`, `PUT`, `PATCH` or `DELETE` under `/api`, every open stream receives:
+
+```
+event: change
+data: {"resource":"actions","method":"PATCH","origin":"7d3c...","at":"2026-11-03T06:11:05.997Z"}
+```
+
+| Field | Meaning |
+|---|---|
+| `resource` | First path segment after `/api` (`members`, `meetings`, `decisions`, `actions`) |
+| `method` | HTTP method of the write |
+| `origin` | The writer's `x-client-id` request header if it matches `^[A-Za-z0-9_-]{1,64}$`, else `null` |
+| `at` | ISO timestamp |
+
+The first frame on connect is `event: ready`. More than 1000 concurrent streams per process → `429 RATE_LIMITED`.
+
+Clients may send an `x-client-id` header on any request so their own writes can be told apart in the feed (the web client does this automatically).
+
 ---
 
 ## 2. Members (`/api/members`)

@@ -1,4 +1,4 @@
-import { mkdtempSync, rmSync, writeFileSync } from 'node:fs';
+import { mkdirSync, mkdtempSync, rmSync, writeFileSync } from 'node:fs';
 import { tmpdir } from 'node:os';
 import path from 'node:path';
 import { Router } from 'express';
@@ -315,6 +315,8 @@ describe('production static client + SPA fallback', () => {
     const dir = mkdtempSync(path.join(tmpdir(), 'mal-client-'));
     writeFileSync(path.join(dir, 'index.html'), '<!doctype html><title>MAL</title>');
     writeFileSync(path.join(dir, 'app.js'), 'export {};');
+    mkdirSync(path.join(dir, 'assets'));
+    writeFileSync(path.join(dir, 'assets', 'index-abc123.js'), 'export {};');
     const prod = createApp({
       env: { NODE_ENV: 'production', CLIENT_ORIGIN: ORIGIN, RATE_LIMIT_PER_MIN: 1_000_000 },
       clientDistDir: dir,
@@ -324,6 +326,8 @@ describe('production static client + SPA fallback', () => {
         .get('/app.js')
         .expect(200)
         .expect('Content-Type', /javascript/);
+      const hashed = await request(prod).get('/assets/index-abc123.js').expect(200);
+      expect(hashed.headers['cache-control']).toBe('public, max-age=31536000, immutable');
       await fc.assert(
         fc.asyncProperty(
           fc.array(fc.stringMatching(/^[a-z0-9-]{1,10}$/), { maxLength: 3 }),
@@ -331,6 +335,8 @@ describe('production static client + SPA fallback', () => {
             const client = `/${segs.join('/')}`;
             const html = await request(prod).get(client).expect(200);
             expect(html.text).toContain('<title>MAL</title>');
+            // Uptime monitors / link checkers send HEAD; it must not look like a dead page.
+            await request(prod).head(client).expect(200);
             const api = await request(prod).get(`/api/zz${client}`).expect(404);
             errorShape(api.body, 'NOT_FOUND');
             const post = await request(prod).post(`/zz${client}`).expect(404);

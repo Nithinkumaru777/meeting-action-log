@@ -61,6 +61,7 @@ Teams frequently leave meetings with agreed-upon decisions that never turn into 
 - **Shared Validation (`@mal/shared`):** Every form and REST endpoint validates payloads and query strings against identical Zod v4 schemas (`z.strictObject`), rejecting unknown or `$`-prefixed keys.
 - **Optimistic UI + Undo Toasts:** Toggling action completion, converting decisions, dismissing decisions, and extending due dates update the React Query cache optimistically, roll back on failure, and offer one-click **Undo** in the bottom-right toast stack.
 - **8-Step Guided Demo Tour:** Interactive spotlight ring (`#tourRing`) and popover (`#tourPop`) walking through every core workflow with keyboard support (`ArrowRight`, `ArrowLeft`, `Escape`).
+- **Real-time Sync (Server-Sent Events):** Every open tab subscribes to `GET /api/events`. Any successful create, update or delete is broadcast, and each tab refetches its data within ~150 ms, so overdue counts, the decision inbox and meeting pages stay current across teammates without a reload. The topbar shows a **Live / Reconnecting / Offline** indicator; changes made by someone else raise a throttled "Live update" toast; after a reconnect the tab refetches everything it might have missed.
 - **Command Palette (`Ctrl/Cmd+K`) & Instant Search (`/`):** Keyboard-first navigation across all routes, meetings, and actions.
 - **Signal Ledger v2 Design System:**
   - **Layout References:** **R1 Linear** (left Transformative Teal spine, dense ledger rows, command palette), **R2 Plausible** (4-figure odometer strip and restraint-first charts), and **R3 Todoist** (warm Cloud Dancer paper ground and hairline rules instead of shadow-card grids).
@@ -164,6 +165,13 @@ npm run build
 npm start
 ```
 
+Production notes:
+
+- With `NODE_ENV=production` the server **refuses to start** if `MONGODB_URI` is unreachable (the in-memory fallback is development-only, so data is never silently kept in RAM).
+- Hashed files under `/assets` are served with `Cache-Control: public, max-age=31536000, immutable`; `index.html` is always revalidated.
+- `SIGINT`/`SIGTERM` close live event streams, drain HTTP, disconnect MongoDB, and force-exit after 10 s if anything hangs.
+- Live events are fanned out in-process; when running more than one API instance, put a shared bus (Redis pub/sub or MongoDB change streams) behind `server/src/realtime/events.ts`.
+
 ---
 
 ## 7. Environment Variables (`.env.example`)
@@ -175,7 +183,8 @@ npm start
 | `MONGODB_URI` | `mongodb://127.0.0.1:27017/meeting_action_log` | MongoDB connection string |
 | `CLIENT_ORIGIN` | `http://localhost:5173` | Allowed CORS origin for the React client |
 | `APP_TIMEZONE` | `Asia/Kolkata` | Default IANA timezone used by `@mal/shared` date calculations |
-| `RATE_LIMIT_PER_MIN` | `300` | Maximum write requests (`POST`/`PATCH`/`DELETE`) per minute per IP |
+| `RATE_LIMIT_PER_MIN` | `300` | Maximum `/api` requests per minute per client IP |
+| `TRUST_PROXY` | `0` | Reverse-proxy hops to trust for the client IP (set `1` behind a PaaS router or Nginx so rate limiting sees real users) |
 
 ---
 

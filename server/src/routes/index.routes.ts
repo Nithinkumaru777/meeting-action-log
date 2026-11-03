@@ -5,12 +5,15 @@ import { decisionsRouter } from './decisions.routes';
 import { insightsRouter } from './insights.routes';
 import { meetingsRouter } from './meetings.routes';
 import { membersRouter } from './members.routes';
+import { eventsStream } from '../realtime/events';
 
 export const apiRouter = Router();
 
 apiRouter.get('/health', (_req, res) => {
   res.json({ data: { status: 'ok', db: getDbHealth(), time: new Date().toISOString() } });
 });
+
+apiRouter.get('/events', eventsStream);
 
 apiRouter.use('/members', membersRouter);
 apiRouter.use('/meetings', meetingsRouter);

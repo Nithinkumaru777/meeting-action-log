@@ -12,9 +12,11 @@ import { createRateLimiter } from './middleware/rateLimit';
 import { notFound } from './middleware/notFound';
 import { errorHandler } from './middleware/errorHandler';
 import { apiRouter } from './routes/index.routes';
+import { broadcastMutations } from './realtime/events';
 
 export interface AppOptions {
-  env?: Pick<Env, 'NODE_ENV' | 'CLIENT_ORIGIN' | 'RATE_LIMIT_PER_MIN'>;
+  env?: Pick<Env, 'NODE_ENV' | 'CLIENT_ORIGIN' | 'RATE_LIMIT_PER_MIN'> &
+    Partial<Pick<Env, 'TRUST_PROXY'>>;
   /** Built client to serve in production. Same relative path from src/ and dist/. */
   clientDistDir?: string;
   /** Extra routes mounted under /api before notFound (used by tests). */
@@ -28,6 +30,8 @@ export function createApp(options: AppOptions = {}): Express {
   const clientDist = options.clientDistDir ?? DEFAULT_CLIENT_DIST;
   const app = express();
   app.disable('x-powered-by');
+  // Behind a load balancer / PaaS router, trust N hops so rate limiting keys on the real client IP.
+  if (env.TRUST_PROXY) app.set('trust proxy', env.TRUST_PROXY);
 
   app.use(requestId);
   app.use(helmet());
@@ -40,14 +44,21 @@ export function createApp(options: AppOptions = {}): Express {
     }),
   );
   app.use('/api', createRateLimiter(env.RATE_LIMIT_PER_MIN));
+  app.use('/api', broadcastMutations);
   app.use('/api', apiRouter);
   if (options.extraRoutes) app.use('/api', options.extraRoutes);
 
   if (env.NODE_ENV === 'production' && existsSync(path.join(clientDist, 'index.html'))) {
+    // Vite emits content-hashed files under /assets, so they can be cached forever.
+    app.use(
+      '/assets',
+      express.static(path.join(clientDist, 'assets'), { immutable: true, maxAge: '1y' }),
+    );
     app.use(express.static(clientDist));
     // SPA fallback: any non-API GET returns index.html so client-side routes survive reloads.
     app.use((req, res, next) => {
-      if (req.method !== 'GET' || req.path.startsWith('/api')) return next();
+      if ((req.method !== 'GET' && req.method !== 'HEAD') || req.path.startsWith('/api'))
+        return next();
       res.sendFile(path.join(clientDist, 'index.html'));
     });
   }

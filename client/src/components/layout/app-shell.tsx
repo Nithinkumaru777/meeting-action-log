@@ -1,6 +1,7 @@
 import { useEffect, useMemo, useRef, useState, type ReactNode } from 'react';
 import { Link, useLocation, useNavigate } from 'react-router';
 import { createStore } from '../../lib/store';
+import { useLiveStore } from '../../lib/live';
 import { AnimatedIcon, type IconName } from '../ui/animated-icon';
 import { Odometer } from '../ui/primitives';
 import { ToastViewport } from '../feedback/toast-store';
@@ -299,6 +300,28 @@ export function CommandPalette({ extraItems = [] }: { extraItems?: CommandPalett
   );
 }
 
+const LIVE_LABEL = { live: 'Live', connecting: 'Reconnecting', offline: 'Offline' } as const;
+
+/** Shows whether this tab is receiving real-time updates from /api/events. */
+export function LiveIndicator() {
+  const { status } = useLiveStore();
+  return (
+    <span
+      className="live"
+      data-state={status}
+      role="status"
+      title={
+        status === 'live'
+          ? 'Changes from teammates appear here instantly'
+          : 'Live updates paused; data refreshes when the connection returns'
+      }
+    >
+      <span className="pulse" aria-hidden="true" />
+      <span className="txt">{LIVE_LABEL[status]}</span>
+    </span>
+  );
+}
+
 export interface AppShellProps {
   openActionsCount?: number;
   overdueCount?: number;
@@ -453,6 +476,7 @@ export function AppShell({
               />
               <kbd>/</kbd>
             </div>
+            <LiveIndicator />
             <button
               type="button"
               className="btn btn-line btn-demo ah"
