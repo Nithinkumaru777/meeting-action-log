@@ -65,7 +65,7 @@ describe('Step 09: Client Foundation & Signal Ledger v2 Design System (100x)', (
     expect(collapsed).toBe(true);
   });
 
-  test('all 29 animated SVG icons render with expected data-a animation', { repeats: 100 }, () => {
+  test('all animated SVG icons render with expected data-a animation', { repeats: 100 }, () => {
     const names = Object.keys(ICON_DEFS) as IconName[];
     expect(names.length).toBeGreaterThanOrEqual(25);
     const { container, unmount } = render(

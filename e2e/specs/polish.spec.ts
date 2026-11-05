@@ -96,6 +96,11 @@ test.describe('Step 14: Responsive, Accessibility, Dark Mode, Keyboard & Screens
     await page.goto('/tutorials');
     await expect(page.locator('h1')).toContainText('Tutorials');
 
+    // About route
+    await page.goto('/about');
+    await expect(page.locator('h1')).toContainText('About this');
+    await expect(page.locator('#spineStudent')).toContainText('Nithin Kumar U');
+
     // Guided demo tour screenshot
     await page.goto('/');
     await page.locator('#demoBtn').click();
@@ -123,7 +128,7 @@ test.describe('Step 14: Responsive, Accessibility, Dark Mode, Keyboard & Screens
     page,
   }) => {
     const widths = [360, 390, 768, 1024, 1366, 1920];
-    const routes = ['/', '/meetings', '/overdue', '/decisions', '/members', '/tutorials'];
+    const routes = ['/', '/meetings', '/overdue', '/decisions', '/members', '/tutorials', '/about'];
 
     for (const width of widths) {
       await page.setViewportSize({ width, height: 860 });
@@ -143,7 +148,7 @@ test.describe('Step 14: Responsive, Accessibility, Dark Mode, Keyboard & Screens
   }) => {
     await page.emulateMedia({ reducedMotion: 'reduce' });
     await page.setViewportSize({ width: 1366, height: 860 });
-    const routes = ['/', '/meetings', '/overdue', '/decisions', '/members', '/tutorials'];
+    const routes = ['/', '/meetings', '/overdue', '/decisions', '/members', '/tutorials', '/about'];
     for (const route of routes) {
       await page.goto(route);
       await expect(page.locator('h1')).toBeVisible();

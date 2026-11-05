@@ -14,6 +14,7 @@ import { OverduePage } from './features/overdue/overdue-page';
 import { DecisionsInboxPage } from './features/decisions/decisions-inbox-page';
 import { MembersPage } from './features/members/members-page';
 import { TutorialsPage } from './features/tutorials/tutorials-page';
+import { AboutPage } from './features/about/about-page';
 import { NotFoundPage } from './features/not-found/not-found-page';
 import { ActionFormSheet } from './features/actions/action-form-sheet';
 import { GuidedTourOverlay } from './features/tour/tour-overlay';
@@ -47,7 +48,9 @@ export function AppRoutes() {
                   ? 'Members'
                   : p === '/tutorials'
                     ? 'Tutorials'
-                    : 'Not found';
+                    : p === '/about'
+                      ? 'About'
+                      : 'Not found';
     document.title = `${label} · MeetingActionLog`;
   }, [location.pathname]);
 
@@ -83,6 +86,7 @@ export function AppRoutes() {
           />
           <Route path="/members" element={<MembersPage />} />
           <Route path="/tutorials" element={<TutorialsPage />} />
+          <Route path="/about" element={<AboutPage />} />
           <Route path="*" element={<NotFoundPage />} />
         </Routes>
       </AppShell>

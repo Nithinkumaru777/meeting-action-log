@@ -30,7 +30,9 @@ export type IconName =
   | 'sun'
   | 'moon'
   | 'play'
-  | 'pointer';
+  | 'pointer'
+  | 'help'
+  | 'info';
 
 export type IconAnimation =
   | 'pop'
@@ -345,6 +347,26 @@ export const ICON_DEFS: Record<IconName, IconDef> = {
         <path d="M5 5l2.5 2.5" />
         <path d="M11 3v3" />
         <path d="M3 11h3" />
+      </>
+    ),
+  },
+  help: {
+    a: 'pop',
+    render: () => (
+      <>
+        <circle cx="12" cy="12" r="10" />
+        <path d="M9.09 9a3 3 0 0 1 5.83 1c0 2-3 3-3 3" />
+        <path d="M12 17h.01" />
+      </>
+    ),
+  },
+  info: {
+    a: 'pop',
+    render: () => (
+      <>
+        <circle cx="12" cy="12" r="10" />
+        <path d="M12 16v-4" />
+        <path d="M12 8h.01" />
       </>
     ),
   },

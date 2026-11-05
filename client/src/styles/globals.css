@@ -3141,3 +3141,123 @@ body.dw-open .tour-pop {
   line-height: 24px;
   color: var(--ink-2);
 }
+
+/* ---------- spine student info ---------- */
+.spine-student {
+  margin-top: 14px;
+  padding: 12px 8px 4px;
+  border-top: 1px solid var(--spine-line);
+  display: flex;
+  flex-direction: column;
+  gap: 3px;
+}
+
+.spine-course {
+  font: 500 11px/1.3 var(--f-mono);
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+  color: var(--spine-2);
+}
+
+.spine-author {
+  font: 600 14px/1.2 var(--f-display);
+  letter-spacing: -0.01em;
+  color: var(--spine-ink);
+}
+
+.spine-usn {
+  font-size: 11.5px;
+  color: var(--spine-2);
+}
+
+/* ---------- about view ---------- */
+.about-root {
+  max-width: 1040px;
+}
+
+.about-grid {
+  display: grid;
+  grid-template-columns: minmax(0, 1.35fr) minmax(0, 1fr);
+  gap: 28px;
+  align-items: start;
+}
+
+.about-panel {
+  background: var(--paper);
+  border: 1px solid var(--rule);
+  border-radius: 8px;
+  padding: 28px 24px;
+}
+
+.about-dl {
+  display: grid;
+  grid-template-columns: 120px minmax(0, 1fr);
+  gap: 16px 20px;
+  margin: 0;
+  font-size: 14.5px;
+  line-height: 1.5;
+}
+
+.about-dl dt {
+  font: 500 12px/1.4 var(--f-mono);
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: var(--ink-3);
+  padding-top: 2px;
+}
+
+.about-dl dd {
+  margin: 0;
+  color: var(--ink);
+}
+
+.about-actions {
+  display: flex;
+  gap: 12px;
+  margin-top: 28px;
+  flex-wrap: wrap;
+  align-items: center;
+}
+
+.about-subtitle {
+  font: 600 20px/1.2 var(--f-display);
+  letter-spacing: -0.01em;
+  margin: 0 0 14px;
+  color: var(--ink);
+}
+
+.about-uses {
+  margin: 0;
+  padding-left: 20px;
+  color: var(--ink-2);
+  line-height: 1.6;
+  font-size: 14px;
+}
+
+.about-uses li {
+  margin-bottom: 10px;
+}
+
+.about-uses li:last-child {
+  margin-bottom: 0;
+}
+
+.about-uses b {
+  color: var(--ink);
+}
+
+@media (max-width: 860px) {
+  .about-grid {
+    grid-template-columns: 1fr;
+  }
+}
+
+@media (max-width: 520px) {
+  .about-dl {
+    grid-template-columns: 1fr;
+    gap: 6px;
+  }
+  .about-dl dt {
+    margin-top: 8px;
+  }
+}

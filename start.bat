@@ -39,6 +39,7 @@ echo.
 echo ============================================================================
 echo   Web App       : http://localhost:5173
 echo   Tutorials     : http://localhost:5173/tutorials
+echo   About         : http://localhost:5173/about
 echo   Backend API   : http://localhost:5000/api
 echo   Health Check  : http://localhost:5000/api/health
 echo ============================================================================

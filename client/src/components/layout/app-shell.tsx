@@ -125,6 +125,13 @@ export const NAV_ITEMS: NavItem[] = [
     mobileLabel: 'Tutorials',
     icon: 'play',
   },
+  {
+    key: 'about',
+    path: '/about',
+    label: 'About',
+    mobileLabel: 'About',
+    icon: 'help',
+  },
 ];
 
 export const MOBILE_NAV_ITEMS: NavItem[] = [
@@ -132,9 +139,9 @@ export const MOBILE_NAV_ITEMS: NavItem[] = [
   NAV_ITEMS[1]!,
   NAV_ITEMS[2]!,
   NAV_ITEMS[3]!,
-  NAV_ITEMS[5]!,
+  NAV_ITEMS[6]!,
 ];
-// Index 5 is Tutorials on mobile for quick video learning.
+// Index 6 is About on mobile.
 
 export function isNavActive(pathname: string, itemPath: string): boolean {
   if (itemPath === '/') return pathname === '/';
@@ -149,6 +156,7 @@ export function getBreadcrumbForPath(pathname: string): string {
   if (pathname === '/decisions') return 'Ledger / Decision inbox';
   if (pathname === '/members') return 'Ledger / Members';
   if (pathname === '/tutorials') return 'Ledger / Tutorials';
+  if (pathname === '/about') return 'Ledger / About';
   return 'Ledger / Not found';
 }
 
@@ -447,6 +455,11 @@ export function AppShell({
               <Odometer value={openActionsCount} />
             </span>
             <p>Tick boxes, convert decisions into tasks, log meetings, and switch theme.</p>
+          </div>
+          <div className="spine-student" id="spineStudent">
+            <div className="spine-course">Backend Development CIA-II</div>
+            <div className="spine-author">Nithin Kumar U</div>
+            <div className="spine-usn mono">USN 2102508611</div>
           </div>
         </aside>
 
