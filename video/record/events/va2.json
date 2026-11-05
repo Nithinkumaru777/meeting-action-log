@@ -1,0 +1,122 @@
+[
+ {
+  "sceneId": "va2",
+  "timeMs": 724,
+  "action": "click",
+  "label": "Add action",
+  "x": 1314,
+  "y": 431,
+  "width": 118,
+  "height": 32
+ },
+ {
+  "sceneId": "va2",
+  "timeMs": 2037,
+  "action": "click",
+  "label": "Task title",
+  "x": 1465,
+  "y": 132,
+  "width": 431,
+  "height": 42
+ },
+ {
+  "sceneId": "va2",
+  "timeMs": 2520,
+  "action": "type",
+  "label": "Task title",
+  "x": 1465,
+  "y": 132,
+  "width": 431,
+  "height": 42
+ },
+ {
+  "sceneId": "va2",
+  "timeMs": 5626,
+  "action": "click",
+  "label": "Add action",
+  "x": 1765,
+  "y": 1026,
+  "width": 131,
+  "height": 40
+ },
+ {
+  "sceneId": "va2",
+  "timeMs": 7167,
+  "action": "hover",
+  "label": "Pick who owns this task",
+  "x": 1465,
+  "y": 198,
+  "width": 431,
+  "height": 88
+ },
+ {
+  "sceneId": "va2",
+  "timeMs": 9655,
+  "action": "click",
+  "label": "Due date",
+  "x": 1465,
+  "y": 325,
+  "width": 431,
+  "height": 42
+ },
+ {
+  "sceneId": "va2",
+  "timeMs": 11197,
+  "action": "click",
+  "label": "Add action",
+  "x": 1765,
+  "y": 1026,
+  "width": 131,
+  "height": 40
+ },
+ {
+  "sceneId": "va2",
+  "timeMs": 13187,
+  "action": "click",
+  "label": "Cancel",
+  "x": 1686,
+  "y": 1026,
+  "width": 69,
+  "height": 40
+ },
+ {
+  "sceneId": "va2",
+  "timeMs": 15263,
+  "action": "click",
+  "label": "Log a decision",
+  "x": 272,
+  "y": 716,
+  "width": 470,
+  "height": 42
+ },
+ {
+  "sceneId": "va2",
+  "timeMs": 15769,
+  "action": "type",
+  "label": "Log a decision",
+  "x": 272,
+  "y": 716,
+  "width": 470,
+  "height": 42
+ },
+ {
+  "sceneId": "va2",
+  "timeMs": 17254,
+  "action": "click",
+  "label": "Log",
+  "x": 750,
+  "y": 716,
+  "width": 82,
+  "height": 40
+ },
+ {
+  "sceneId": "va2",
+  "timeMs": 18214,
+  "action": "hover",
+  "label": "At least 5 characters",
+  "x": 272,
+  "y": 716,
+  "width": 470,
+  "height": 67
+ }
+]

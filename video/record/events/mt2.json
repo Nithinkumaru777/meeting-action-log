@@ -1,0 +1,142 @@
+[
+ {
+  "sceneId": "mt2",
+  "timeMs": 2972,
+  "action": "click",
+  "label": "New meeting",
+  "x": 1733,
+  "y": 12,
+  "width": 147,
+  "height": 40
+ },
+ {
+  "sceneId": "mt2",
+  "timeMs": 6705,
+  "action": "click",
+  "label": "Title",
+  "x": 1465,
+  "y": 132,
+  "width": 431,
+  "height": 42
+ },
+ {
+  "sceneId": "mt2",
+  "timeMs": 7255,
+  "action": "type",
+  "label": "Title",
+  "x": 1465,
+  "y": 132,
+  "width": 431,
+  "height": 42
+ },
+ {
+  "sceneId": "mt2",
+  "timeMs": 10827,
+  "action": "hover",
+  "label": "Date",
+  "x": 1465,
+  "y": 219,
+  "width": 210,
+  "height": 42
+ },
+ {
+  "sceneId": "mt2",
+  "timeMs": 13401,
+  "action": "click",
+  "label": "Start, IST",
+  "x": 1687,
+  "y": 219,
+  "width": 210,
+  "height": 42
+ },
+ {
+  "sceneId": "mt2",
+  "timeMs": 17011,
+  "action": "click",
+  "label": "Duration",
+  "x": 1465,
+  "y": 306,
+  "width": 431,
+  "height": 42
+ },
+ {
+  "sceneId": "mt2",
+  "timeMs": 17555,
+  "action": "type",
+  "label": "Duration",
+  "x": 1465,
+  "y": 306,
+  "width": 431,
+  "height": 42
+ },
+ {
+  "sceneId": "mt2",
+  "timeMs": 19504,
+  "action": "click",
+  "label": "Ananya Rao",
+  "x": 1465,
+  "y": 393,
+  "width": 123,
+  "height": 34
+ },
+ {
+  "sceneId": "mt2",
+  "timeMs": 20595,
+  "action": "click",
+  "label": "Karthik Shetty",
+  "x": 1596,
+  "y": 393,
+  "width": 137,
+  "height": 34
+ },
+ {
+  "sceneId": "mt2",
+  "timeMs": 21651,
+  "action": "click",
+  "label": "Priya Menon",
+  "x": 1465,
+  "y": 435,
+  "width": 126,
+  "height": 34
+ },
+ {
+  "sceneId": "mt2",
+  "timeMs": 22957,
+  "action": "click",
+  "label": "Agenda",
+  "x": 1465,
+  "y": 514,
+  "width": 431,
+  "height": 84
+ },
+ {
+  "sceneId": "mt2",
+  "timeMs": 23488,
+  "action": "type",
+  "label": "Agenda",
+  "x": 1465,
+  "y": 514,
+  "width": 431,
+  "height": 84
+ },
+ {
+  "sceneId": "mt2",
+  "timeMs": 27233,
+  "action": "click",
+  "label": "Create meeting",
+  "x": 1735,
+  "y": 1026,
+  "width": 161,
+  "height": 40
+ },
+ {
+  "sceneId": "mt2",
+  "timeMs": 32749,
+  "action": "hover",
+  "label": "The new meeting",
+  "x": 272,
+  "y": 100,
+  "width": 1160,
+  "height": 150
+ }
+]

@@ -1,0 +1,52 @@
+[
+ {
+  "sceneId": "md2",
+  "timeMs": 4854,
+  "action": "click",
+  "label": "Log a decision",
+  "x": 272,
+  "y": 716,
+  "width": 470,
+  "height": 42
+ },
+ {
+  "sceneId": "md2",
+  "timeMs": 5387,
+  "action": "type",
+  "label": "Log a decision",
+  "x": 272,
+  "y": 716,
+  "width": 470,
+  "height": 42
+ },
+ {
+  "sceneId": "md2",
+  "timeMs": 11952,
+  "action": "click",
+  "label": "Log",
+  "x": 750,
+  "y": 716,
+  "width": 82,
+  "height": 40
+ },
+ {
+  "sceneId": "md2",
+  "timeMs": 17175,
+  "action": "hover",
+  "label": "No task yet",
+  "x": 1516,
+  "y": 964,
+  "width": 380,
+  "height": 92
+ },
+ {
+  "sceneId": "md2",
+  "timeMs": 22411,
+  "action": "hover",
+  "label": "Decision inbox",
+  "x": 14,
+  "y": 210,
+  "width": 204,
+  "height": 40
+ }
+]

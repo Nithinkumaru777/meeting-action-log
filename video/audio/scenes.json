@@ -1,0 +1,451 @@
+[
+ {
+  "id": "h1",
+  "type": "MG",
+  "chapter": 1,
+  "chapterTitle": "The problem",
+  "narration": "It is Monday morning, and a product team in Bengaluru has just finished a forty five minute planning meeting. Three things were decided. Everyone nods and walks out. By Friday, nobody remembers who was meant to do what, and the same discussion starts again. This is common. In a Harvard Business Review survey of one hundred and eighty two senior managers, seventy one percent said their meetings were unproductive and inefficient. The real loss is not the meeting itself. It is the decisions that leave the room without an owner, and the tasks whose deadlines slip with nobody noticing.",
+  "actions": "Motion graphic. A meeting card with three decisions; the owner slots stay empty; the calendar runs to Friday; the 71% figure counts up with its source.",
+  "onscreen": [
+   "3 decisions. 0 owners.",
+   "71% of senior managers call meetings unproductive",
+   "Source: Harvard Business Review, July-August 2017"
+  ]
+ },
+ {
+  "id": "w1",
+  "type": "MG",
+  "chapter": 2,
+  "chapterTitle": "What MeetingActionLog is",
+  "narration": "This is MeetingActionLog, a full stack ledger for meetings, decisions and follow up. It is built for team leads who run meetings, for the people who own the tasks that come out of them, and for managers who need to see what is slipping. It records every meeting, every decision, and every action item with an owner, a due date and a priority. The outcome is simple: every decision leaves the room with an owner and a date.",
+  "actions": "Motion graphic. Logo mark, the name, the pitch, three audience rows, and the outcome line.",
+  "onscreen": [
+   "MeetingActionLog",
+   "Decisions → owners",
+   "For team leads, task owners and managers",
+   "Every decision gets an owner and a date"
+  ]
+ },
+ {
+  "id": "a1",
+  "type": "MG",
+  "chapter": 3,
+  "chapterTitle": "How it works",
+  "narration": "Here is how it works. The team works in a React single page app in the browser. Every change travels as a JSON request to a REST API built on Express. First, a middleware chain adds a request id, applies the rate limit, and validates the data against a Zod schema. Then a controller hands the work to a service, where the business rules live, such as converting a decision into a linked task. The service saves through Mongoose models into MongoDB. Finally, the API broadcasts a server sent event, and every open browser tab refetches its data, so the whole team sees the change within moments.",
+  "actions": "Motion graphic architecture diagram. Browser → middleware → controller → service → models → MongoDB, with a packet travelling each edge, then a live event returning to three browser windows.",
+  "onscreen": [
+   "React app",
+   "Express API",
+   "Middleware",
+   "Controller",
+   "Service",
+   "Mongoose models",
+   "MongoDB",
+   "Live events (SSE)"
+  ]
+ },
+ {
+  "id": "a2",
+  "type": "MG",
+  "chapter": 3,
+  "chapterTitle": "How it works",
+  "narration": "The stack is the MERN stack, written in strict TypeScript. React nineteen, React Query and Vite on the front end. Express five, Mongoose and Pino on the back end. MongoDB for storage. One shared package holds the Zod schemas, so the form and the server apply exactly the same rules. The test suite covers the shared rules, the services, the API and the interface.",
+  "actions": "Motion graphic. Three columns fill with stack names; the shared package connects the first and second.",
+  "onscreen": [
+   "React 19 · React Query · Vite",
+   "Express 5 · Mongoose · Pino",
+   "MongoDB 7 · Server-Sent Events",
+   "@mal/shared: one set of Zod rules"
+  ]
+ },
+ {
+  "id": "g1",
+  "type": "REC",
+  "chapter": 4,
+  "chapterTitle": "Getting started",
+  "narration": "Getting started takes one step. Open the app in your browser at localhost, port five thousand. There is no sign up and no password, because this is a shared team ledger, so it opens straight on the Today page. The dark teal spine on the left is your main navigation, and its badges count what needs attention. Below them, the open actions meter always shows the total. The top bar shows where you are, and the search box finds any meeting. This small indicator shows the live connection to the server. Next to it are the guided demo, the theme switch, and New meeting, the button you will use most.",
+  "actions": "Open the app. Hover the spine links. Hover the meter. Hover the breadcrumb, search, live indicator, demo, theme and New meeting.",
+  "onscreen": [
+   "localhost:5000",
+   "No sign-up needed",
+   "Teal spine",
+   "Live connection"
+  ]
+ },
+ {
+  "id": "td1",
+  "type": "REC",
+  "chapter": 5,
+  "chapterTitle": "Today dashboard",
+  "narration": "The Today page answers one question: who owns what, and what is slipping? Four figures sit across the top. Open actions counts every task still in progress. Overdue shows how many are late, and how old the oldest one is. Completion is the share of all tasks that are finished. Decisions without tasks counts decisions that never got an owner. Three of these are links, so one click takes you straight to the work behind the number.",
+  "actions": "Hover each of the four figures. Click Overdue figure, then return with the Today link.",
+  "onscreen": [
+   "Four figures",
+   "Each number links to the work behind it"
+  ]
+ },
+ {
+  "id": "td2",
+  "type": "REC",
+  "chapter": 5,
+  "chapterTitle": "Today dashboard",
+  "narration": "Below the figures are the two columns that matter most. Column one lists overdue actions, oldest first, with the days late on the left. Tick a checkbox, and the check draws, a line strikes through the title, and the figures roll to their new values. A toast confirms it, and Undo reverses it with one click. Column two is No owner yet, the decisions that never became a task. No action closes one that needs no follow up, and again you can undo it.",
+  "actions": "Hover Overdue column. Tick first row. Click Undo. Hover No owner column. Click No action on a row. Click Undo.",
+  "onscreen": [
+   "Column 01: Overdue",
+   "Undo on every change",
+   "Column 02: No owner yet"
+  ]
+ },
+ {
+  "id": "td3",
+  "type": "REC",
+  "chapter": 5,
+  "chapterTitle": "Today dashboard",
+  "narration": "Further down, Completed per week is a sparkline of the last eight weeks, so you can see whether the team is speeding up or slowing down. Late, by owner shows who is carrying the most overdue work. It is not there to blame anyone. It shows where help is needed. Coming up lists the next meetings, and Schedule opens the form to book another one.",
+  "actions": "Scroll down. Hover sparkline. Hover bars. Hover Coming up. Click Schedule. Click Cancel.",
+  "onscreen": [
+   "Last 8 weeks",
+   "Late, by owner",
+   "Coming up"
+  ]
+ },
+ {
+  "id": "mt1",
+  "type": "REC",
+  "chapter": 6,
+  "chapterTitle": "Meetings",
+  "narration": "The Meetings page is the full log. Three tabs filter it. All shows everything, Upcoming shows what is still ahead, and Held shows what has already happened. Each row gives you the date, the title, the agenda, the time, the attendees and a progress meter, plus flags for overdue work and decisions without tasks. To find a meeting, type in the search box, or press the slash key from anywhere. Search for ops, and the list narrows as you type. The chip shows your search, and its cross clears it.",
+  "actions": "Click Upcoming, Held, All. Hover a row. Press slash. Type ops. Click clear on the chip.",
+  "onscreen": [
+   "All · Upcoming · Held",
+   "Search with /",
+   "Flags show what needs attention"
+  ]
+ },
+ {
+  "id": "mt2",
+  "type": "REC",
+  "chapter": 6,
+  "chapterTitle": "Meetings",
+  "narration": "To log a meeting, press New meeting. A sheet slides in from the right. Give it a title, here, Payments roadmap review. The date defaults to today. Set the start time in Indian Standard Time, and the duration in minutes. Pick the attendees by clicking their names. Add an agenda if you have one. Press Create meeting. A toast confirms it, and you land on the new meeting's own page, ready to record what was decided.",
+  "actions": "Click New meeting. Type title. Set start 14:30. Set duration 45. Click attendees. Type agenda. Click Create meeting.",
+  "onscreen": [
+   "Log a meeting",
+   "Times in IST",
+   "Create meeting"
+  ]
+ },
+ {
+  "id": "md1",
+  "type": "REC",
+  "chapter": 7,
+  "chapterTitle": "Inside a meeting",
+  "narration": "Every meeting has its own page. The header shows the date, time and duration, whether it is upcoming or held, the agenda, and who attended. Four figures show this meeting's health: decisions made, actions done, what is overdue, and decisions still without tasks. Press Edit to change anything. The same sheet opens with the values filled in. Change the duration to sixty minutes, and press Save changes.",
+  "actions": "Open Weekly ops sync. Hover the eyebrow and attendees. Hover figures. Click Edit. Set duration 60. Click Save changes.",
+  "onscreen": [
+   "The meeting record",
+   "Four health figures",
+   "Edit"
+  ]
+ },
+ {
+  "id": "md2",
+  "type": "REC",
+  "chapter": 7,
+  "chapterTitle": "Inside a meeting",
+  "narration": "Now for the heart of the app. In the Decisions column, type what was decided, in plain words: Move the status page checks to every five minutes. Press Log. The decision appears, highlighted. The toast tells you it has no task yet, so it has also landed in the decision inbox. Nothing is lost, even if nobody acts on it today.",
+  "actions": "Type the decision. Click Log. Hover the new decision. Hover the toast and the inbox badge.",
+  "onscreen": [
+   "Log a decision",
+   "No task yet: it lands in the inbox"
+  ]
+ },
+ {
+  "id": "md3",
+  "type": "REC",
+  "chapter": 7,
+  "chapterTitle": "Inside a meeting",
+  "narration": "Press Convert to task. The sheet quotes the decision, so you can see exactly what you are acting on, and fills in the task title. Choose the owner, here, Rahul Nair. Check the due date, which defaults to one week away. Set the priority: low, medium, high or critical. Add notes if they help. Press Create task. The task flies into the open actions counter, the decision now shows a linked task, and the new action appears in the second column.",
+  "actions": "Click Convert to task. Select owner. Click High. Type notes. Click Create task. Hover the linked tag and new action.",
+  "onscreen": [
+   "Convert to task",
+   "Owner, date, priority",
+   "Linked to its decision"
+  ]
+ },
+ {
+  "id": "md4",
+  "type": "REC",
+  "chapter": 7,
+  "chapterTitle": "Inside a meeting",
+  "narration": "Not every task comes from a decision. Add action opens the same form for anything else that came up. Name it, choose an owner and a date, and press Add action. Then the delete button on the header removes the whole meeting. Here, we delete a meeting logged by mistake, along with its decisions and actions, and you return to the list.",
+  "actions": "Click Add action. Type title. Select owner. Click Add action. Hover the row. Click delete. Hover the toast.",
+  "onscreen": [
+   "Add action",
+   "Delete meeting"
+  ]
+ },
+ {
+  "id": "dc1",
+  "type": "REC",
+  "chapter": 8,
+  "chapterTitle": "Decision inbox",
+  "narration": "The decision inbox is the first of the two features that set this app apart. It collects every decision that left a meeting without a task, from every meeting, oldest first. Three tabs show where each one stands: without tasks, converted, and no action. The converted tab shows how many tasks each decision produced. On the no action tab, Reopen brings a decision back when circumstances change. Back in the inbox, No action folds the row away, and the count updates.",
+  "actions": "Hover list. Click Converted. Hover the tag. Click No action tab. Click Reopen. Click Without tasks. Click No action on a row.",
+  "onscreen": [
+   "Every decision, one inbox",
+   "Without tasks · Converted · No action",
+   "Reopen"
+  ]
+ },
+ {
+  "id": "dc2",
+  "type": "REC",
+  "chapter": 8,
+  "chapterTitle": "Decision inbox",
+  "narration": "Convert to task works here too. Choose an owner, and press Create task. Watch the tag fly across the screen and land on the open actions counter, which rolls up by one, while the decision folds out of the inbox. If that was a mistake, press Undo. The task is deleted and the decision comes back, exactly as it was.",
+  "actions": "Click Convert to task. Select owner. Click Create task. Hover the counter. Click Undo.",
+  "onscreen": [
+   "The task lands in the counter",
+   "Undo restores both"
+  ]
+ },
+ {
+  "id": "ov1",
+  "type": "REC",
+  "chapter": 9,
+  "chapterTitle": "Overdue",
+  "narration": "The second differentiating feature is the Overdue page. Four figures sum up the risk: how many actions are late, how old the oldest is, how many owners are affected, and how many tasks are still on time. Below that, late work is grouped by owner, with the person carrying the most at the top, so a lead can have one clear conversation with each person. Each row offers two honest choices. If the work is done, tick it. If it genuinely needs longer, press plus three days. The due date moves, the toast shows the new date, and the row leaves the list.",
+  "actions": "Hover figures. Hover first group. Hover a checkbox. Click +3 days. Hover the toast.",
+  "onscreen": [
+   "Grouped by owner",
+   "+3 days",
+   "The new date is on record"
+  ]
+ },
+ {
+  "id": "mb1",
+  "type": "REC",
+  "chapter": 10,
+  "chapterTitle": "Members",
+  "narration": "The Members page is the team directory. These are the people who attend meetings and own tasks. Press Add member. Enter the full name, Sanjana Kulkarni, an email address, and a role, such as Finance analyst. The avatar hue sets the colour of her initials. Press Add member, and she joins the directory, ready to be assigned work. Edit opens the same sheet to change her role. The bin button removes someone. Here it works, because she does not own anything yet.",
+  "actions": "Click Add member. Type fields. Click Add member. Click Edit on the new row. Type role. Click Save changes. Click Remove.",
+  "onscreen": [
+   "Team directory",
+   "Add, edit, remove"
+  ]
+ },
+ {
+  "id": "pw1",
+  "type": "REC",
+  "chapter": 11,
+  "chapterTitle": "Power tools",
+  "narration": "Keyboard users will like the command palette. Press Control K from anywhere. Type to filter, and the list narrows to pages and actions. Press enter to jump. You can also log a new meeting, start the tour, or switch the theme, without touching the mouse. Escape closes it.",
+  "actions": "Press Ctrl K. Type over. Press Enter. Press Ctrl K. Type theme. Press Escape.",
+  "onscreen": [
+   "Ctrl K",
+   "Pages and actions"
+  ]
+ },
+ {
+  "id": "pw2",
+  "type": "REC",
+  "chapter": 11,
+  "chapterTitle": "Power tools",
+  "narration": "The theme button switches between light and dark. Both are designed, not inverted: warm paper by day, and teal black by night. The choice is remembered the next time you open the app.",
+  "actions": "Click theme. Hover the page. Click theme again.",
+  "onscreen": [
+   "Light and dark",
+   "Saved for next time"
+  ]
+ },
+ {
+  "id": "pw3",
+  "type": "REC",
+  "chapter": 11,
+  "chapterTitle": "Power tools",
+  "narration": "New to the app? Guided demo is a built in tour of eight steps. A ring spotlights each part of the screen, and a card explains it. Next moves forward, Back moves back, and the arrow keys do the same. It starts with the figures, then what is slipping, then decisions with no owner. It moves on to converting a task and where the task lands. Then come the overdue page, the meetings log, and the theme. Finish ends the tour with a confirmation.",
+  "actions": "Click Guided demo. Click Next, Back, Next, then Next through all 8 steps. Click Finish.",
+  "onscreen": [
+   "Guided demo · 8 steps"
+  ]
+ },
+ {
+  "id": "pw4",
+  "type": "REC",
+  "chapter": 11,
+  "chapterTitle": "Power tools",
+  "narration": "Real time updates need no setup. Every open tab listens on one event stream. Here, a teammate marks a task as done from another desk. We have not touched this screen, but a live update toast appears, and the numbers roll to their new values. If the connection drops, this indicator says Reconnecting, and the tab refetches whatever it missed as soon as it is back.",
+  "actions": "Hover Live. An API call from outside the page marks an action done. Hover the toast and the figures.",
+  "onscreen": [
+   "Live updates across desks",
+   "No reload needed"
+  ]
+ },
+ {
+  "id": "pw5",
+  "type": "REC",
+  "chapter": 11,
+  "chapterTitle": "Power tools",
+  "narration": "The last page, Design system, documents the look of the app itself: the colour palette and where it came from, the type scale, the buttons, the motion timings, and the animated icons that replace every emoji. It is a living reference, so the app and its documentation can never drift apart.",
+  "actions": "Click Design system. Scroll slowly through the sections. Hover buttons.",
+  "onscreen": [
+   "Signal Ledger v2",
+   "A living reference"
+  ]
+ },
+ {
+  "id": "api1",
+  "type": "REC",
+  "chapter": 12,
+  "chapterTitle": "The REST API",
+  "narration": "Everything you have seen is powered by a REST API with twenty four endpoints, and you can read it directly. The health endpoint reports the status of the server and the database, which is what a monitoring tool would check. The insights summary returns the figures you saw on Today, computed on the server, and every success is wrapped in the same data envelope. Errors follow one format too. Ask for a status that does not exist, and validation answers with a clear code and message. Ask for a meeting that does not exist, and you get a proper not found error. Predictable responses like these make the API easy to build on.",
+  "actions": "Open /api/health. Open /api/insights/summary. Open /api/actions?status=nope. Open /api/meetings/<unknown id>.",
+  "onscreen": [
+   "24 REST endpoints",
+   "One success envelope",
+   "One error format"
+  ]
+ },
+ {
+  "id": "va1",
+  "type": "REC",
+  "chapter": 13,
+  "chapterTitle": "Validation and edge cases",
+  "narration": "Good software handles mistakes well. Open the meeting form and press Create meeting with almost nothing filled in. A title that is too short, a duration of two minutes, and no attendees are each marked in red, with a message saying how to fix it. A toast points you to the highlighted fields. Correct a field, and its error clears straight away. Your input is never thrown away.",
+  "actions": "Click New meeting. Type Hi. Set duration 2. Click Create meeting. Hover errors. Fix title. Click Cancel.",
+  "onscreen": [
+   "Title: 3 to 100 characters",
+   "Duration: 5 to 480 minutes",
+   "At least one attendee"
+  ]
+ },
+ {
+  "id": "va2",
+  "type": "REC",
+  "chapter": 13,
+  "chapterTitle": "Validation and edge cases",
+  "narration": "The task form is just as careful. With no owner chosen, it asks who owns this task. A task cannot be due in the past, and the form says so. In the decisions column, a decision shorter than five characters is refused. These same rules run again on the server, from the shared schemas, so nobody can get around them by calling the API directly.",
+  "actions": "Open meeting. Click Add action. Click Add action with blank fields. Hover errors. Click Cancel. Type ok in decision. Click Log. Hover error.",
+  "onscreen": [
+   "Pick who owns this task",
+   "Same rules on the server"
+  ]
+ },
+ {
+  "id": "va3",
+  "type": "REC",
+  "chapter": 13,
+  "chapterTitle": "Validation and edge cases",
+  "narration": "Empty states always offer a way forward. Search for something that does not exist, and the list says no meetings match, with a button to clear the search. Type a nonsense command in the palette, and it says so clearly. An address that does not exist shows a friendly page, with a link back to Today. So does a meeting that has been deleted.",
+  "actions": "Type zzz in search. Click Clear search. Ctrl K, type zzz, Escape. Open /not-a-page. Click Back to Today. Open deleted meeting id. Hover message.",
+  "onscreen": [
+   "No meetings match",
+   "Page not found",
+   "Meeting not found"
+  ]
+ },
+ {
+  "id": "va4",
+  "type": "REC",
+  "chapter": 13,
+  "chapterTitle": "Validation and edge cases",
+  "narration": "The server also protects the data. Try to remove Ananya Rao, who still owns tasks and attends meetings. The app refuses, and explains why, so no task is left without an owner. In the member form, a bad email address is caught before anything is sent. And when the list is finally clear, the app says so, with a calm message instead of a blank page.",
+  "actions": "Click Remove on Ananya. Hover error toast. Click Add member. Type name and bad email. Click Add member. Hover error. Click Cancel. Open inbox after clearing. Hover empty state.",
+  "onscreen": [
+   "Cannot remove member",
+   "Enter a valid email",
+   "Every decision has an owner"
+  ]
+ },
+ {
+  "id": "rw1",
+  "type": "REC",
+  "chapter": 14,
+  "chapterTitle": "A real week",
+  "narration": "Let us put it all together with a real week. Ananya Rao is a product lead in Bengaluru. This morning, she runs the release planning meeting. As soon as it ends, she opens MeetingActionLog and presses New meeting. She enters the title, Release 2.4 planning, sets ten thirty, for forty five minutes, and marks who attended: Karthik, Meera and Rahul. She creates the meeting.",
+  "actions": "Click New meeting. Type title. Set 10:30, 45. Click attendees. Click Create meeting.",
+  "onscreen": [
+   "Ananya Rao, product lead, Bengaluru",
+   "Today: Release 2.4 planning"
+  ]
+ },
+ {
+  "id": "rw2",
+  "type": "REC",
+  "chapter": 14,
+  "chapterTitle": "A real week",
+  "narration": "Three things were decided, and she logs them while they are fresh. Freeze new features by Thursday. Add a rollback step to the release checklist. Keep the old export for one more release. That last one needs no work, so she marks it as no action. The other two need owners.",
+  "actions": "Type and log 3 decisions. Click No action on the third. Hover the two left.",
+  "onscreen": [
+   "3 decisions logged",
+   "1 needs no action"
+  ]
+ },
+ {
+  "id": "rw3",
+  "type": "REC",
+  "chapter": 14,
+  "chapterTitle": "A real week",
+  "narration": "She converts the first into a task for Karthik, due in one week, with high priority. She converts the second into a task for Rahul, also due in one week. In under two minutes, every decision from that meeting has an owner and a date. The whole team can already see it, without anyone sending a single follow up message.",
+  "actions": "Convert first: owner Karthik, High, Create task. Convert second: owner Rahul, Create task. Hover the figures.",
+  "onscreen": [
+   "2 tasks, 2 owners, 2 dates",
+   "Under 2 minutes"
+  ]
+ },
+ {
+  "id": "rw4",
+  "type": "REC",
+  "chapter": 14,
+  "chapterTitle": "A real week",
+  "narration": "Later that week, Ananya opens the Overdue page. Karthik's name is at the top. She talks to him. The S S L certificate renewal really is finished, so it gets ticked off. The signup validation needs a little longer, so it gets three more days, and the new date is on record. Finally, she checks the inbox, and converts or closes what is left. Nothing has been forgotten, and nobody had to chase anyone by email.",
+  "actions": "Click Overdue. Hover Karthik's group. Tick SSL row. Click +3 days on signup row. Click Decision inbox. Hover list.",
+  "onscreen": [
+   "Later that week: chasing overdue actions",
+   "Ticked off, or +3 days"
+  ]
+ },
+ {
+  "id": "im1",
+  "type": "MG",
+  "chapter": 15,
+  "chapterTitle": "Real-world impact",
+  "narration": "Who benefits? Team leads stop writing follow up emails, because the record is already there. Task owners always know what they owe and when. Managers can see what is slipping before it becomes a crisis. Compare the two ways of working. Before, decisions lived in someone's notes, ownership was assumed, and late work surfaced at the next meeting. After, every decision is logged, every task has an owner and a date, and late work is visible the same day. This fits software teams, college committees, startups and any group that meets and needs to follow through.",
+  "actions": "Motion graphic. Three audience cards, then before and after columns, then the list of fits.",
+  "onscreen": [
+   "Team leads · Task owners · Managers",
+   "Before: notes and memory",
+   "After: one shared ledger"
+  ]
+ },
+ {
+  "id": "im2",
+  "type": "MG",
+  "chapter": 15,
+  "chapterTitle": "Real-world impact",
+  "narration": "What could come next? Sign in and roles, so each person sees their own view. Email and calendar reminders before a task falls due. Importing action items from meeting transcripts. And integrations with tools like Slack and Jira. The foundation is ready, because the API, the validation and the live event stream are already in place.",
+  "actions": "Motion graphic. Four roadmap items appear one by one, resting on a foundation bar.",
+  "onscreen": [
+   "Sign-in and roles",
+   "Reminders",
+   "Transcript import",
+   "Slack and Jira"
+  ]
+ },
+ {
+  "id": "ou1",
+  "type": "MG",
+  "chapter": 16,
+  "chapterTitle": "Recap and credits",
+  "narration": "To recap, MeetingActionLog gives you the Today dashboard, the meetings log, decisions and action items, the decision inbox, the overdue view, the team directory, the command palette, the guided demo, live updates, and a clean REST API. Built by Nithin Kumar U, for the Backend Development course, CIA two. Thank you for watching.",
+  "actions": "Motion graphic. Checklist ticks through each feature, then the logo, name, USN and thank you.",
+  "onscreen": [
+   "MeetingActionLog",
+   "Nithin Kumar U · USN 2102508611",
+   "Backend Development CIA-II",
+   "Thank you"
+  ]
+ }
+]

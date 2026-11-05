@@ -1,0 +1,162 @@
+[
+ {
+  "sceneId": "mb1",
+  "timeMs": 8601,
+  "action": "click",
+  "label": "Add member",
+  "x": 1286,
+  "y": 160,
+  "width": 146,
+  "height": 40
+ },
+ {
+  "sceneId": "mb1",
+  "timeMs": 10212,
+  "action": "click",
+  "label": "Full name",
+  "x": 1465,
+  "y": 132,
+  "width": 431,
+  "height": 42
+ },
+ {
+  "sceneId": "mb1",
+  "timeMs": 10700,
+  "action": "type",
+  "label": "Full name",
+  "x": 1465,
+  "y": 132,
+  "width": 431,
+  "height": 42
+ },
+ {
+  "sceneId": "mb1",
+  "timeMs": 13187,
+  "action": "click",
+  "label": "Email",
+  "x": 1465,
+  "y": 219,
+  "width": 431,
+  "height": 42
+ },
+ {
+  "sceneId": "mb1",
+  "timeMs": 13676,
+  "action": "type",
+  "label": "Email",
+  "x": 1465,
+  "y": 219,
+  "width": 431,
+  "height": 42
+ },
+ {
+  "sceneId": "mb1",
+  "timeMs": 15324,
+  "action": "click",
+  "label": "Role",
+  "x": 1465,
+  "y": 306,
+  "width": 431,
+  "height": 42
+ },
+ {
+  "sceneId": "mb1",
+  "timeMs": 15819,
+  "action": "type",
+  "label": "Role",
+  "x": 1465,
+  "y": 306,
+  "width": 431,
+  "height": 42
+ },
+ {
+  "sceneId": "mb1",
+  "timeMs": 18297,
+  "action": "click",
+  "label": "Avatar hue",
+  "x": 1465,
+  "y": 387,
+  "width": 431,
+  "height": 42
+ },
+ {
+  "sceneId": "mb1",
+  "timeMs": 18787,
+  "action": "type",
+  "label": "Avatar hue",
+  "x": 1465,
+  "y": 387,
+  "width": 431,
+  "height": 42
+ },
+ {
+  "sceneId": "mb1",
+  "timeMs": 22733,
+  "action": "click",
+  "label": "Add member",
+  "x": 1750,
+  "y": 1026,
+  "width": 146,
+  "height": 40
+ },
+ {
+  "sceneId": "mb1",
+  "timeMs": 28457,
+  "action": "click",
+  "label": "Edit",
+  "x": 1346,
+  "y": 713,
+  "width": 48,
+  "height": 32
+ },
+ {
+  "sceneId": "mb1",
+  "timeMs": 30362,
+  "action": "click",
+  "label": "Role",
+  "x": 1465,
+  "y": 306,
+  "width": 431,
+  "height": 42
+ },
+ {
+  "sceneId": "mb1",
+  "timeMs": 30843,
+  "action": "type",
+  "label": "Role",
+  "x": 1465,
+  "y": 306,
+  "width": 431,
+  "height": 42
+ },
+ {
+  "sceneId": "mb1",
+  "timeMs": 32919,
+  "action": "click",
+  "label": "Save changes",
+  "x": 1745,
+  "y": 1026,
+  "width": 151,
+  "height": 40
+ },
+ {
+  "sceneId": "mb1",
+  "timeMs": 34168,
+  "action": "hover",
+  "label": "Remove",
+  "x": 1400,
+  "y": 713,
+  "width": 32,
+  "height": 32
+ },
+ {
+  "sceneId": "mb1",
+  "timeMs": 35503,
+  "action": "click",
+  "label": "Remove",
+  "x": 1400,
+  "y": 713,
+  "width": 32,
+  "height": 32
+ }
+]

@@ -1,0 +1,286 @@
+[
+ {
+  "id": "g1",
+  "mp4": "D:\\S3_CIA-2 PROJECTS\\BACKEND DEVELOPMENT CIA-II\\video\\record\\raw\\g1.mp4",
+  "recordedMs": 47964,
+  "audioMs": 47352,
+  "events": 9,
+  "errors": [],
+  "downloads": [],
+  "late": []
+ },
+ {
+  "id": "td1",
+  "mp4": "D:\\S3_CIA-2 PROJECTS\\BACKEND DEVELOPMENT CIA-II\\video\\record\\raw\\td1.mp4",
+  "recordedMs": 36199,
+  "audioMs": 35592,
+  "events": 7,
+  "errors": [],
+  "downloads": [],
+  "late": []
+ },
+ {
+  "id": "td3",
+  "mp4": "D:\\S3_CIA-2 PROJECTS\\BACKEND DEVELOPMENT CIA-II\\video\\record\\raw\\td3.mp4",
+  "recordedMs": 28018,
+  "audioMs": 27408,
+  "events": 5,
+  "errors": [],
+  "downloads": [],
+  "late": []
+ },
+ {
+  "id": "mt1",
+  "mp4": "D:\\S3_CIA-2 PROJECTS\\BACKEND DEVELOPMENT CIA-II\\video\\record\\raw\\mt1.mp4",
+  "recordedMs": 40326,
+  "audioMs": 39720,
+  "events": 8,
+  "errors": [],
+  "downloads": [],
+  "late": []
+ },
+ {
+  "id": "mt2",
+  "mp4": "D:\\S3_CIA-2 PROJECTS\\BACKEND DEVELOPMENT CIA-II\\video\\record\\raw\\mt2.mp4",
+  "recordedMs": 35977,
+  "audioMs": 35376,
+  "events": 14,
+  "errors": [],
+  "downloads": [],
+  "late": []
+ },
+ {
+  "id": "md1",
+  "mp4": "D:\\S3_CIA-2 PROJECTS\\BACKEND DEVELOPMENT CIA-II\\video\\record\\raw\\md1.mp4",
+  "recordedMs": 33168,
+  "audioMs": 32568,
+  "events": 6,
+  "errors": [],
+  "downloads": [],
+  "late": []
+ },
+ {
+  "id": "md2",
+  "mp4": "D:\\S3_CIA-2 PROJECTS\\BACKEND DEVELOPMENT CIA-II\\video\\record\\raw\\md2.mp4",
+  "recordedMs": 28019,
+  "audioMs": 27408,
+  "events": 5,
+  "errors": [],
+  "downloads": [],
+  "late": []
+ },
+ {
+  "id": "md3",
+  "mp4": "D:\\S3_CIA-2 PROJECTS\\BACKEND DEVELOPMENT CIA-II\\video\\record\\raw\\md3.mp4",
+  "recordedMs": 37613,
+  "audioMs": 37008,
+  "events": 10,
+  "errors": [],
+  "downloads": [],
+  "late": []
+ },
+ {
+  "id": "dc1",
+  "mp4": "D:\\S3_CIA-2 PROJECTS\\BACKEND DEVELOPMENT CIA-II\\video\\record\\raw\\dc1.mp4",
+  "recordedMs": 37935,
+  "audioMs": 37320,
+  "events": 8,
+  "errors": [],
+  "downloads": [],
+  "late": []
+ },
+ {
+  "id": "ov1",
+  "mp4": "D:\\S3_CIA-2 PROJECTS\\BACKEND DEVELOPMENT CIA-II\\video\\record\\raw\\ov1.mp4",
+  "recordedMs": 44287,
+  "audioMs": 43680,
+  "events": 5,
+  "errors": [],
+  "downloads": [],
+  "late": []
+ },
+ {
+  "id": "pw1",
+  "mp4": "D:\\S3_CIA-2 PROJECTS\\BACKEND DEVELOPMENT CIA-II\\video\\record\\raw\\pw1.mp4",
+  "recordedMs": 23666,
+  "audioMs": 23064,
+  "events": 6,
+  "errors": [],
+  "downloads": [],
+  "late": []
+ },
+ {
+  "id": "pw2",
+  "mp4": "D:\\S3_CIA-2 PROJECTS\\BACKEND DEVELOPMENT CIA-II\\video\\record\\raw\\pw2.mp4",
+  "recordedMs": 15918,
+  "audioMs": 15312,
+  "events": 3,
+  "errors": [],
+  "downloads": [],
+  "late": []
+ },
+ {
+  "id": "pw3",
+  "mp4": "D:\\S3_CIA-2 PROJECTS\\BACKEND DEVELOPMENT CIA-II\\video\\record\\raw\\pw3.mp4",
+  "recordedMs": 36558,
+  "audioMs": 35952,
+  "events": 12,
+  "errors": [],
+  "downloads": [],
+  "late": []
+ },
+ {
+  "id": "va1",
+  "mp4": "D:\\S3_CIA-2 PROJECTS\\BACKEND DEVELOPMENT CIA-II\\video\\record\\raw\\va1.mp4",
+  "recordedMs": 30535,
+  "audioMs": 29928,
+  "events": 12,
+  "errors": [],
+  "downloads": [],
+  "late": [
+   "A title that: 1.7s late"
+  ]
+ },
+ {
+  "id": "va2",
+  "mp4": "D:\\S3_CIA-2 PROJECTS\\BACKEND DEVELOPMENT CIA-II\\video\\record\\raw\\va2.mp4",
+  "recordedMs": 29040,
+  "audioMs": 28440,
+  "events": 12,
+  "errors": [],
+  "downloads": [],
+  "late": []
+ },
+ {
+  "id": "va3",
+  "mp4": "D:\\S3_CIA-2 PROJECTS\\BACKEND DEVELOPMENT CIA-II\\video\\record\\raw\\va3.mp4",
+  "recordedMs": 27754,
+  "audioMs": 27144,
+  "events": 8,
+  "errors": [],
+  "downloads": [],
+  "late": []
+ },
+ {
+  "id": "td2",
+  "mp4": "D:\\S3_CIA-2 PROJECTS\\BACKEND DEVELOPMENT CIA-II\\video\\record\\raw\\td2.mp4",
+  "recordedMs": 35619,
+  "audioMs": 35016,
+  "events": 8,
+  "errors": [],
+  "downloads": [],
+  "late": []
+ },
+ {
+  "id": "md4",
+  "mp4": "D:\\S3_CIA-2 PROJECTS\\BACKEND DEVELOPMENT CIA-II\\video\\record\\raw\\md4.mp4",
+  "recordedMs": 27410,
+  "audioMs": 26808,
+  "events": 7,
+  "errors": [],
+  "downloads": [],
+  "late": []
+ },
+ {
+  "id": "dc2",
+  "mp4": "D:\\S3_CIA-2 PROJECTS\\BACKEND DEVELOPMENT CIA-II\\video\\record\\raw\\dc2.mp4",
+  "recordedMs": 27365,
+  "audioMs": 26760,
+  "events": 7,
+  "errors": [],
+  "downloads": [],
+  "late": []
+ },
+ {
+  "id": "mb1",
+  "mp4": "D:\\S3_CIA-2 PROJECTS\\BACKEND DEVELOPMENT CIA-II\\video\\record\\raw\\mb1.mp4",
+  "recordedMs": 39698,
+  "audioMs": 39096,
+  "events": 16,
+  "errors": [],
+  "downloads": [],
+  "late": [
+   "The bin button: 2.0s late"
+  ]
+ },
+ {
+  "id": "pw4",
+  "mp4": "D:\\S3_CIA-2 PROJECTS\\BACKEND DEVELOPMENT CIA-II\\video\\record\\raw\\pw4.mp4",
+  "recordedMs": 31201,
+  "audioMs": 30600,
+  "events": 4,
+  "errors": [],
+  "downloads": [],
+  "late": []
+ },
+ {
+  "id": "pw5",
+  "mp4": "D:\\S3_CIA-2 PROJECTS\\BACKEND DEVELOPMENT CIA-II\\video\\record\\raw\\pw5.mp4",
+  "recordedMs": 21820,
+  "audioMs": 21216,
+  "events": 1,
+  "errors": [],
+  "downloads": [],
+  "late": []
+ },
+ {
+  "id": "api1",
+  "mp4": "D:\\S3_CIA-2 PROJECTS\\BACKEND DEVELOPMENT CIA-II\\video\\record\\raw\\api1.mp4",
+  "recordedMs": 48696,
+  "audioMs": 48096,
+  "events": 4,
+  "errors": [],
+  "downloads": [],
+  "late": []
+ },
+ {
+  "id": "rw1",
+  "mp4": "D:\\S3_CIA-2 PROJECTS\\BACKEND DEVELOPMENT CIA-II\\video\\record\\raw\\rw1.mp4",
+  "recordedMs": 32184,
+  "audioMs": 31584,
+  "events": 11,
+  "errors": [],
+  "downloads": [],
+  "late": []
+ },
+ {
+  "id": "rw2",
+  "mp4": "D:\\S3_CIA-2 PROJECTS\\BACKEND DEVELOPMENT CIA-II\\video\\record\\raw\\rw2.mp4",
+  "recordedMs": 24751,
+  "audioMs": 24144,
+  "events": 8,
+  "errors": [],
+  "downloads": [],
+  "late": []
+ },
+ {
+  "id": "rw3",
+  "mp4": "D:\\S3_CIA-2 PROJECTS\\BACKEND DEVELOPMENT CIA-II\\video\\record\\raw\\rw3.mp4",
+  "recordedMs": 26102,
+  "audioMs": 25488,
+  "events": 8,
+  "errors": [],
+  "downloads": [],
+  "late": []
+ },
+ {
+  "id": "rw4",
+  "mp4": "D:\\S3_CIA-2 PROJECTS\\BACKEND DEVELOPMENT CIA-II\\video\\record\\raw\\rw4.mp4",
+  "recordedMs": 36412,
+  "audioMs": 35808,
+  "events": 6,
+  "errors": [],
+  "downloads": [],
+  "late": []
+ },
+ {
+  "id": "va4",
+  "mp4": "D:\\S3_CIA-2 PROJECTS\\BACKEND DEVELOPMENT CIA-II\\video\\record\\raw\\va4.mp4",
+  "recordedMs": 30007,
+  "audioMs": 29400,
+  "events": 7,
+  "errors": [],
+  "downloads": [],
+  "late": []
+ }
+]

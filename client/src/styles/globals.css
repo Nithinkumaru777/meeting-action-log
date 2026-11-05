@@ -78,7 +78,7 @@ h3 {
 /* ---------- shell ---------- */
 .app {
   display: grid;
-  grid-template-columns: 232px minmax(0, 1fr);
+  grid-template-columns: 244px minmax(0, 1fr);
   min-height: 100%;
 }
 
@@ -92,15 +92,17 @@ h3 {
   display: flex;
   flex-direction: column;
   padding: 22px 14px 16px;
-  gap: 26px;
+  gap: 24px;
   transition: background-color var(--t-layout);
+  overflow-y: auto;
+  overflow-x: hidden;
 }
 
 .brand {
   display: flex;
   gap: 10px;
   align-items: center;
-  padding: 0 8px;
+  padding: 0 4px;
 }
 
 .mark {
@@ -121,8 +123,9 @@ h3 {
 
 .brand b {
   display: block;
-  font: 600 19px/1.05 var(--f-display);
-  letter-spacing: -0.01em;
+  font: 600 18px/1.1 var(--f-display);
+  letter-spacing: -0.015em;
+  white-space: nowrap;
 }
 
 .brand small {
@@ -154,10 +157,10 @@ h3 {
   content: '';
   position: absolute;
   left: 0;
-  top: 10px;
-  bottom: 10px;
-  width: 2px;
-  border-radius: 2px;
+  top: 0;
+  bottom: 0;
+  width: 3px;
+  border-radius: 6px 0 0 6px;
   background: var(--spine-ink);
 }
 
@@ -1024,6 +1027,7 @@ a.fig:hover {
   display: flex;
   align-items: center;
   gap: 7px;
+  min-height: 28px;
 }
 
 .fnum {
@@ -1113,7 +1117,7 @@ a.fig:hover {
 
 .osuf {
   font-size: 0.5em;
-  margin-left: 2px;
+  margin-left: 6px;
   color: var(--ink-3);
 }
 
@@ -1437,13 +1441,15 @@ a.fig:hover {
     flex-wrap: wrap;
     align-items: center;
     justify-content: space-between;
+    gap: 8px 12px;
   }
 }
 
 @container (max-width: 620px) {
   .lrow {
     grid-template-columns: 52px 22px minmax(0, 1fr);
-    row-gap: 6px;
+    align-items: start;
+    row-gap: 8px;
   }
   .lside {
     display: flex;
@@ -3048,4 +3054,90 @@ body.dw-open .tour-pop {
     animation-delay: 0ms !important;
     transition-duration: 1ms !important;
   }
+}
+
+/* Tutorials */
+.tut-root {
+  max-width: 1040px;
+}
+.tut-full {
+  margin-bottom: 40px;
+}
+.tut-video {
+  background: var(--spine);
+  overflow: hidden;
+}
+.tut-video video {
+  display: block;
+  width: 100%;
+  aspect-ratio: 16 / 9;
+}
+.tut-error {
+  margin: 0;
+  padding: 48px 24px;
+  text-align: center;
+  color: var(--spine-ink);
+}
+.tut-full-cap {
+  margin: 12px 0 0;
+  font-size: 14px;
+  color: var(--ink-2);
+}
+.tut-search {
+  margin-bottom: 28px;
+}
+.tut-topic {
+  border-top: 1px solid var(--rule);
+}
+.tut-topic:last-child {
+  border-bottom: 1px solid var(--rule);
+}
+.tut-toggle {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  width: 100%;
+  min-height: 52px;
+  padding: 10px 4px;
+  font: inherit;
+  font-size: 15px;
+  font-weight: 500;
+  color: var(--ink);
+  text-align: left;
+  background: none;
+  border: 0;
+  cursor: pointer;
+}
+.tut-toggle:hover {
+  background: var(--paper-2);
+}
+.tut-toggle:focus-visible {
+  outline: 2px solid var(--teal);
+  outline-offset: -2px;
+}
+.tut-title {
+  flex: 1;
+  min-width: 0;
+}
+.tut-dur {
+  font-family: var(--f-mono);
+  font-size: 12px;
+  color: var(--ink-3);
+}
+.tut-arrow {
+  display: inline-flex;
+  transition: transform var(--t-state) var(--e-out);
+}
+.tut-toggle[aria-expanded='true'] .tut-arrow {
+  transform: rotate(90deg);
+}
+.tut-panel {
+  padding: 6px 4px 24px;
+}
+.tut-desc {
+  margin: 16px 0 0;
+  max-width: 72ch;
+  font-size: 15px;
+  line-height: 24px;
+  color: var(--ink-2);
 }

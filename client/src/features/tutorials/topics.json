@@ -1,0 +1,337 @@
+{
+  "full": {
+    "src": "/tutorial/full.mp4",
+    "poster": "/tutorial/poster.jpg",
+    "duration": "20:31"
+  },
+  "chapters": [
+    {
+      "num": 1,
+      "title": "The problem",
+      "topics": [
+        {
+          "id": "h1",
+          "title": "The problem MeetingActionLog solves",
+          "description": "It is Monday morning, and a product team in Bengaluru has just finished a forty five minute planning meeting. Three things were decided. Everyone nods and walks out. By Friday, nobody remembers who was meant to do what, and the same discussion starts again. This is common. In a Harvard Business Review survey of 182 senior managers, 71 percent said their meetings were unproductive and inefficient. The real loss is not the meeting itself. It is the decisions that leave the room without an owner, and the tasks whose deadlines slip with nobody noticing.",
+          "duration": "0:45",
+          "src": "/tutorial/clips/h1.mp4"
+        }
+      ]
+    },
+    {
+      "num": 2,
+      "title": "What MeetingActionLog is",
+      "topics": [
+        {
+          "id": "w1",
+          "title": "What MeetingActionLog is",
+          "description": "This is MeetingActionLog, a full stack ledger for meetings, decisions and follow up. It is built for team leads who run meetings, for the people who own the tasks that come out of them, and for managers who need to see what is slipping. It records every meeting, every decision, and every action item with an owner, a due date and a priority. The outcome is simple: every decision leaves the room with an owner and a date.",
+          "duration": "0:33",
+          "src": "/tutorial/clips/w1.mp4"
+        }
+      ]
+    },
+    {
+      "num": 3,
+      "title": "How it works",
+      "topics": [
+        {
+          "id": "a1",
+          "title": "Architecture and data flow",
+          "description": "Here is how it works. The team works in a React single page app in the browser. Every change travels as a JSON request to a REST API built on Express. First, a middleware chain adds a request id, applies the rate limit, and validates the data against a Zod schema. Then a controller hands the work to a service, where the business rules live, such as converting a decision into a linked task. The service saves through Mongoose models into MongoDB. Finally, the API broadcasts a server sent event, and every open browser tab refetches its data, so the whole team sees the change within moments.",
+          "duration": "0:48",
+          "src": "/tutorial/clips/a1.mp4"
+        },
+        {
+          "id": "a2",
+          "title": "The tech stack",
+          "description": "The stack is the MERN stack, written in strict TypeScript. React 19, React Query and Vite on the front end. Express 5, Mongoose and Pino on the back end. MongoDB for storage. One shared package holds the Zod schemas, so the form and the server apply exactly the same rules. The test suite covers the shared rules, the services, the API and the interface.",
+          "duration": "0:32",
+          "src": "/tutorial/clips/a2.mp4"
+        }
+      ]
+    },
+    {
+      "num": 4,
+      "title": "Getting started",
+      "topics": [
+        {
+          "id": "g1",
+          "title": "Open the app and find your way around",
+          "description": "Getting started takes one step. Open the app in your browser at localhost, port 5000. There is no sign up and no password, because this is a shared team ledger, so it opens straight on the Today page. The dark teal spine on the left is your main navigation, and its badges count what needs attention. Below them, the open actions meter always shows the total. The top bar shows where you are, and the search box finds any meeting. This small indicator shows the live connection to the server. Next to it are the guided demo, the theme switch, and New meeting, the button you will use most.",
+          "duration": "0:48",
+          "src": "/tutorial/clips/g1.mp4"
+        }
+      ]
+    },
+    {
+      "num": 5,
+      "title": "Today dashboard",
+      "topics": [
+        {
+          "id": "td1",
+          "title": "Read the four figures on Today",
+          "description": "The Today page answers one question: who owns what, and what is slipping? Four figures sit across the top. Open actions counts every task still in progress. Overdue shows how many are late, and how old the oldest one is. Completion is the share of all tasks that are finished. Decisions without tasks counts decisions that never got an owner. Three of these are links, so one click takes you straight to the work behind the number.",
+          "duration": "0:36",
+          "src": "/tutorial/clips/td1.mp4"
+        },
+        {
+          "id": "td2",
+          "title": "Tick off actions and close decisions",
+          "description": "Below the figures are the two columns that matter most. Column one lists overdue actions, oldest first, with the days late on the left. Tick a checkbox, and the check draws, a line strikes through the title, and the figures roll to their new values. A toast confirms it, and Undo reverses it with one click. Column two is No owner yet, the decisions that never became a task. No action closes one that needs no follow up, and again you can undo it.",
+          "duration": "0:35",
+          "src": "/tutorial/clips/td2.mp4"
+        },
+        {
+          "id": "td3",
+          "title": "Weekly chart, late by owner and coming up",
+          "description": "Further down, Completed per week is a sparkline of the last eight weeks, so you can see whether the team is speeding up or slowing down. Late, by owner shows who is carrying the most overdue work. It is not there to blame anyone. It shows where help is needed. Coming up lists the next meetings, and Schedule opens the form to book another one.",
+          "duration": "0:28",
+          "src": "/tutorial/clips/td3.mp4"
+        }
+      ]
+    },
+    {
+      "num": 6,
+      "title": "Meetings",
+      "topics": [
+        {
+          "id": "mt1",
+          "title": "Filter and search meetings",
+          "description": "The Meetings page is the full log. Three tabs filter it. All shows everything, Upcoming shows what is still ahead, and Held shows what has already happened. Each row gives you the date, the title, the agenda, the time, the attendees and a progress meter, plus flags for overdue work and decisions without tasks. To find a meeting, type in the search box, or press the slash key from anywhere. Search for ops, and the list narrows as you type. The chip shows your search, and its cross clears it.",
+          "duration": "0:40",
+          "src": "/tutorial/clips/mt1.mp4"
+        },
+        {
+          "id": "mt2",
+          "title": "Log a new meeting",
+          "description": "To log a meeting, press New meeting. A sheet slides in from the right. Give it a title, here, Payments roadmap review. The date defaults to today. Set the start time in Indian Standard Time, and the duration in minutes. Pick the attendees by clicking their names. Add an agenda if you have one. Press Create meeting. A toast confirms it, and you land on the new meeting's own page, ready to record what was decided.",
+          "duration": "0:36",
+          "src": "/tutorial/clips/mt2.mp4"
+        }
+      ]
+    },
+    {
+      "num": 7,
+      "title": "Inside a meeting",
+      "topics": [
+        {
+          "id": "md1",
+          "title": "Read and edit a meeting",
+          "description": "Every meeting has its own page. The header shows the date, time and duration, whether it is upcoming or held, the agenda, and who attended. Four figures show this meeting's health: decisions made, actions done, what is overdue, and decisions still without tasks. Press Edit to change anything. The same sheet opens with the values filled in. Change the duration to sixty minutes, and press Save changes.",
+          "duration": "0:33",
+          "src": "/tutorial/clips/md1.mp4"
+        },
+        {
+          "id": "md2",
+          "title": "Log a decision",
+          "description": "Now for the heart of the app. In the Decisions column, type what was decided, in plain words: Move the status page checks to every five minutes. Press Log. The decision appears, highlighted. The toast tells you it has no task yet, so it has also landed in the decision inbox. Nothing is lost, even if nobody acts on it today.",
+          "duration": "0:28",
+          "src": "/tutorial/clips/md2.mp4"
+        },
+        {
+          "id": "md3",
+          "title": "Convert a decision into a task",
+          "description": "Press Convert to task. The sheet quotes the decision, so you can see exactly what you are acting on, and fills in the task title. Choose the owner, here, Rahul Nair. Check the due date, which defaults to one week away. Set the priority: low, medium, high or critical. Add notes if they help. Press Create task. The task flies into the open actions counter, the decision now shows a linked task, and the new action appears in the second column.",
+          "duration": "0:37",
+          "src": "/tutorial/clips/md3.mp4"
+        },
+        {
+          "id": "md4",
+          "title": "Add an action and delete a meeting",
+          "description": "Not every task comes from a decision. Add action opens the same form for anything else that came up. Name it, choose an owner and a date, and press Add action. Then the delete button on the header removes the whole meeting. Here, we delete a meeting logged by mistake, along with its decisions and actions, and you return to the list.",
+          "duration": "0:27",
+          "src": "/tutorial/clips/md4.mp4"
+        }
+      ]
+    },
+    {
+      "num": 8,
+      "title": "Decision inbox",
+      "topics": [
+        {
+          "id": "dc1",
+          "title": "Use the decision inbox",
+          "description": "The decision inbox is the first of the two features that set this app apart. It collects every decision that left a meeting without a task, from every meeting, oldest first. Three tabs show where each one stands: without tasks, converted, and no action. The converted tab shows how many tasks each decision produced. On the no action tab, Reopen brings a decision back when circumstances change. Back in the inbox, No action folds the row away, and the count updates.",
+          "duration": "0:38",
+          "src": "/tutorial/clips/dc1.mp4"
+        },
+        {
+          "id": "dc2",
+          "title": "Convert from the inbox and undo",
+          "description": "Convert to task works here too. Choose an owner, and press Create task. Watch the tag fly across the screen and land on the open actions counter, which rolls up by one, while the decision folds out of the inbox. If that was a mistake, press Undo. The task is deleted and the decision comes back, exactly as it was.",
+          "duration": "0:27",
+          "src": "/tutorial/clips/dc2.mp4"
+        }
+      ]
+    },
+    {
+      "num": 9,
+      "title": "Overdue",
+      "topics": [
+        {
+          "id": "ov1",
+          "title": "Chase overdue work by owner",
+          "description": "The second differentiating feature is the Overdue page. Four figures sum up the risk: how many actions are late, how old the oldest is, how many owners are affected, and how many tasks are still on time. Below that, late work is grouped by owner, with the person carrying the most at the top, so a lead can have one clear conversation with each person. Each row offers two honest choices. If the work is done, tick it. If it genuinely needs longer, press plus three days. The due date moves, the toast shows the new date, and the row leaves the list.",
+          "duration": "0:44",
+          "src": "/tutorial/clips/ov1.mp4"
+        }
+      ]
+    },
+    {
+      "num": 10,
+      "title": "Members",
+      "topics": [
+        {
+          "id": "mb1",
+          "title": "Add, edit and remove team members",
+          "description": "The Members page is the team directory. These are the people who attend meetings and own tasks. Press Add member. Enter the full name, Sanjana Kulkarni, an email address, and a role, such as Finance analyst. The avatar hue sets the colour of her initials. Press Add member, and she joins the directory, ready to be assigned work. Edit opens the same sheet to change her role. The bin button removes someone. Here it works, because she does not own anything yet.",
+          "duration": "0:39",
+          "src": "/tutorial/clips/mb1.mp4"
+        }
+      ]
+    },
+    {
+      "num": 11,
+      "title": "Power tools",
+      "topics": [
+        {
+          "id": "pw1",
+          "title": "Use the command palette",
+          "description": "Keyboard users will like the command palette. Press Control K from anywhere. Type to filter, and the list narrows to pages and actions. Press enter to jump. You can also log a new meeting, start the tour, or switch the theme, without touching the mouse. Escape closes it.",
+          "duration": "0:23",
+          "src": "/tutorial/clips/pw1.mp4"
+        },
+        {
+          "id": "pw2",
+          "title": "Switch between light and dark",
+          "description": "The theme button switches between light and dark. Both are designed, not inverted: warm paper by day, and teal black by night. The choice is remembered the next time you open the app.",
+          "duration": "0:16",
+          "src": "/tutorial/clips/pw2.mp4"
+        },
+        {
+          "id": "pw3",
+          "title": "Take the guided demo",
+          "description": "New to the app? Guided demo is a built in tour of eight steps. A ring spotlights each part of the screen, and a card explains it. Next moves forward, Back moves back, and the arrow keys do the same. It starts with the figures, then what is slipping, then decisions with no owner. It moves on to converting a task and where the task lands. Then come the overdue page, the meetings log, and the theme. Finish ends the tour with a confirmation.",
+          "duration": "0:36",
+          "src": "/tutorial/clips/pw3.mp4"
+        },
+        {
+          "id": "pw4",
+          "title": "Live updates across desks",
+          "description": "Real time updates need no setup. Every open tab listens on one event stream. Here, a teammate marks a task as done from another desk. We have not touched this screen, but a live update toast appears, and the numbers roll to their new values. If the connection drops, this indicator says Reconnecting, and the tab refetches whatever it missed as soon as it is back.",
+          "duration": "0:31",
+          "src": "/tutorial/clips/pw4.mp4"
+        },
+        {
+          "id": "pw5",
+          "title": "The visual foundations",
+          "description": "The look of the app is built on clear principles: the colour palette and where it came from, the type scale, the buttons, the motion timings, and the animated icons that replace every emoji. Every element works together with restraint and purpose.",
+          "duration": "0:21",
+          "src": "/tutorial/clips/pw5.mp4"
+        }
+      ]
+    },
+    {
+      "num": 12,
+      "title": "The REST API",
+      "topics": [
+        {
+          "id": "api1",
+          "title": "Read the REST API responses",
+          "description": "Everything you have seen is powered by a REST API with 24 endpoints, and you can read it directly. The health endpoint reports the status of the server and the database, which is what a monitoring tool would check. The insights summary returns the figures you saw on Today, computed on the server, and every success is wrapped in the same data envelope. Errors follow one format too. Ask for a status that does not exist, and validation answers with a clear code and message. Ask for a meeting that does not exist, and you get a proper not found error. Predictable responses like these make the API easy to build on.",
+          "duration": "0:48",
+          "src": "/tutorial/clips/api1.mp4"
+        }
+      ]
+    },
+    {
+      "num": 13,
+      "title": "Validation and edge cases",
+      "topics": [
+        {
+          "id": "va1",
+          "title": "Meeting form errors",
+          "description": "Good software handles mistakes well. Open the meeting form and press Create meeting with almost nothing filled in. A title that is too short, a duration of two minutes, and no attendees are each marked in red, with a message saying how to fix it. A toast points you to the highlighted fields. Correct a field, and its error clears straight away. Your input is never thrown away.",
+          "duration": "0:30",
+          "src": "/tutorial/clips/va1.mp4"
+        },
+        {
+          "id": "va2",
+          "title": "Task and decision errors",
+          "description": "The task form is just as careful. With no owner chosen, it asks who owns this task. A task cannot be due in the past, and the form says so. In the decisions column, a decision shorter than five characters is refused. These same rules run again on the server, from the shared schemas, so nobody can get around them by calling the API directly.",
+          "duration": "0:29",
+          "src": "/tutorial/clips/va2.mp4"
+        },
+        {
+          "id": "va3",
+          "title": "Empty results and missing pages",
+          "description": "Empty states always offer a way forward. Search for something that does not exist, and the list says no meetings match, with a button to clear the search. Type a nonsense command in the palette, and it says so clearly. An address that does not exist shows a friendly page, with a link back to Today. So does a meeting that has been deleted.",
+          "duration": "0:27",
+          "src": "/tutorial/clips/va3.mp4"
+        },
+        {
+          "id": "va4",
+          "title": "Protected members and bad emails",
+          "description": "The server also protects the data. Try to remove Ananya Rao, who still owns tasks and attends meetings. The app refuses, and explains why, so no task is left without an owner. In the member form, a bad email address is caught before anything is sent. And when the list is finally clear, the app says so, with a calm message instead of a blank page.",
+          "duration": "0:30",
+          "src": "/tutorial/clips/va4.mp4"
+        }
+      ]
+    },
+    {
+      "num": 14,
+      "title": "A real week",
+      "topics": [
+        {
+          "id": "rw1",
+          "title": "Worked example: log the meeting",
+          "description": "Let us put it all together with a real week. Ananya Rao is a product lead in Bengaluru. This morning, she runs the release planning meeting. As soon as it ends, she opens MeetingActionLog and presses New meeting. She enters the title, Release 2.4 planning, sets ten thirty, for forty five minutes, and marks who attended: Karthik, Meera and Rahul. She creates the meeting.",
+          "duration": "0:32",
+          "src": "/tutorial/clips/rw1.mp4"
+        },
+        {
+          "id": "rw2",
+          "title": "Worked example: record the decisions",
+          "description": "Three things were decided, and she logs them while they are fresh. Freeze new features by Thursday. Add a rollback step to the release checklist. Keep the old export for one more release. That last one needs no work, so she marks it as no action. The other two need owners.",
+          "duration": "0:24",
+          "src": "/tutorial/clips/rw2.mp4"
+        },
+        {
+          "id": "rw3",
+          "title": "Worked example: assign owners",
+          "description": "She converts the first into a task for Karthik, due in one week, with high priority. She converts the second into a task for Rahul, also due in one week. In under two minutes, every decision from that meeting has an owner and a date. The whole team can already see it, without anyone sending a single follow up message.",
+          "duration": "0:26",
+          "src": "/tutorial/clips/rw3.mp4"
+        },
+        {
+          "id": "rw4",
+          "title": "Worked example: chase what is late",
+          "description": "Later that week, Ananya opens the Overdue page. Karthik's name is at the top. She talks to him. The SSL certificate renewal really is finished, so it gets ticked off. The signup validation needs a little longer, so it gets three more days, and the new date is on record. Finally, she checks the inbox, and converts or closes what is left. Nothing has been forgotten, and nobody had to chase anyone by email.",
+          "duration": "0:36",
+          "src": "/tutorial/clips/rw4.mp4"
+        }
+      ]
+    },
+    {
+      "num": 15,
+      "title": "Real-world impact",
+      "topics": [
+        {
+          "id": "im1",
+          "title": "Real-world impact",
+          "description": "Who benefits? Team leads stop writing follow up emails, because the record is already there. Task owners always know what they owe and when. Managers can see what is slipping before it becomes a crisis. Compare the two ways of working. Before, decisions lived in someone's notes, ownership was assumed, and late work surfaced at the next meeting. After, every decision is logged, every task has an owner and a date, and late work is visible the same day. This fits software teams, college committees, startups and any group that meets and needs to follow through.",
+          "duration": "0:47",
+          "src": "/tutorial/clips/im1.mp4"
+        },
+        {
+          "id": "im2",
+          "title": "What comes next",
+          "description": "What could come next? Sign in and roles, so each person sees their own view. Email and calendar reminders before a task falls due. Importing action items from meeting transcripts. And integrations with tools like Slack and Jira. The foundation is ready, because the API, the validation and the live event stream are already in place.",
+          "duration": "0:29",
+          "src": "/tutorial/clips/im2.mp4"
+        }
+      ]
+    }
+  ]
+}

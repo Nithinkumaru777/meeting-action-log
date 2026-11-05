@@ -1,0 +1,82 @@
+[
+ {
+  "sceneId": "rw3",
+  "timeMs": 601,
+  "action": "click",
+  "label": "Convert to task",
+  "x": 686,
+  "y": 539,
+  "width": 146,
+  "height": 32
+ },
+ {
+  "sceneId": "rw3",
+  "timeMs": 2736,
+  "action": "click",
+  "label": "Owner: Karthik",
+  "x": 1465,
+  "y": 328,
+  "width": 431,
+  "height": 42
+ },
+ {
+  "sceneId": "rw3",
+  "timeMs": 3882,
+  "action": "click",
+  "label": "Priority: High",
+  "x": 1681,
+  "y": 527,
+  "width": 107,
+  "height": 40
+ },
+ {
+  "sceneId": "rw3",
+  "timeMs": 4987,
+  "action": "click",
+  "label": "Create task",
+  "x": 1760,
+  "y": 1026,
+  "width": 136,
+  "height": 40
+ },
+ {
+  "sceneId": "rw3",
+  "timeMs": 8320,
+  "action": "click",
+  "label": "Convert to task",
+  "x": 686,
+  "y": 645,
+  "width": 146,
+  "height": 32
+ },
+ {
+  "sceneId": "rw3",
+  "timeMs": 10462,
+  "action": "click",
+  "label": "Owner: Rahul",
+  "x": 1465,
+  "y": 328,
+  "width": 431,
+  "height": 42
+ },
+ {
+  "sceneId": "rw3",
+  "timeMs": 11937,
+  "action": "click",
+  "label": "Create task",
+  "x": 1760,
+  "y": 1026,
+  "width": 136,
+  "height": 40
+ },
+ {
+  "sceneId": "rw3",
+  "timeMs": 15658,
+  "action": "hover",
+  "label": "Every decision has an owner",
+  "x": 272,
+  "y": 275,
+  "width": 1160,
+  "height": 109
+ }
+]

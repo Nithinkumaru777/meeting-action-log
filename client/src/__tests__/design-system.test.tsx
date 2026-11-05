@@ -1,4 +1,4 @@
-import { fireEvent, render, screen } from '@testing-library/react';
+import { render, screen } from '@testing-library/react';
 import { MemoryRouter } from 'react-router';
 import { describe, expect, test } from 'vitest';
 import { AnimatedIcon, ICON_DEFS, type IconName } from '../components/ui/animated-icon';
@@ -32,7 +32,6 @@ import { BarList, Sparkline } from '../components/charts/charts';
 import { ToastViewport, toast, useToastStore } from '../components/feedback/toast-store';
 import { ErrorBoundary } from '../components/feedback/error-boundary';
 import { AppShell, useShellStore } from '../components/layout/app-shell';
-import { DesignSystemPage } from '../features/design-system/design-system-page';
 import { NotFoundPage } from '../features/not-found/not-found-page';
 import { cn } from '../lib/cn';
 import { burst, collapseElement, ease, flyToCounter, stagger, t } from '../lib/motion';
@@ -205,7 +204,6 @@ describe('Step 09: Client Foundation & Signal Ledger v2 Design System (100x)', (
                 <SkeletonRows count={2} />
                 <ErrorState onRetry={() => {}} />
               </Section>
-              <DesignSystemPage />
               <NotFoundPage />
             </AppShell>
             <DrawerSheet open={false} onClose={() => {}} eyebrow="Sheet" title="Test Drawer">
@@ -216,12 +214,11 @@ describe('Step 09: Client Foundation & Signal Ledger v2 Design System (100x)', (
         </MemoryRouter>,
       );
 
-      expect(screen.getByText('The design system')).toBeInTheDocument();
-      expect(screen.getByText('What this design refuses')).toBeInTheDocument();
-
-      const validateBtn = screen.getByRole('button', { name: /validate/i });
-      fireEvent.click(validateBtn);
-      expect(screen.getByText(/at least 3 characters/i)).toBeInTheDocument();
+      expect(screen.getByText('Heading')).toBeInTheDocument();
+      expect(screen.getByText('Past due')).toBeInTheDocument();
+      expect(screen.getByText(/Renew SSL cert/i)).toBeInTheDocument();
+      expect(screen.getByText(/Ship without dark mode/i)).toBeInTheDocument();
+      expect(screen.getByText(/Sprint 14 planning/i)).toBeInTheDocument();
 
       toast({ title: 'Test notification', tone: 'ok' });
       expect(useToastStore.getState().toasts.length).toBeGreaterThan(0);

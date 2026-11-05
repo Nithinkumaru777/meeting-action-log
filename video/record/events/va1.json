@@ -1,0 +1,122 @@
+[
+ {
+  "sceneId": "va1",
+  "timeMs": 4501,
+  "action": "click",
+  "label": "New meeting",
+  "x": 1733,
+  "y": 12,
+  "width": 147,
+  "height": 40
+ },
+ {
+  "sceneId": "va1",
+  "timeMs": 7114,
+  "action": "click",
+  "label": "Title",
+  "x": 1465,
+  "y": 132,
+  "width": 431,
+  "height": 42
+ },
+ {
+  "sceneId": "va1",
+  "timeMs": 7620,
+  "action": "type",
+  "label": "Title",
+  "x": 1465,
+  "y": 132,
+  "width": 431,
+  "height": 42
+ },
+ {
+  "sceneId": "va1",
+  "timeMs": 8454,
+  "action": "click",
+  "label": "Duration",
+  "x": 1465,
+  "y": 306,
+  "width": 431,
+  "height": 42
+ },
+ {
+  "sceneId": "va1",
+  "timeMs": 8966,
+  "action": "type",
+  "label": "Duration",
+  "x": 1465,
+  "y": 306,
+  "width": 431,
+  "height": 42
+ },
+ {
+  "sceneId": "va1",
+  "timeMs": 9988,
+  "action": "click",
+  "label": "Create meeting",
+  "x": 1735,
+  "y": 1026,
+  "width": 161,
+  "height": 40
+ },
+ {
+  "sceneId": "va1",
+  "timeMs": 11733,
+  "action": "hover",
+  "label": "Title: 3 to 100 characters",
+  "x": 1465,
+  "y": 111,
+  "width": 431,
+  "height": 88
+ },
+ {
+  "sceneId": "va1",
+  "timeMs": 12706,
+  "action": "hover",
+  "label": "Duration: 5 to 480 minutes",
+  "x": 1465,
+  "y": 304,
+  "width": 431,
+  "height": 88
+ },
+ {
+  "sceneId": "va1",
+  "timeMs": 13659,
+  "action": "hover",
+  "label": "At least one attendee",
+  "x": 1465,
+  "y": 410,
+  "width": 431,
+  "height": 122
+ },
+ {
+  "sceneId": "va1",
+  "timeMs": 23093,
+  "action": "click",
+  "label": "Title",
+  "x": 1465,
+  "y": 132,
+  "width": 431,
+  "height": 42
+ },
+ {
+  "sceneId": "va1",
+  "timeMs": 23570,
+  "action": "type",
+  "label": "Title",
+  "x": 1465,
+  "y": 132,
+  "width": 431,
+  "height": 42
+ },
+ {
+  "sceneId": "va1",
+  "timeMs": 28931,
+  "action": "click",
+  "label": "Cancel",
+  "x": 1656,
+  "y": 1026,
+  "width": 69,
+  "height": 40
+ }
+]

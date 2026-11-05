@@ -13,7 +13,7 @@ import { MeetingFormSheet } from './features/meetings/meeting-form-sheet';
 import { OverduePage } from './features/overdue/overdue-page';
 import { DecisionsInboxPage } from './features/decisions/decisions-inbox-page';
 import { MembersPage } from './features/members/members-page';
-import { DesignSystemPage } from './features/design-system/design-system-page';
+import { TutorialsPage } from './features/tutorials/tutorials-page';
 import { NotFoundPage } from './features/not-found/not-found-page';
 import { ActionFormSheet } from './features/actions/action-form-sheet';
 import { GuidedTourOverlay } from './features/tour/tour-overlay';
@@ -45,8 +45,8 @@ export function AppRoutes() {
                 ? 'Decision inbox'
                 : p === '/members'
                   ? 'Members'
-                  : p === '/design-system'
-                    ? 'Design system'
+                  : p === '/tutorials'
+                    ? 'Tutorials'
                     : 'Not found';
     document.title = `${label} · MeetingActionLog`;
   }, [location.pathname]);
@@ -82,7 +82,7 @@ export function AppRoutes() {
             }
           />
           <Route path="/members" element={<MembersPage />} />
-          <Route path="/design-system" element={<DesignSystemPage />} />
+          <Route path="/tutorials" element={<TutorialsPage />} />
           <Route path="*" element={<NotFoundPage />} />
         </Routes>
       </AppShell>

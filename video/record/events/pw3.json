@@ -1,0 +1,122 @@
+[
+ {
+  "sceneId": "pw3",
+  "timeMs": 3191,
+  "action": "click",
+  "label": "Guided demo",
+  "x": 1511,
+  "y": 12,
+  "width": 163,
+  "height": 40
+ },
+ {
+  "sceneId": "pw3",
+  "timeMs": 12333,
+  "action": "click",
+  "label": "Next",
+  "x": 534,
+  "y": 635,
+  "width": 80,
+  "height": 32
+ },
+ {
+  "sceneId": "pw3",
+  "timeMs": 13613,
+  "action": "click",
+  "label": "Back",
+  "x": 431,
+  "y": 369,
+  "width": 51,
+  "height": 32
+ },
+ {
+  "sceneId": "pw3",
+  "timeMs": 17687,
+  "action": "hover",
+  "label": "Step 1 of 8",
+  "x": 272,
+  "y": 434,
+  "width": 360,
+  "height": 248
+ },
+ {
+  "sceneId": "pw3",
+  "timeMs": 18997,
+  "action": "click",
+  "label": "Next, step 2 of 8",
+  "x": 534,
+  "y": 635,
+  "width": 80,
+  "height": 32
+ },
+ {
+  "sceneId": "pw3",
+  "timeMs": 20753,
+  "action": "click",
+  "label": "Next, step 3 of 8",
+  "x": 542,
+  "y": 369,
+  "width": 72,
+  "height": 32
+ },
+ {
+  "sceneId": "pw3",
+  "timeMs": 24683,
+  "action": "click",
+  "label": "Next, step 4 of 8",
+  "x": 1181,
+  "y": 369,
+  "width": 72,
+  "height": 32
+ },
+ {
+  "sceneId": "pw3",
+  "timeMs": 26373,
+  "action": "click",
+  "label": "Next, step 5 of 8",
+  "x": 542,
+  "y": 659,
+  "width": 72,
+  "height": 32
+ },
+ {
+  "sceneId": "pw3",
+  "timeMs": 28767,
+  "action": "click",
+  "label": "Next, step 6 of 8",
+  "x": 286,
+  "y": 885,
+  "width": 72,
+  "height": 32
+ },
+ {
+  "sceneId": "pw3",
+  "timeMs": 30245,
+  "action": "click",
+  "label": "Next, step 7 of 8",
+  "x": 542,
+  "y": 594,
+  "width": 72,
+  "height": 32
+ },
+ {
+  "sceneId": "pw3",
+  "timeMs": 31442,
+  "action": "click",
+  "label": "Next, step 8 of 8",
+  "x": 461,
+  "y": 513,
+  "width": 72,
+  "height": 32
+ },
+ {
+  "sceneId": "pw3",
+  "timeMs": 33914,
+  "action": "click",
+  "label": "Finish",
+  "x": 1791,
+  "y": 254,
+  "width": 75,
+  "height": 32
+ }
+]

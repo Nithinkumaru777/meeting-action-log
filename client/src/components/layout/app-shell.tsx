@@ -119,11 +119,11 @@ export const NAV_ITEMS: NavItem[] = [
   },
   { key: 'members', path: '/members', label: 'Members', mobileLabel: 'Members', icon: 'users' },
   {
-    key: 'system',
-    path: '/design-system',
-    label: 'Design system',
-    mobileLabel: 'System',
-    icon: 'palette',
+    key: 'tutorials',
+    path: '/tutorials',
+    label: 'Tutorials',
+    mobileLabel: 'Tutorials',
+    icon: 'play',
   },
 ];
 
@@ -134,6 +134,7 @@ export const MOBILE_NAV_ITEMS: NavItem[] = [
   NAV_ITEMS[3]!,
   NAV_ITEMS[5]!,
 ];
+// Index 5 is Tutorials on mobile for quick video learning.
 
 export function isNavActive(pathname: string, itemPath: string): boolean {
   if (itemPath === '/') return pathname === '/';
@@ -147,7 +148,7 @@ export function getBreadcrumbForPath(pathname: string): string {
   if (pathname === '/overdue') return 'Ledger / Overdue';
   if (pathname === '/decisions') return 'Ledger / Decision inbox';
   if (pathname === '/members') return 'Ledger / Members';
-  if (pathname === '/design-system') return 'Ledger / Design system';
+  if (pathname === '/tutorials') return 'Ledger / Tutorials';
   return 'Ledger / Not found';
 }
 

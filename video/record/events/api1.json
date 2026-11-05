@@ -1,0 +1,42 @@
+[
+ {
+  "sceneId": "api1",
+  "timeMs": 8301,
+  "action": "hover",
+  "label": "GET /api/health",
+  "x": 0,
+  "y": 38,
+  "width": 1920,
+  "height": 474
+ },
+ {
+  "sceneId": "api1",
+  "timeMs": 16217,
+  "action": "hover",
+  "label": "GET /api/insights/summary",
+  "x": 0,
+  "y": 38,
+  "width": 1920,
+  "height": 798
+ },
+ {
+  "sceneId": "api1",
+  "timeMs": 29265,
+  "action": "hover",
+  "label": "400 VALIDATION_ERROR",
+  "x": 0,
+  "y": 38,
+  "width": 1920,
+  "height": 798
+ },
+ {
+  "sceneId": "api1",
+  "timeMs": 36854,
+  "action": "hover",
+  "label": "404 NOT_FOUND",
+  "x": 0,
+  "y": 38,
+  "width": 1920,
+  "height": 474
+ }
+]

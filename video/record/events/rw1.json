@@ -1,0 +1,112 @@
+[
+ {
+  "sceneId": "rw1",
+  "timeMs": 16849,
+  "action": "click",
+  "label": "New meeting",
+  "x": 1733,
+  "y": 12,
+  "width": 147,
+  "height": 40
+ },
+ {
+  "sceneId": "rw1",
+  "timeMs": 18202,
+  "action": "click",
+  "label": "Title",
+  "x": 1465,
+  "y": 132,
+  "width": 431,
+  "height": 42
+ },
+ {
+  "sceneId": "rw1",
+  "timeMs": 18694,
+  "action": "type",
+  "label": "Title",
+  "x": 1465,
+  "y": 132,
+  "width": 431,
+  "height": 42
+ },
+ {
+  "sceneId": "rw1",
+  "timeMs": 22210,
+  "action": "click",
+  "label": "Start, IST",
+  "x": 1687,
+  "y": 219,
+  "width": 210,
+  "height": 42
+ },
+ {
+  "sceneId": "rw1",
+  "timeMs": 23375,
+  "action": "click",
+  "label": "Duration",
+  "x": 1465,
+  "y": 306,
+  "width": 431,
+  "height": 42
+ },
+ {
+  "sceneId": "rw1",
+  "timeMs": 23874,
+  "action": "type",
+  "label": "Duration",
+  "x": 1465,
+  "y": 306,
+  "width": 431,
+  "height": 42
+ },
+ {
+  "sceneId": "rw1",
+  "timeMs": 25575,
+  "action": "click",
+  "label": "Ananya Rao",
+  "x": 1465,
+  "y": 393,
+  "width": 123,
+  "height": 34
+ },
+ {
+  "sceneId": "rw1",
+  "timeMs": 26489,
+  "action": "click",
+  "label": "Karthik",
+  "x": 1596,
+  "y": 393,
+  "width": 137,
+  "height": 34
+ },
+ {
+  "sceneId": "rw1",
+  "timeMs": 27400,
+  "action": "click",
+  "label": "Meera",
+  "x": 1741,
+  "y": 393,
+  "width": 117,
+  "height": 34
+ },
+ {
+  "sceneId": "rw1",
+  "timeMs": 28331,
+  "action": "click",
+  "label": "Rahul",
+  "x": 1599,
+  "y": 435,
+  "width": 113,
+  "height": 34
+ },
+ {
+  "sceneId": "rw1",
+  "timeMs": 30032,
+  "action": "click",
+  "label": "Create meeting",
+  "x": 1735,
+  "y": 1026,
+  "width": 161,
+  "height": 40
+ }
+]

@@ -1,0 +1,82 @@
+[
+ {
+  "sceneId": "mt1",
+  "timeMs": 6361,
+  "action": "hover",
+  "label": "All",
+  "x": 272,
+  "y": 246,
+  "width": 30,
+  "height": 40
+ },
+ {
+  "sceneId": "mt1",
+  "timeMs": 7854,
+  "action": "click",
+  "label": "Upcoming",
+  "x": 324,
+  "y": 246,
+  "width": 80,
+  "height": 40
+ },
+ {
+  "sceneId": "mt1",
+  "timeMs": 10347,
+  "action": "click",
+  "label": "Held",
+  "x": 426,
+  "y": 246,
+  "width": 43,
+  "height": 40
+ },
+ {
+  "sceneId": "mt1",
+  "timeMs": 14242,
+  "action": "hover",
+  "label": "Meeting row",
+  "x": 272,
+  "y": 518,
+  "width": 1160,
+  "height": 111
+ },
+ {
+  "sceneId": "mt1",
+  "timeMs": 20292,
+  "action": "hover",
+  "label": "Flags",
+  "x": 376,
+  "y": 590,
+  "width": 592,
+  "height": 22
+ },
+ {
+  "sceneId": "mt1",
+  "timeMs": 28046,
+  "action": "key",
+  "label": "Slash",
+  "x": 0,
+  "y": 0,
+  "width": 0,
+  "height": 0
+ },
+ {
+  "sceneId": "mt1",
+  "timeMs": 32121,
+  "action": "hover",
+  "label": "Search with /",
+  "x": 1138,
+  "y": 13,
+  "width": 290,
+  "height": 38
+ },
+ {
+  "sceneId": "mt1",
+  "timeMs": 37939,
+  "action": "click",
+  "label": "Clear search",
+  "x": 1405,
+  "y": 272,
+  "width": 20,
+  "height": 20
+ }
+]

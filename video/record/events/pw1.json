@@ -1,0 +1,62 @@
+[
+ {
+  "sceneId": "pw1",
+  "timeMs": 3406,
+  "action": "key",
+  "label": "Ctrl K",
+  "x": 0,
+  "y": 0,
+  "width": 0,
+  "height": 0
+ },
+ {
+  "sceneId": "pw1",
+  "timeMs": 7138,
+  "action": "hover",
+  "label": "Type to filter",
+  "x": 681,
+  "y": 81,
+  "width": 558,
+  "height": 48
+ },
+ {
+  "sceneId": "pw1",
+  "timeMs": 11284,
+  "action": "key",
+  "label": "Enter",
+  "x": 0,
+  "y": 0,
+  "width": 0,
+  "height": 0
+ },
+ {
+  "sceneId": "pw1",
+  "timeMs": 13413,
+  "action": "key",
+  "label": "Ctrl K",
+  "x": 0,
+  "y": 0,
+  "width": 0,
+  "height": 0
+ },
+ {
+  "sceneId": "pw1",
+  "timeMs": 14279,
+  "action": "hover",
+  "label": "Pages and actions",
+  "x": 681,
+  "y": 129,
+  "width": 558,
+  "height": 360
+ },
+ {
+  "sceneId": "pw1",
+  "timeMs": 20769,
+  "action": "key",
+  "label": "Escape",
+  "x": 0,
+  "y": 0,
+  "width": 0,
+  "height": 0
+ }
+]

@@ -1,0 +1,92 @@
+[
+ {
+  "sceneId": "g1",
+  "timeMs": 19028,
+  "action": "hover",
+  "label": "Teal spine",
+  "x": 14,
+  "y": 90,
+  "width": 204,
+  "height": 40
+ },
+ {
+  "sceneId": "g1",
+  "timeMs": 23646,
+  "action": "hover",
+  "label": "Teal spine",
+  "x": 14,
+  "y": 90,
+  "width": 204,
+  "height": 240
+ },
+ {
+  "sceneId": "g1",
+  "timeMs": 26684,
+  "action": "hover",
+  "label": "Open actions meter",
+  "x": 14,
+  "y": 925,
+  "width": 204,
+  "height": 139
+ },
+ {
+  "sceneId": "g1",
+  "timeMs": 31287,
+  "action": "hover",
+  "label": "Current page",
+  "x": 272,
+  "y": 25,
+  "width": 111,
+  "height": 15
+ },
+ {
+  "sceneId": "g1",
+  "timeMs": 34031,
+  "action": "hover",
+  "label": "Search meetings",
+  "x": 1198,
+  "y": 13,
+  "width": 230,
+  "height": 38
+ },
+ {
+  "sceneId": "g1",
+  "timeMs": 35908,
+  "action": "hover",
+  "label": "Live connection",
+  "x": 1438,
+  "y": 20,
+  "width": 62,
+  "height": 24
+ },
+ {
+  "sceneId": "g1",
+  "timeMs": 41567,
+  "action": "hover",
+  "label": "Guided demo",
+  "x": 1511,
+  "y": 12,
+  "width": 163,
+  "height": 40
+ },
+ {
+  "sceneId": "g1",
+  "timeMs": 42797,
+  "action": "hover",
+  "label": "Theme",
+  "x": 1683,
+  "y": 12,
+  "width": 40,
+  "height": 40
+ },
+ {
+  "sceneId": "g1",
+  "timeMs": 43981,
+  "action": "hover",
+  "label": "New meeting",
+  "x": 1733,
+  "y": 12,
+  "width": 147,
+  "height": 40
+ }
+]

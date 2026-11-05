@@ -1,0 +1,52 @@
+[
+ {
+  "sceneId": "ov1",
+  "timeMs": 4877,
+  "action": "hover",
+  "label": "Four figures",
+  "x": 272,
+  "y": 269,
+  "width": 1160,
+  "height": 113
+ },
+ {
+  "sceneId": "ov1",
+  "timeMs": 17785,
+  "action": "hover",
+  "label": "Karthik Shetty: most late work",
+  "x": 272,
+  "y": 416,
+  "width": 1160,
+  "height": 287
+ },
+ {
+  "sceneId": "ov1",
+  "timeMs": 32706,
+  "action": "hover",
+  "label": "Tick it",
+  "x": 348,
+  "y": 588,
+  "width": 20,
+  "height": 20
+ },
+ {
+  "sceneId": "ov1",
+  "timeMs": 36865,
+  "action": "click",
+  "label": "+3 days",
+  "x": 1328,
+  "y": 582,
+  "width": 98,
+  "height": 32
+ },
+ {
+  "sceneId": "ov1",
+  "timeMs": 39810,
+  "action": "hover",
+  "label": "Due date moved",
+  "x": 1516,
+  "y": 964,
+  "width": 380,
+  "height": 92
+ }
+]

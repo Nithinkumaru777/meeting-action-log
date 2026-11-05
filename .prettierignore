@@ -5,3 +5,5 @@ package-lock.json
 *.md
 *.html
 docs
+video
+client/public/tutorial

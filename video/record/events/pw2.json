@@ -1,0 +1,32 @@
+[
+ {
+  "sceneId": "pw2",
+  "timeMs": 1419,
+  "action": "click",
+  "label": "Dark theme",
+  "x": 1683,
+  "y": 12,
+  "width": 40,
+  "height": 40
+ },
+ {
+  "sceneId": "pw2",
+  "timeMs": 10112,
+  "action": "hover",
+  "label": "Teal black by night",
+  "x": 272,
+  "y": 269,
+  "width": 1160,
+  "height": 139
+ },
+ {
+  "sceneId": "pw2",
+  "timeMs": 12513,
+  "action": "click",
+  "label": "Light theme",
+  "x": 1683,
+  "y": 12,
+  "width": 40,
+  "height": 40
+ }
+]

@@ -1,0 +1,82 @@
+[
+ {
+  "sceneId": "dc1",
+  "timeMs": 6217,
+  "action": "hover",
+  "label": "Every decision, one inbox",
+  "x": 272,
+  "y": 320,
+  "width": 1160,
+  "height": 364
+ },
+ {
+  "sceneId": "dc1",
+  "timeMs": 13659,
+  "action": "hover",
+  "label": "Three tabs",
+  "x": 272,
+  "y": 269,
+  "width": 307,
+  "height": 41
+ },
+ {
+  "sceneId": "dc1",
+  "timeMs": 20680,
+  "action": "click",
+  "label": "Converted",
+  "x": 398,
+  "y": 269,
+  "width": 83,
+  "height": 40
+ },
+ {
+  "sceneId": "dc1",
+  "timeMs": 23250,
+  "action": "hover",
+  "label": "Linked tasks",
+  "x": 1358,
+  "y": 334,
+  "width": 74,
+  "height": 22
+ },
+ {
+  "sceneId": "dc1",
+  "timeMs": 26459,
+  "action": "click",
+  "label": "No action",
+  "x": 503,
+  "y": 269,
+  "width": 76,
+  "height": 40
+ },
+ {
+  "sceneId": "dc1",
+  "timeMs": 28596,
+  "action": "click",
+  "label": "Reopen",
+  "x": 1334,
+  "y": 364,
+  "width": 98,
+  "height": 32
+ },
+ {
+  "sceneId": "dc1",
+  "timeMs": 32740,
+  "action": "click",
+  "label": "Without tasks",
+  "x": 272,
+  "y": 269,
+  "width": 104,
+  "height": 40
+ },
+ {
+  "sceneId": "dc1",
+  "timeMs": 34862,
+  "action": "click",
+  "label": "No action",
+  "x": 1196,
+  "y": 364,
+  "width": 84,
+  "height": 32
+ }
+]

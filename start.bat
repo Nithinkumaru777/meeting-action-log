@@ -38,7 +38,7 @@ start "" "http://localhost:5173"
 echo.
 echo ============================================================================
 echo   Web App       : http://localhost:5173
-echo   Design System : http://localhost:5173/design-system
+echo   Tutorials     : http://localhost:5173/tutorials
 echo   Backend API   : http://localhost:5000/api
 echo   Health Check  : http://localhost:5000/api/health
 echo ============================================================================

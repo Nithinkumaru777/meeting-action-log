@@ -1,0 +1,72 @@
+[
+ {
+  "sceneId": "td1",
+  "timeMs": 6521,
+  "action": "hover",
+  "label": "Four figures",
+  "x": 272,
+  "y": 269,
+  "width": 1160,
+  "height": 139
+ },
+ {
+  "sceneId": "td1",
+  "timeMs": 9793,
+  "action": "hover",
+  "label": "Open actions",
+  "x": 272,
+  "y": 269,
+  "width": 290,
+  "height": 138
+ },
+ {
+  "sceneId": "td1",
+  "timeMs": 13948,
+  "action": "hover",
+  "label": "Overdue",
+  "x": 562,
+  "y": 269,
+  "width": 290,
+  "height": 138
+ },
+ {
+  "sceneId": "td1",
+  "timeMs": 19620,
+  "action": "hover",
+  "label": "Completion",
+  "x": 852,
+  "y": 269,
+  "width": 290,
+  "height": 138
+ },
+ {
+  "sceneId": "td1",
+  "timeMs": 23893,
+  "action": "hover",
+  "label": "Decisions without tasks",
+  "x": 1142,
+  "y": 269,
+  "width": 290,
+  "height": 138
+ },
+ {
+  "sceneId": "td1",
+  "timeMs": 32054,
+  "action": "click",
+  "label": "Overdue",
+  "x": 562,
+  "y": 269,
+  "width": 290,
+  "height": 138
+ },
+ {
+  "sceneId": "td1",
+  "timeMs": 34774,
+  "action": "click",
+  "label": "Today",
+  "x": 14,
+  "y": 90,
+  "width": 204,
+  "height": 40
+ }
+]

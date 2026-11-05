@@ -1,0 +1,52 @@
+[
+ {
+  "sceneId": "td3",
+  "timeMs": 1827,
+  "action": "hover",
+  "label": "Last 8 weeks",
+  "x": 272,
+  "y": 835,
+  "width": 560,
+  "height": 245
+ },
+ {
+  "sceneId": "td3",
+  "timeMs": 10907,
+  "action": "hover",
+  "label": "Late, by owner",
+  "x": 872,
+  "y": 835,
+  "width": 560,
+  "height": 139
+ },
+ {
+  "sceneId": "td3",
+  "timeMs": 21685,
+  "action": "hover",
+  "label": "Coming up",
+  "x": 272,
+  "y": 705,
+  "width": 1160,
+  "height": 272
+ },
+ {
+  "sceneId": "td3",
+  "timeMs": 24431,
+  "action": "click",
+  "label": "Schedule",
+  "x": 1323,
+  "y": 718,
+  "width": 109,
+  "height": 32
+ },
+ {
+  "sceneId": "td3",
+  "timeMs": 27019,
+  "action": "click",
+  "label": "Cancel",
+  "x": 1656,
+  "y": 1026,
+  "width": 69,
+  "height": 40
+ }
+]

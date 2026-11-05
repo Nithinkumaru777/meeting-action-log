@@ -1,0 +1,72 @@
+[
+ {
+  "sceneId": "dc2",
+  "timeMs": 757,
+  "action": "click",
+  "label": "Convert to task",
+  "x": 1286,
+  "y": 364,
+  "width": 146,
+  "height": 32
+ },
+ {
+  "sceneId": "dc2",
+  "timeMs": 3510,
+  "action": "click",
+  "label": "Owner: Meera Iyer",
+  "x": 1465,
+  "y": 355,
+  "width": 431,
+  "height": 42
+ },
+ {
+  "sceneId": "dc2",
+  "timeMs": 5534,
+  "action": "click",
+  "label": "Create task",
+  "x": 1760,
+  "y": 1026,
+  "width": 136,
+  "height": 40
+ },
+ {
+  "sceneId": "dc2",
+  "timeMs": 10927,
+  "action": "hover",
+  "label": "Open actions",
+  "x": 24,
+  "y": 958,
+  "width": 184,
+  "height": 40
+ },
+ {
+  "sceneId": "dc2",
+  "timeMs": 13375,
+  "action": "hover",
+  "label": "Decision turned into a task",
+  "x": 1516,
+  "y": 984,
+  "width": 380,
+  "height": 73
+ },
+ {
+  "sceneId": "dc2",
+  "timeMs": 19869,
+  "action": "click",
+  "label": "Undo",
+  "x": 1768,
+  "y": 998,
+  "width": 83,
+  "height": 32
+ },
+ {
+  "sceneId": "dc2",
+  "timeMs": 24817,
+  "action": "hover",
+  "label": "Restored",
+  "x": 272,
+  "y": 320,
+  "width": 1160,
+  "height": 364
+ }
+]

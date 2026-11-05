@@ -1,0 +1,72 @@
+[
+ {
+  "sceneId": "md4",
+  "timeMs": 4033,
+  "action": "click",
+  "label": "Add action",
+  "x": 1314,
+  "y": 431,
+  "width": 118,
+  "height": 32
+ },
+ {
+  "sceneId": "md4",
+  "timeMs": 9229,
+  "action": "click",
+  "label": "Task title",
+  "x": 1465,
+  "y": 132,
+  "width": 431,
+  "height": 42
+ },
+ {
+  "sceneId": "md4",
+  "timeMs": 9753,
+  "action": "type",
+  "label": "Task title",
+  "x": 1465,
+  "y": 132,
+  "width": 431,
+  "height": 42
+ },
+ {
+  "sceneId": "md4",
+  "timeMs": 11050,
+  "action": "click",
+  "label": "Owner",
+  "x": 1465,
+  "y": 219,
+  "width": 431,
+  "height": 42
+ },
+ {
+  "sceneId": "md4",
+  "timeMs": 12938,
+  "action": "click",
+  "label": "Add action",
+  "x": 1765,
+  "y": 1026,
+  "width": 131,
+  "height": 40
+ },
+ {
+  "sceneId": "md4",
+  "timeMs": 15063,
+  "action": "hover",
+  "label": "Delete meeting",
+  "x": 1400,
+  "y": 196,
+  "width": 32,
+  "height": 32
+ },
+ {
+  "sceneId": "md4",
+  "timeMs": 19446,
+  "action": "click",
+  "label": "Delete meeting",
+  "x": 1400,
+  "y": 196,
+  "width": 32,
+  "height": 32
+ }
+]

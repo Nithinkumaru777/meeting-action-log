@@ -1,0 +1,82 @@
+[
+ {
+  "sceneId": "td2",
+  "timeMs": 4531,
+  "action": "hover",
+  "label": "Column 01: Overdue",
+  "x": 272,
+  "y": 442,
+  "width": 599,
+  "height": 474
+ },
+ {
+  "sceneId": "td2",
+  "timeMs": 10914,
+  "action": "click",
+  "label": "Mark done",
+  "x": 338,
+  "y": 546,
+  "width": 20,
+  "height": 20
+ },
+ {
+  "sceneId": "td2",
+  "timeMs": 13166,
+  "action": "hover",
+  "label": "Marked done",
+  "x": 1516,
+  "y": 964,
+  "width": 380,
+  "height": 92
+ },
+ {
+  "sceneId": "td2",
+  "timeMs": 21067,
+  "action": "click",
+  "label": "Undo",
+  "x": 1768,
+  "y": 978,
+  "width": 83,
+  "height": 32
+ },
+ {
+  "sceneId": "td2",
+  "timeMs": 24647,
+  "action": "hover",
+  "label": "Column 02: No owner yet",
+  "x": 911,
+  "y": 442,
+  "width": 521,
+  "height": 431
+ },
+ {
+  "sceneId": "td2",
+  "timeMs": 29404,
+  "action": "click",
+  "label": "No action",
+  "x": 1196,
+  "y": 593,
+  "width": 84,
+  "height": 32
+ },
+ {
+  "sceneId": "td2",
+  "timeMs": 31047,
+  "action": "hover",
+  "label": "Marked as no action",
+  "x": 1516,
+  "y": 943,
+  "width": 380,
+  "height": 113
+ },
+ {
+  "sceneId": "td2",
+  "timeMs": 33471,
+  "action": "click",
+  "label": "Undo",
+  "x": 1768,
+  "y": 957,
+  "width": 83,
+  "height": 32
+ }
+]

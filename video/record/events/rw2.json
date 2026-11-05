@@ -1,0 +1,82 @@
+[
+ {
+  "sceneId": "rw2",
+  "timeMs": 6190,
+  "action": "click",
+  "label": "Log a decision",
+  "x": 272,
+  "y": 506,
+  "width": 470,
+  "height": 42
+ },
+ {
+  "sceneId": "rw2",
+  "timeMs": 6693,
+  "action": "type",
+  "label": "Log a decision",
+  "x": 272,
+  "y": 506,
+  "width": 470,
+  "height": 42
+ },
+ {
+  "sceneId": "rw2",
+  "timeMs": 9610,
+  "action": "click",
+  "label": "Log a decision",
+  "x": 272,
+  "y": 600,
+  "width": 470,
+  "height": 42
+ },
+ {
+  "sceneId": "rw2",
+  "timeMs": 10096,
+  "action": "type",
+  "label": "Log a decision",
+  "x": 272,
+  "y": 600,
+  "width": 470,
+  "height": 42
+ },
+ {
+  "sceneId": "rw2",
+  "timeMs": 13836,
+  "action": "click",
+  "label": "Log a decision",
+  "x": 272,
+  "y": 716,
+  "width": 470,
+  "height": 42
+ },
+ {
+  "sceneId": "rw2",
+  "timeMs": 14332,
+  "action": "type",
+  "label": "Log a decision",
+  "x": 272,
+  "y": 716,
+  "width": 470,
+  "height": 42
+ },
+ {
+  "sceneId": "rw2",
+  "timeMs": 19085,
+  "action": "click",
+  "label": "No action",
+  "x": 596,
+  "y": 772,
+  "width": 84,
+  "height": 32
+ },
+ {
+  "sceneId": "rw2",
+  "timeMs": 21881,
+  "action": "hover",
+  "label": "2 need owners",
+  "x": 272,
+  "y": 418,
+  "width": 560,
+  "height": 463
+ }
+]

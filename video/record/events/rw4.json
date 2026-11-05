@@ -1,0 +1,62 @@
+[
+ {
+  "sceneId": "rw4",
+  "timeMs": 3207,
+  "action": "click",
+  "label": "Overdue",
+  "x": 14,
+  "y": 170,
+  "width": 204,
+  "height": 40
+ },
+ {
+  "sceneId": "rw4",
+  "timeMs": 5925,
+  "action": "hover",
+  "label": "Karthik Shetty",
+  "x": 272,
+  "y": 416,
+  "width": 1160,
+  "height": 287
+ },
+ {
+  "sceneId": "rw4",
+  "timeMs": 14217,
+  "action": "click",
+  "label": "Done",
+  "x": 348,
+  "y": 520,
+  "width": 20,
+  "height": 20
+ },
+ {
+  "sceneId": "rw4",
+  "timeMs": 21033,
+  "action": "click",
+  "label": "+3 days",
+  "x": 1328,
+  "y": 583,
+  "width": 98,
+  "height": 32
+ },
+ {
+  "sceneId": "rw4",
+  "timeMs": 25963,
+  "action": "click",
+  "label": "Decision inbox",
+  "x": 14,
+  "y": 210,
+  "width": 204,
+  "height": 40
+ },
+ {
+  "sceneId": "rw4",
+  "timeMs": 30659,
+  "action": "hover",
+  "label": "Nothing forgotten",
+  "x": 272,
+  "y": 320,
+  "width": 1160,
+  "height": 364
+ }
+]

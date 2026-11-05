@@ -1,0 +1,72 @@
+[
+ {
+  "sceneId": "va4",
+  "timeMs": 3726,
+  "action": "click",
+  "label": "Remove Ananya Rao",
+  "x": 1400,
+  "y": 318,
+  "width": 32,
+  "height": 32
+ },
+ {
+  "sceneId": "va4",
+  "timeMs": 16015,
+  "action": "click",
+  "label": "Add member",
+  "x": 1286,
+  "y": 160,
+  "width": 146,
+  "height": 40
+ },
+ {
+  "sceneId": "va4",
+  "timeMs": 17387,
+  "action": "click",
+  "label": "Email",
+  "x": 1465,
+  "y": 219,
+  "width": 431,
+  "height": 42
+ },
+ {
+  "sceneId": "va4",
+  "timeMs": 17895,
+  "action": "type",
+  "label": "Email",
+  "x": 1465,
+  "y": 219,
+  "width": 431,
+  "height": 42
+ },
+ {
+  "sceneId": "va4",
+  "timeMs": 20031,
+  "action": "click",
+  "label": "Add member",
+  "x": 1750,
+  "y": 1026,
+  "width": 146,
+  "height": 40
+ },
+ {
+  "sceneId": "va4",
+  "timeMs": 21623,
+  "action": "hover",
+  "label": "Enter a valid email",
+  "x": 1465,
+  "y": 198,
+  "width": 431,
+  "height": 88
+ },
+ {
+  "sceneId": "va4",
+  "timeMs": 26866,
+  "action": "hover",
+  "label": "Every decision has an owner",
+  "x": 272,
+  "y": 320,
+  "width": 1160,
+  "height": 214
+ }
+]

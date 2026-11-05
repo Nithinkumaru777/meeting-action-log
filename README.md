@@ -210,3 +210,7 @@ Production notes:
 - **REST API Reference:** [docs/API.md](docs/API.md) — Complete specification of all 24 endpoints (`/api/health`, `/api/members`, `/api/meetings`, `/api/decisions`, `/api/actions`, `/api/insights/*`) with request, response, and error examples.
 - **100x Test Report:** [docs/TEST_REPORT.md](docs/TEST_REPORT.md) — Full breakdown of **11,500+ test executions** across all 7 verification layers with **0 failures** (`@mal/shared` 100% coverage, `@mal/server` 94.8% coverage, `@mal/client` 89.2% coverage).
 - **Acceptance Sign-Off:** [docs/ACCEPTANCE.md](docs/ACCEPTANCE.md) — Checklist of all 15 General Requirements and R1/R2/R3 layout reference mapping per screen.
+
+## Tutorial videos
+
+The Tutorials page plays the full guide and one short clip per feature. The clips are generated, and are not in git because of their size (GitHub allows 100 MB per file). To create them after cloning, run `node video/web-export.mjs` from the project root; it needs `video/output/` from the video pipeline and ffmpeg. They are written to `client/public/tutorial/`. Copy that folder when deploying. Without it, the page still opens and shows "This video could not be loaded".

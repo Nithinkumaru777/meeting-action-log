@@ -1,0 +1,102 @@
+[
+ {
+  "sceneId": "md3",
+  "timeMs": 604,
+  "action": "click",
+  "label": "Convert to task",
+  "x": 686,
+  "y": 539,
+  "width": 146,
+  "height": 32
+ },
+ {
+  "sceneId": "md3",
+  "timeMs": 3805,
+  "action": "hover",
+  "label": "The decision",
+  "x": 1465,
+  "y": 143,
+  "width": 431,
+  "height": 59
+ },
+ {
+  "sceneId": "md3",
+  "timeMs": 10873,
+  "action": "click",
+  "label": "Owner: Rahul Nair",
+  "x": 1465,
+  "y": 328,
+  "width": 431,
+  "height": 42
+ },
+ {
+  "sceneId": "md3",
+  "timeMs": 14300,
+  "action": "hover",
+  "label": "Due date",
+  "x": 1465,
+  "y": 415,
+  "width": 431,
+  "height": 42
+ },
+ {
+  "sceneId": "md3",
+  "timeMs": 18585,
+  "action": "click",
+  "label": "Priority: High",
+  "x": 1681,
+  "y": 527,
+  "width": 107,
+  "height": 40
+ },
+ {
+  "sceneId": "md3",
+  "timeMs": 23246,
+  "action": "click",
+  "label": "Notes",
+  "x": 1465,
+  "y": 607,
+  "width": 431,
+  "height": 84
+ },
+ {
+  "sceneId": "md3",
+  "timeMs": 23778,
+  "action": "type",
+  "label": "Notes",
+  "x": 1465,
+  "y": 607,
+  "width": 431,
+  "height": 84
+ },
+ {
+  "sceneId": "md3",
+  "timeMs": 27071,
+  "action": "click",
+  "label": "Create task",
+  "x": 1760,
+  "y": 1026,
+  "width": 136,
+  "height": 40
+ },
+ {
+  "sceneId": "md3",
+  "timeMs": 33737,
+  "action": "hover",
+  "label": "Linked task",
+  "x": 272,
+  "y": 469,
+  "width": 560,
+  "height": 107
+ },
+ {
+  "sceneId": "md3",
+  "timeMs": 35966,
+  "action": "hover",
+  "label": "New action",
+  "x": 872,
+  "y": 659,
+  "width": 560,
+  "height": 100
+ }
+]

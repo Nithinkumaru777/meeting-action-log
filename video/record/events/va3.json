@@ -1,0 +1,82 @@
+[
+ {
+  "sceneId": "va3",
+  "timeMs": 4714,
+  "action": "click",
+  "label": "Search",
+  "x": 1198,
+  "y": 13,
+  "width": 230,
+  "height": 38
+ },
+ {
+  "sceneId": "va3",
+  "timeMs": 5207,
+  "action": "type",
+  "label": "Search",
+  "x": 1138,
+  "y": 13,
+  "width": 290,
+  "height": 38
+ },
+ {
+  "sceneId": "va3",
+  "timeMs": 8452,
+  "action": "hover",
+  "label": "No meetings match",
+  "x": 272,
+  "y": 297,
+  "width": 1160,
+  "height": 237
+ },
+ {
+  "sceneId": "va3",
+  "timeMs": 10210,
+  "action": "click",
+  "label": "Clear search",
+  "x": 272,
+  "y": 480,
+  "width": 130,
+  "height": 32
+ },
+ {
+  "sceneId": "va3",
+  "timeMs": 12232,
+  "action": "key",
+  "label": "Ctrl K",
+  "x": 0,
+  "y": 0,
+  "width": 0,
+  "height": 0
+ },
+ {
+  "sceneId": "va3",
+  "timeMs": 18313,
+  "action": "hover",
+  "label": "Page not found",
+  "x": 272,
+  "y": 75,
+  "width": 1160,
+  "height": 145
+ },
+ {
+  "sceneId": "va3",
+  "timeMs": 22031,
+  "action": "click",
+  "label": "Back to Today",
+  "x": 272,
+  "y": 246,
+  "width": 127,
+  "height": 18
+ },
+ {
+  "sceneId": "va3",
+  "timeMs": 24532,
+  "action": "hover",
+  "label": "Meeting not found",
+  "x": 272,
+  "y": 75,
+  "width": 1160,
+  "height": 145
+ }
+]

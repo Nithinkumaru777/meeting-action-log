@@ -1,0 +1,62 @@
+[
+ {
+  "sceneId": "md1",
+  "timeMs": 3750,
+  "action": "hover",
+  "label": "The meeting record",
+  "x": 272,
+  "y": 100,
+  "width": 1160,
+  "height": 150
+ },
+ {
+  "sceneId": "md1",
+  "timeMs": 11706,
+  "action": "hover",
+  "label": "Four health figures",
+  "x": 272,
+  "y": 275,
+  "width": 1160,
+  "height": 109
+ },
+ {
+  "sceneId": "md1",
+  "timeMs": 21917,
+  "action": "click",
+  "label": "Edit",
+  "x": 1316,
+  "y": 196,
+  "width": 74,
+  "height": 32
+ },
+ {
+  "sceneId": "md1",
+  "timeMs": 28182,
+  "action": "click",
+  "label": "Duration",
+  "x": 1465,
+  "y": 306,
+  "width": 431,
+  "height": 42
+ },
+ {
+  "sceneId": "md1",
+  "timeMs": 28710,
+  "action": "type",
+  "label": "Duration",
+  "x": 1465,
+  "y": 306,
+  "width": 431,
+  "height": 42
+ },
+ {
+  "sceneId": "md1",
+  "timeMs": 31144,
+  "action": "click",
+  "label": "Save changes",
+  "x": 1745,
+  "y": 1026,
+  "width": 151,
+  "height": 40
+ }
+]

@@ -92,19 +92,9 @@ test.describe('Step 14: Responsive, Accessibility, Dark Mode, Keyboard & Screens
       fullPage: true,
     });
 
-    // Design System route (light + dark)
-    await page.goto('/design-system');
-    await expect(page.locator('h1')).toContainText('The design system');
-    await page.screenshot({
-      path: path.join(SCREENSHOTS_DIR, 'STEP-09-design-system-1366-light.png'),
-      fullPage: true,
-    });
-    await page.locator('#themeBtn').click();
-    await page.screenshot({
-      path: path.join(SCREENSHOTS_DIR, 'STEP-09-design-system-1366-dark.png'),
-      fullPage: true,
-    });
-    await page.locator('#themeBtn').click();
+    // Tutorials route
+    await page.goto('/tutorials');
+    await expect(page.locator('h1')).toContainText('Tutorials');
 
     // Guided demo tour screenshot
     await page.goto('/');
@@ -123,11 +113,8 @@ test.describe('Step 14: Responsive, Accessibility, Dark Mode, Keyboard & Screens
       path: path.join(SCREENSHOTS_DIR, 'STEP-11-today-390.png'),
       fullPage: true,
     });
-    await page.goto('/design-system');
-    await page.screenshot({
-      path: path.join(SCREENSHOTS_DIR, 'STEP-09-design-system-390.png'),
-      fullPage: true,
-    });
+    await page.goto('/tutorials');
+    await expect(page.locator('h1')).toBeVisible();
 
     expect(errors).toEqual([]);
   });
@@ -136,7 +123,7 @@ test.describe('Step 14: Responsive, Accessibility, Dark Mode, Keyboard & Screens
     page,
   }) => {
     const widths = [360, 390, 768, 1024, 1366, 1920];
-    const routes = ['/', '/meetings', '/overdue', '/decisions', '/members', '/design-system'];
+    const routes = ['/', '/meetings', '/overdue', '/decisions', '/members', '/tutorials'];
 
     for (const width of widths) {
       await page.setViewportSize({ width, height: 860 });
@@ -156,7 +143,7 @@ test.describe('Step 14: Responsive, Accessibility, Dark Mode, Keyboard & Screens
   }) => {
     await page.emulateMedia({ reducedMotion: 'reduce' });
     await page.setViewportSize({ width: 1366, height: 860 });
-    const routes = ['/', '/meetings', '/overdue', '/decisions', '/members', '/design-system'];
+    const routes = ['/', '/meetings', '/overdue', '/decisions', '/members', '/tutorials'];
     for (const route of routes) {
       await page.goto(route);
       await expect(page.locator('h1')).toBeVisible();
