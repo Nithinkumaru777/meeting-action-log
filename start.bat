@@ -38,6 +38,7 @@ start "" "http://localhost:5173"
 echo.
 echo ============================================================================
 echo   Web App         : http://localhost:5173
+echo   Intro Showcase  : http://localhost:5173/intro
 echo   Customer Portal : http://localhost:5173/login
 echo   Profile Page    : http://localhost:5173/profile
 echo   Tutorials       : http://localhost:5173/tutorials

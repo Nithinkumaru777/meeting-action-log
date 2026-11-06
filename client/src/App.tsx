@@ -15,6 +15,7 @@ import { DecisionsInboxPage } from './features/decisions/decisions-inbox-page';
 import { MembersPage } from './features/members/members-page';
 import { TutorialsPage } from './features/tutorials/tutorials-page';
 import { AboutPage } from './features/about/about-page';
+import { IntroPage } from './features/intro/intro-page';
 import { LoginPage } from './features/auth/login-page';
 import { ProfilePage } from './features/auth/profile-page';
 import { NotFoundPage } from './features/not-found/not-found-page';
@@ -26,7 +27,7 @@ import { useAuthStore } from './lib/auth';
 export function AppRoutes() {
   const location = useLocation();
   const { newMeetingOpen, setNewMeetingOpen } = useShellStore();
-  const { init: initAuth } = useAuthStore();
+  const { user, init: initAuth } = useAuthStore();
   const overviewQuery = useInsightsOverviewQuery();
   useLiveUpdates();
 
@@ -42,29 +43,45 @@ export function AppRoutes() {
   useEffect(() => {
     const p = location.pathname;
     const label =
-      p === '/'
-        ? 'Today'
-        : p === '/meetings'
-          ? 'Meetings'
-          : p.startsWith('/meetings/')
-            ? 'Meeting'
-            : p === '/overdue'
-              ? 'Overdue'
-              : p === '/decisions'
-                ? 'Decision inbox'
-                : p === '/members'
-                  ? 'Members'
-                  : p === '/tutorials'
-                    ? 'Tutorials'
-                    : p === '/login'
-                      ? 'Sign in'
-                      : p === '/profile'
-                        ? 'Profile'
-                        : p === '/about'
-                          ? 'About'
-                          : 'Not found';
+      p === '/intro'
+        ? 'Intro'
+        : p === '/'
+          ? user
+            ? 'Today'
+            : 'Intro'
+          : p === '/today'
+            ? 'Today'
+            : p === '/meetings'
+              ? 'Meetings'
+              : p.startsWith('/meetings/')
+                ? 'Meeting'
+                : p === '/overdue'
+                  ? 'Overdue'
+                  : p === '/decisions'
+                    ? 'Decision inbox'
+                    : p === '/members'
+                      ? 'Members'
+                      : p === '/tutorials'
+                        ? 'Tutorials'
+                        : p === '/login'
+                          ? 'Sign in'
+                          : p === '/profile'
+                            ? 'Profile'
+                            : p === '/about'
+                              ? 'About'
+                              : 'Not found';
     document.title = `${label} · MeetingActionLog`;
-  }, [location.pathname]);
+  }, [location.pathname, user]);
+
+  const isIntroView = location.pathname === '/intro' || (!user && location.pathname === '/');
+
+  if (isIntroView) {
+    return (
+      <ErrorBoundary>
+        <IntroPage />
+      </ErrorBoundary>
+    );
+  }
 
   const summary = overviewQuery.data;
 
@@ -85,6 +102,15 @@ export function AppRoutes() {
               />
             }
           />
+          <Route
+            path="/today"
+            element={
+              <TodayPage
+                onConvertDecision={(decision, cardEl) => setConvertingState({ decision, cardEl })}
+              />
+            }
+          />
+          <Route path="/intro" element={<IntroPage />} />
           <Route path="/meetings" element={<MeetingsPage />} />
           <Route path="/meetings/:id" element={<MeetingDetailPage />} />
           <Route path="/overdue" element={<OverduePage />} />

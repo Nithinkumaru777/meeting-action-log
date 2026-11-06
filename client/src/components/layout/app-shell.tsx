@@ -127,6 +127,13 @@ export const NAV_ITEMS: NavItem[] = [
     icon: 'play',
   },
   {
+    key: 'intro',
+    path: '/intro',
+    label: 'Intro',
+    mobileLabel: 'Intro',
+    icon: 'sparkles',
+  },
+  {
     key: 'profile',
     path: '/profile',
     label: 'Profile',
@@ -152,12 +159,13 @@ export const MOBILE_NAV_ITEMS: NavItem[] = [
 ];
 
 export function isNavActive(pathname: string, itemPath: string): boolean {
-  if (itemPath === '/') return pathname === '/';
+  if (itemPath === '/') return pathname === '/' || pathname === '/today';
   return pathname === itemPath || pathname.startsWith(`${itemPath}/`);
 }
 
 export function getBreadcrumbForPath(pathname: string): string {
-  if (pathname === '/') return 'Ledger / Today';
+  if (pathname === '/' || pathname === '/today') return 'Ledger / Today';
+  if (pathname === '/intro') return 'Ledger / Intro';
   if (pathname === '/meetings') return 'Ledger / Meetings';
   if (pathname.startsWith('/meetings/')) return 'Ledger / Meeting';
   if (pathname === '/overdue') return 'Ledger / Overdue';
