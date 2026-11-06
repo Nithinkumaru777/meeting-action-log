@@ -4290,6 +4290,7 @@ body.dw-open .tour-pop {
   border-radius: 6px;
   font: 500 14px/1 var(--f-sans);
   text-decoration: none;
+  cursor: pointer;
   transition: all var(--t-feedback);
 }
 

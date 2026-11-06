@@ -434,15 +434,29 @@ export function IntroPage({
                 <AnimatedIcon name="arrow" />
               </button>
 
-              <Link to="/tutorials" className="btn-intro-secondary">
+              <button
+                type="button"
+                className="btn-intro-secondary"
+                onClick={() => {
+                  if (user) {
+                    navigate('/tutorials');
+                  } else {
+                    setView('auth');
+                  }
+                }}
+              >
                 <AnimatedIcon name="play" />
                 <span>Watch tutorials</span>
-              </Link>
+              </button>
 
-              <Link to="/about" className="btn-intro-secondary">
+              <button
+                type="button"
+                className="btn-intro-secondary"
+                onClick={() => setView('about')}
+              >
                 <AnimatedIcon name="help" />
                 <span>System specs</span>
-              </Link>
+              </button>
             </div>
 
             {!user && (

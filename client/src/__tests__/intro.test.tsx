@@ -192,4 +192,45 @@ describe('IntroPage (100x)', () => {
 
     unmount();
   });
+
+  it('switches to Public About view when clicking System specs button', { repeats: 100 }, () => {
+    const { unmount } = render(
+      <MemoryRouter>
+        <IntroPage />
+      </MemoryRouter>,
+    );
+
+    const specsBtn = screen.getByRole('button', { name: /system specs/i });
+    fireEvent.click(specsBtn);
+
+    expect(screen.getByRole('heading', { name: /about this project/i })).toBeInTheDocument();
+    expect(screen.getByText('Nithin Kumar U')).toBeInTheDocument();
+    expect(screen.getByText('2102508611')).toBeInTheDocument();
+
+    const backBtn = screen.getByRole('button', { name: /return to showcase/i });
+    fireEvent.click(backBtn);
+    expect(screen.getByRole('heading', { name: /know who owns what/i })).toBeInTheDocument();
+
+    unmount();
+  });
+
+  it(
+    'switches to Inbuild Auth UI when clicking Watch tutorials unauthenticated',
+    { repeats: 100 },
+    () => {
+      const { unmount } = render(
+        <MemoryRouter>
+          <IntroPage />
+        </MemoryRouter>,
+      );
+
+      const tutBtn = screen.getByRole('button', { name: /watch tutorials/i });
+      fireEvent.click(tutBtn);
+
+      expect(screen.getByRole('heading', { name: /create your account/i })).toBeInTheDocument();
+      expect(screen.getByRole('tab', { name: /sign in/i })).toBeInTheDocument();
+
+      unmount();
+    },
+  );
 });
