@@ -226,7 +226,7 @@ export function AppRoutes() {
 export function App({ client = defaultQueryClient }: { client?: QueryClient }) {
   return (
     <QueryClientProvider client={client}>
-      <BrowserRouter>
+      <BrowserRouter basename={import.meta.env.BASE_URL}>
         <AppRoutes />
       </BrowserRouter>
     </QueryClientProvider>

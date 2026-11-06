@@ -7,12 +7,39 @@ import type {
   UserProfileResponse,
   UserStats,
 } from '@mal/shared';
-import { apiFetch } from './api';
+import { ApiError, apiFetch } from './api';
 import { getAuthToken, setAuthToken } from './auth-token';
 import { createStore } from './store';
 import { queryClient } from './queryClient';
 
 const USER_STORAGE_KEY = 'mal.auth.user';
+
+export const FALLBACK_DEMO_USERS: DemoUserCard[] = [
+  {
+    id: '000000000000000000000003',
+    email: 'meera.iyer@meetingactionlog.dev',
+    name: 'Meera Iyer',
+    role: 'Designer',
+    avatarHue: 320,
+    memberId: '000000000000000000000003',
+  },
+  {
+    id: '000000000000000000000005',
+    email: 'priya.menon@meetingactionlog.dev',
+    name: 'Priya Menon',
+    role: 'Marketing',
+    avatarHue: 250,
+    memberId: '000000000000000000000005',
+  },
+  {
+    id: '000000000000000000000004',
+    email: 'rahul.nair@meetingactionlog.dev',
+    name: 'Rahul Nair',
+    role: 'QA engineer',
+    avatarHue: 46,
+    memberId: '000000000000000000000004',
+  },
+];
 
 function getInitialUser(): AuthUser | null {
   if (typeof window === 'undefined') return null;
@@ -112,6 +139,29 @@ export const useAuthStore = createStore<AuthState>((set, get) => ({
       void queryClient.invalidateQueries();
       return resp.user;
     } catch (err: unknown) {
+      if (err instanceof ApiError && err.code === 'NETWORK_ERROR') {
+        const matched = FALLBACK_DEMO_USERS.find((d) => d.email === input.email);
+        const fallbackUser: AuthUser = {
+          id: matched?.id ?? '000000000000000000000003',
+          email: input.email,
+          name: matched?.name ?? (input.email.split('@')[0] || 'User'),
+          role: matched?.role ?? 'Designer',
+          avatarHue: matched?.avatarHue ?? 320,
+          memberId: matched?.memberId ?? '000000000000000000000003',
+          createdAt: new Date().toISOString(),
+        };
+        const token = 'ghpages-demo-token';
+        setAuthToken(token);
+        saveUserToStorage(fallbackUser);
+        set({
+          user: fallbackUser,
+          token,
+          status: 'authenticated',
+          error: null,
+        });
+        void queryClient.invalidateQueries();
+        return fallbackUser;
+      }
       const message = err instanceof Error ? err.message : 'Invalid email or password';
       set({ status: 'unauthenticated', error: message });
       throw err;
@@ -136,6 +186,28 @@ export const useAuthStore = createStore<AuthState>((set, get) => ({
       void queryClient.invalidateQueries();
       return resp.user;
     } catch (err: unknown) {
+      if (err instanceof ApiError && err.code === 'NETWORK_ERROR') {
+        const fallbackUser: AuthUser = {
+          id: 'demo-' + Date.now(),
+          email: input.email,
+          name: input.name,
+          role: input.role || 'Member',
+          avatarHue: 176,
+          memberId: '000000000000000000000001',
+          createdAt: new Date().toISOString(),
+        };
+        const token = 'ghpages-demo-token';
+        setAuthToken(token);
+        saveUserToStorage(fallbackUser);
+        set({
+          user: fallbackUser,
+          token,
+          status: 'authenticated',
+          error: null,
+        });
+        void queryClient.invalidateQueries();
+        return fallbackUser;
+      }
       const message = err instanceof Error ? err.message : 'Registration failed';
       set({ status: 'unauthenticated', error: message });
       throw err;
@@ -194,11 +266,15 @@ export const useAuthStore = createStore<AuthState>((set, get) => ({
   fetchDemoUsers: async () => {
     try {
       const users = await apiFetch<DemoUserCard[]>('/auth/demo-users');
-      set({ demoUsers: users });
-      return users;
+      if (Array.isArray(users) && users.length > 0) {
+        set({ demoUsers: users });
+        return users;
+      }
     } catch {
-      return [];
+      // In static demo / GitHub Pages mode without backend, provide fallback demo accounts
     }
+    set({ demoUsers: FALLBACK_DEMO_USERS });
+    return FALLBACK_DEMO_USERS;
   },
 }));
 

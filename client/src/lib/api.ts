@@ -1,6 +1,7 @@
 import type { ActionStatus, DecisionStatus, DueState, ErrorCode, Priority } from '@mal/shared';
 import { CLIENT_ID } from './live';
 import { getAuthToken } from './auth-token';
+import { getDemoFallback } from './demo-fallback';
 
 export interface ApiErrorDetail {
   path: string;
@@ -204,6 +205,10 @@ export async function apiFetch<T>(path: string, options: ApiFetchOptions = {}): 
       body: body !== undefined ? JSON.stringify(body) : undefined,
     });
   } catch (networkErr) {
+    const fallback = getDemoFallback<T>(path, { method: rest.method, body });
+    if (fallback !== null) {
+      return fallback;
+    }
     throw new ApiError({
       status: 0,
       code: 'NETWORK_ERROR',
