@@ -1,5 +1,6 @@
 import type { ActionStatus, DecisionStatus, DueState, ErrorCode, Priority } from '@mal/shared';
 import { CLIENT_ID } from './live';
+import { getAuthToken } from './auth-token';
 
 export interface ApiErrorDetail {
   path: string;
@@ -189,6 +190,11 @@ export async function apiFetch<T>(path: string, options: ApiFetchOptions = {}): 
     reqHeaders.set('Accept', 'application/json');
   }
   reqHeaders.set('x-client-id', CLIENT_ID);
+
+  const token = getAuthToken();
+  if (token && !reqHeaders.has('Authorization')) {
+    reqHeaders.set('Authorization', `Bearer ${token}`);
+  }
 
   let res: Response;
   try {

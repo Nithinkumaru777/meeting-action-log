@@ -6,6 +6,8 @@ import { ActionModel } from '../models/Action';
 import { DecisionModel } from '../models/Decision';
 import { MeetingModel } from '../models/Meeting';
 import { MemberModel } from '../models/Member';
+import { UserModel } from '../models/User';
+import { hashPassword } from '../utils/auth';
 
 export interface SeedSummary {
   members: number;
@@ -26,6 +28,7 @@ export async function seedDatabase(now = new Date()): Promise<SeedSummary> {
     DecisionModel.deleteMany({}),
     MeetingModel.deleteMany({}),
     MemberModel.deleteMany({}),
+    UserModel.deleteMany({}),
   ]);
 
   const [m1, m2, m3, m4, m5] = await Promise.all([
@@ -60,6 +63,21 @@ export async function seedDatabase(now = new Date()): Promise<SeedSummary> {
       avatarHue: 250,
     }),
   ]);
+
+  const defaultPw = hashPassword('Password123!');
+  await Promise.all(
+    [m1, m2, m3, m4, m5].map((m) =>
+      UserModel.create({
+        name: m.name,
+        email: m.email,
+        role: m.role,
+        avatarHue: m.avatarHue,
+        memberId: m._id,
+        passwordHash: defaultPw.hash,
+        salt: defaultPw.salt,
+      }),
+    ),
+  );
 
   const [mt1, mt2, mt3, mt4, mt5] = await Promise.all([
     MeetingModel.create({

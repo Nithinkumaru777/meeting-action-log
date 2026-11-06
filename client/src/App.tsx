@@ -15,16 +15,24 @@ import { DecisionsInboxPage } from './features/decisions/decisions-inbox-page';
 import { MembersPage } from './features/members/members-page';
 import { TutorialsPage } from './features/tutorials/tutorials-page';
 import { AboutPage } from './features/about/about-page';
+import { LoginPage } from './features/auth/login-page';
+import { ProfilePage } from './features/auth/profile-page';
 import { NotFoundPage } from './features/not-found/not-found-page';
 import { ActionFormSheet } from './features/actions/action-form-sheet';
 import { GuidedTourOverlay } from './features/tour/tour-overlay';
 import { useLiveUpdates } from './lib/live';
+import { useAuthStore } from './lib/auth';
 
 export function AppRoutes() {
   const location = useLocation();
   const { newMeetingOpen, setNewMeetingOpen } = useShellStore();
+  const { init: initAuth } = useAuthStore();
   const overviewQuery = useInsightsOverviewQuery();
   useLiveUpdates();
+
+  useEffect(() => {
+    void initAuth();
+  }, [initAuth]);
 
   const [convertingState, setConvertingState] = useState<{
     decision: DecisionItemView;
@@ -48,9 +56,13 @@ export function AppRoutes() {
                   ? 'Members'
                   : p === '/tutorials'
                     ? 'Tutorials'
-                    : p === '/about'
-                      ? 'About'
-                      : 'Not found';
+                    : p === '/login'
+                      ? 'Sign in'
+                      : p === '/profile'
+                        ? 'Profile'
+                        : p === '/about'
+                          ? 'About'
+                          : 'Not found';
     document.title = `${label} · MeetingActionLog`;
   }, [location.pathname]);
 
@@ -86,6 +98,8 @@ export function AppRoutes() {
           />
           <Route path="/members" element={<MembersPage />} />
           <Route path="/tutorials" element={<TutorialsPage />} />
+          <Route path="/login" element={<LoginPage />} />
+          <Route path="/profile" element={<ProfilePage />} />
           <Route path="/about" element={<AboutPage />} />
           <Route path="*" element={<NotFoundPage />} />
         </Routes>

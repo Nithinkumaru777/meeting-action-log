@@ -6,3 +6,4 @@ export * from './schemas/meeting';
 export * from './schemas/decision';
 export * from './schemas/action';
 export * from './schemas/query';
+export * from './schemas/auth';

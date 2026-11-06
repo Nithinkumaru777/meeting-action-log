@@ -2,6 +2,7 @@ import { useEffect, useMemo, useRef, useState, type ReactNode } from 'react';
 import { Link, useLocation, useNavigate } from 'react-router';
 import { createStore } from '../../lib/store';
 import { useLiveStore } from '../../lib/live';
+import { useAuthStore } from '../../lib/auth';
 import { AnimatedIcon, type IconName } from '../ui/animated-icon';
 import { Odometer } from '../ui/primitives';
 import { ToastViewport } from '../feedback/toast-store';
@@ -126,6 +127,13 @@ export const NAV_ITEMS: NavItem[] = [
     icon: 'play',
   },
   {
+    key: 'profile',
+    path: '/profile',
+    label: 'Profile',
+    mobileLabel: 'Profile',
+    icon: 'user',
+  },
+  {
     key: 'about',
     path: '/about',
     label: 'About',
@@ -140,8 +148,8 @@ export const MOBILE_NAV_ITEMS: NavItem[] = [
   NAV_ITEMS[2]!,
   NAV_ITEMS[3]!,
   NAV_ITEMS[6]!,
+  NAV_ITEMS[7]!,
 ];
-// Index 6 is About on mobile.
 
 export function isNavActive(pathname: string, itemPath: string): boolean {
   if (itemPath === '/') return pathname === '/';
@@ -156,6 +164,8 @@ export function getBreadcrumbForPath(pathname: string): string {
   if (pathname === '/decisions') return 'Ledger / Decision inbox';
   if (pathname === '/members') return 'Ledger / Members';
   if (pathname === '/tutorials') return 'Ledger / Tutorials';
+  if (pathname === '/login') return 'Ledger / Sign in';
+  if (pathname === '/profile') return 'Ledger / Profile';
   if (pathname === '/about') return 'Ledger / About';
   return 'Ledger / Not found';
 }
@@ -340,6 +350,19 @@ export interface AppShellProps {
   children: ReactNode;
 }
 
+function getInitials(name: string): string {
+  const parts = name.trim().split(/\s+/).filter(Boolean);
+  const first = parts[0];
+  if (!first) return 'CU';
+  const last = parts[parts.length - 1];
+  if (parts.length === 1 || !last) {
+    return first.slice(0, 2).toUpperCase();
+  }
+  const f = first[0] ?? '';
+  const l = last[0] ?? '';
+  return (f + l).toUpperCase() || 'CU';
+}
+
 export function AppShell({
   openActionsCount = 0,
   overdueCount = 0,
@@ -348,6 +371,7 @@ export function AppShell({
   onNewMeetingClick,
   children,
 }: AppShellProps) {
+  const { user } = useAuthStore();
   const location = useLocation();
   const navigate = useNavigate();
   const navRef = useRef<HTMLElement>(null);
@@ -513,6 +537,33 @@ export function AppShell({
             >
               <AnimatedIcon name={theme === 'dark' ? 'sun' : 'moon'} />
             </button>
+            {user ? (
+              <Link
+                to="/profile"
+                className="user-top-pill ah"
+                id="userPill"
+                title={`Signed in as ${user.name} (${user.role})`}
+                aria-label="View user profile"
+              >
+                <span
+                  className="user-top-avatar"
+                  style={{ backgroundColor: `hsl(${user.avatarHue}, 65%, 45%)` }}
+                >
+                  {getInitials(user.name)}
+                </span>
+                <span className="user-top-name">{user.name}</span>
+              </Link>
+            ) : (
+              <Link
+                to="/login"
+                className="btn btn-line btn-auth ah"
+                id="loginBtn"
+                aria-label="Sign in or create profile"
+              >
+                <AnimatedIcon name="user" />
+                <span className="txt">Sign in</span>
+              </Link>
+            )}
             <button
               type="button"
               className="btn btn-primary ah"

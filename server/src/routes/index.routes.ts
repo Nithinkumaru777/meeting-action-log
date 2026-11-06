@@ -5,6 +5,7 @@ import { decisionsRouter } from './decisions.routes';
 import { insightsRouter } from './insights.routes';
 import { meetingsRouter } from './meetings.routes';
 import { membersRouter } from './members.routes';
+import { authRouter } from './auth.routes';
 import { eventsStream } from '../realtime/events';
 
 export const apiRouter = Router();
@@ -20,3 +21,4 @@ apiRouter.use('/meetings', meetingsRouter);
 apiRouter.use('/decisions', decisionsRouter);
 apiRouter.use('/actions', actionsRouter);
 apiRouter.use('/insights', insightsRouter);
+apiRouter.use('/auth', authRouter);
