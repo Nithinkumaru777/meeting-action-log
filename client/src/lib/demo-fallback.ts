@@ -336,6 +336,83 @@ export function getDemoFallback<T>(
   const norm = path.startsWith('/api') ? path.slice(4) : path;
   const method = options.method?.toUpperCase() ?? 'GET';
 
+  if (norm.startsWith('/auth/login')) {
+    const input = options.body as { email?: string; password?: string } | undefined;
+    const email = input?.email ?? 'demo@meetingactionlog.dev';
+    const matched = MEMBERS.find((m) => m.email.toLowerCase() === email.toLowerCase());
+    return {
+      user: {
+        id: matched?.id ?? '000000000000000000000003',
+        name: matched?.name ?? (email.split('@')[0] || 'User'),
+        email,
+        role: matched?.role ?? 'Member',
+        avatarHue: matched?.avatarHue ?? 200,
+        memberId: matched?.id ?? '000000000000000000000003',
+        createdAt: new Date().toISOString(),
+      },
+      token: 'ghpages-demo-jwt-token',
+    } as T;
+  }
+
+  if (norm.startsWith('/auth/register')) {
+    const input = options.body as { name?: string; email?: string; role?: string } | undefined;
+    const name = input?.name ?? 'Customer';
+    const email = input?.email ?? 'customer@meetingactionlog.dev';
+    return {
+      user: {
+        id: 'user-' + Date.now(),
+        name,
+        email,
+        role: input?.role || 'Customer',
+        avatarHue: 200,
+        memberId: '000000000000000000000001',
+        createdAt: new Date().toISOString(),
+      },
+      token: 'ghpages-demo-jwt-token',
+    } as T;
+  }
+
+  if (norm.startsWith('/auth/me')) {
+    return {
+      id: M3.id,
+      name: M3.name,
+      email: M3.email,
+      role: M3.role,
+      avatarHue: M3.avatarHue,
+      memberId: M3.id,
+      createdAt: '2026-10-15T00:00:00Z',
+    } as T;
+  }
+
+  if (norm.startsWith('/auth/demo-users')) {
+    return [
+      {
+        id: M3.id,
+        email: M3.email,
+        name: M3.name,
+        role: M3.role,
+        avatarHue: M3.avatarHue,
+        memberId: M3.id,
+      },
+      {
+        id: M5.id,
+        email: M5.email,
+        name: M5.name,
+        role: M5.role,
+        avatarHue: M5.avatarHue,
+        memberId: M5.id,
+      },
+      {
+        id: M4.id,
+        email: M4.email,
+        name: M4.name,
+        role: M4.role,
+        avatarHue: M4.avatarHue,
+        memberId: M4.id,
+      },
+    ] as T;
+  }
+
   if (norm.startsWith('/insights/summary')) {
     const summary: InsightsSummaryDTO = {
       openActions: 6,

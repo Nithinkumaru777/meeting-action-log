@@ -115,6 +115,11 @@ export const useAuthStore = createStore<AuthState>((set, get) => ({
       saveUserToStorage(user);
       set({ user, token, status: 'authenticated', error: null });
     } catch {
+      const stored = getInitialUser();
+      if (stored) {
+        set({ user: stored, token, status: 'authenticated', error: null });
+        return;
+      }
       setAuthToken(null);
       saveUserToStorage(null);
       set({ user: null, token: null, status: 'unauthenticated' });
@@ -139,7 +144,10 @@ export const useAuthStore = createStore<AuthState>((set, get) => ({
       void queryClient.invalidateQueries();
       return resp.user;
     } catch (err: unknown) {
-      if (err instanceof ApiError && err.code === 'NETWORK_ERROR') {
+      if (
+        err instanceof ApiError &&
+        (err.code === 'NETWORK_ERROR' || err.status === 404 || err.status === 405)
+      ) {
         const matched = FALLBACK_DEMO_USERS.find((d) => d.email === input.email);
         const fallbackUser: AuthUser = {
           id: matched?.id ?? '000000000000000000000003',
@@ -186,7 +194,10 @@ export const useAuthStore = createStore<AuthState>((set, get) => ({
       void queryClient.invalidateQueries();
       return resp.user;
     } catch (err: unknown) {
-      if (err instanceof ApiError && err.code === 'NETWORK_ERROR') {
+      if (
+        err instanceof ApiError &&
+        (err.code === 'NETWORK_ERROR' || err.status === 404 || err.status === 405)
+      ) {
         const fallbackUser: AuthUser = {
           id: 'demo-' + Date.now(),
           email: input.email,

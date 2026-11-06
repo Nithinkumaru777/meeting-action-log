@@ -231,6 +231,13 @@ export async function apiFetch<T>(path: string, options: ApiFetchOptions = {}): 
   }
 
   if (!res.ok) {
+    if (res.status === 404 || res.status === 405) {
+      const fallback = getDemoFallback<T>(path, { method: rest.method, body });
+      if (fallback !== null) {
+        return fallback;
+      }
+    }
+
     const errObj =
       parsed &&
       typeof parsed === 'object' &&
