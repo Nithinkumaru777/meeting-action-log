@@ -44,8 +44,27 @@ function pauseOthers(current: HTMLVideoElement) {
   });
 }
 
+export function resolveAssetUrl(path: string | undefined): string | undefined {
+  if (!path) return undefined;
+  if (
+    path.startsWith('http://') ||
+    path.startsWith('https://') ||
+    path.startsWith('data:') ||
+    path.startsWith('blob:')
+  ) {
+    return path;
+  }
+  const base = import.meta.env.BASE_URL || '/';
+  const cleanBase = base.endsWith('/') ? base : `${base}/`;
+  const cleanPath = path.startsWith('/') ? path.slice(1) : path;
+  return `${cleanBase}${cleanPath}`;
+}
+
 function TutorialVideo({ src, label, poster }: { src: string; label: string; poster?: string }) {
   const [failed, setFailed] = useState(false);
+  const resolvedSrc = resolveAssetUrl(src);
+  const resolvedPoster = resolveAssetUrl(poster);
+
   if (failed) {
     return (
       <div className="tut-video">
@@ -59,9 +78,9 @@ function TutorialVideo({ src, label, poster }: { src: string; label: string; pos
       <video
         controls
         playsInline
-        src={src}
-        poster={poster}
-        preload={poster ? 'none' : 'metadata'}
+        src={resolvedSrc}
+        poster={resolvedPoster}
+        preload={resolvedPoster ? 'none' : 'metadata'}
         aria-label={label}
         onError={() => setFailed(true)}
         onPlay={(e) => pauseOthers(e.currentTarget)}
