@@ -327,6 +327,20 @@ export const DECISIONS: DecisionDTO[] = [
     noActionReason: '',
     actionIds: [],
   },
+  {
+    id: 'dec-005',
+    meetingId: MT3.id,
+    meetingTitle: MT3.title,
+    text: 'Postpone legacy calendar protocol sync',
+    rationale: 'CalDAV sync deferred until Phase 3 to prioritize core ledger functionality.',
+    decidedById: M3.id,
+    decidedBy: M3,
+    decidedAt: '2026-11-02',
+    ageDays: 4,
+    status: 'no-action',
+    noActionReason: 'Deferred to roadmap Phase 3',
+    actionIds: [],
+  },
 ];
 
 export function getDemoFallback<T>(
@@ -334,9 +348,11 @@ export function getDemoFallback<T>(
   options: { method?: string; body?: unknown } = {},
 ): T | null {
   const norm = path.startsWith('/api') ? path.slice(4) : path;
+  const clean = norm.split('?')[0] || norm;
   const method = options.method?.toUpperCase() ?? 'GET';
 
-  if (norm.startsWith('/auth/login')) {
+  // Auth endpoints
+  if (clean.startsWith('/auth/login')) {
     const input = options.body as { email?: string; password?: string } | undefined;
     const email = input?.email ?? 'demo@meetingactionlog.dev';
     const matched = MEMBERS.find((m) => m.email.toLowerCase() === email.toLowerCase());
@@ -354,7 +370,7 @@ export function getDemoFallback<T>(
     } as T;
   }
 
-  if (norm.startsWith('/auth/register')) {
+  if (clean.startsWith('/auth/register')) {
     const input = options.body as { name?: string; email?: string; role?: string } | undefined;
     const name = input?.name ?? 'Customer';
     const email = input?.email ?? 'customer@meetingactionlog.dev';
@@ -372,7 +388,7 @@ export function getDemoFallback<T>(
     } as T;
   }
 
-  if (norm.startsWith('/auth/me')) {
+  if (clean.startsWith('/auth/me')) {
     return {
       id: M3.id,
       name: M3.name,
@@ -384,7 +400,7 @@ export function getDemoFallback<T>(
     } as T;
   }
 
-  if (norm.startsWith('/auth/demo-users')) {
+  if (clean.startsWith('/auth/demo-users')) {
     return [
       {
         id: M3.id,
@@ -413,22 +429,47 @@ export function getDemoFallback<T>(
     ] as T;
   }
 
-  if (norm.startsWith('/insights/summary')) {
+  if (clean.startsWith('/auth/profile')) {
+    return {
+      user: {
+        id: M3.id,
+        name: M3.name,
+        email: M3.email,
+        role: M3.role,
+        avatarHue: M3.avatarHue,
+        memberId: M3.id,
+        createdAt: '2026-10-15T00:00:00Z',
+      },
+      stats: {
+        actionsCount: 3,
+        openActionsCount: 2,
+        overdueActionsCount: 0,
+        completedActionsCount: 1,
+        meetingsCount: 2,
+        decisionsCount: 1,
+      },
+    } as T;
+  }
+
+  // Insights / Dashboard endpoints
+  if (clean.startsWith('/insights/summary')) {
     const summary: InsightsSummaryDTO = {
-      openActions: 6,
-      overdueActions: 4,
-      doneActions: 1,
-      totalActions: 7,
-      completionRate: 14.3,
-      pendingDecisions: 2,
+      openActions: ACTIONS.filter((a) => a.status !== 'done').length,
+      overdueActions: ACTIONS.filter((a) => a.isOverdue).length,
+      doneActions: ACTIONS.filter((a) => a.status === 'done').length,
+      totalActions: ACTIONS.length,
+      completionRate: Math.round(
+        (ACTIONS.filter((a) => a.status === 'done').length / Math.max(1, ACTIONS.length)) * 100,
+      ),
+      pendingDecisions: DECISIONS.filter((d) => d.status === 'pending').length,
       upcomingMeetings: 1,
       oldestOverdueDays: 6,
-      totalMeetings: 4,
+      totalMeetings: MEETINGS.length,
     };
     return summary as T;
   }
 
-  if (norm.startsWith('/insights/overdue')) {
+  if (clean.startsWith('/insights/overdue')) {
     const groups: OverdueOwnerGroupDTO[] = [
       {
         owner: M2,
@@ -452,12 +493,12 @@ export function getDemoFallback<T>(
     return groups as T;
   }
 
-  if (norm.startsWith('/insights/unconverted-decisions') || norm.startsWith('/decisions/pending')) {
+  if (clean.startsWith('/insights/unconverted-decisions') || clean === '/decisions/pending') {
     const pending = DECISIONS.filter((d) => d.status === 'pending');
     return pending as T;
   }
 
-  if (norm.startsWith('/insights/weekly-completion')) {
+  if (clean.startsWith('/insights/weekly-completion')) {
     const buckets: WeeklyCompletionBucketDTO[] = [
       { week: 'W39', completed: 2 },
       { week: 'W40', completed: 4 },
@@ -469,12 +510,194 @@ export function getDemoFallback<T>(
     return buckets as T;
   }
 
-  if (norm.startsWith('/meetings')) {
-    if (norm === '/meetings') {
-      return MEETINGS as T;
+  // Decisions endpoints
+  if (clean.startsWith('/decisions')) {
+    if (clean === '/decisions') {
+      return {
+        data: DECISIONS,
+        meta: { page: 1, limit: 50, total: DECISIONS.length, totalPages: 1 },
+      } as T;
     }
-    const id = norm.split('/')[2];
+
+    if (clean.endsWith('/dismiss') && method === 'POST') {
+      const parts = clean.split('/');
+      const id = parts[2];
+      const dec = DECISIONS.find((d) => d.id === id);
+      if (dec) {
+        dec.status = 'no-action';
+        dec.noActionReason = (options.body as { reason?: string })?.reason || 'No action needed';
+        return dec as T;
+      }
+    }
+
+    if (clean.endsWith('/reopen') && method === 'POST') {
+      const parts = clean.split('/');
+      const id = parts[2];
+      const dec = DECISIONS.find((d) => d.id === id);
+      if (dec) {
+        dec.status = 'pending';
+        return dec as T;
+      }
+    }
+
+    if (clean.endsWith('/convert') && method === 'POST') {
+      const parts = clean.split('/');
+      const id = parts[2];
+      const dec = DECISIONS.find((d) => d.id === id);
+      const input = options.body as
+        | { title?: string; ownerId?: string; dueDate?: string; priority?: ActionDTO['priority'] }
+        | undefined;
+      const newAction: ActionDTO = {
+        id: 'act-' + Date.now(),
+        meetingId: dec?.meetingId ?? MT1.id,
+        meetingTitle: dec?.meetingTitle ?? MT1.title,
+        decisionId: id ?? null,
+        title: input?.title || dec?.text || 'Converted action',
+        description: '',
+        ownerId: input?.ownerId || M1.id,
+        owner: MEMBERS.find((m) => m.id === input?.ownerId) ?? M1,
+        dueDate: input?.dueDate || '2026-11-12',
+        priority: input?.priority || 'high',
+        status: 'open',
+        completedAt: null,
+        isOverdue: false,
+        daysOverdue: 0,
+        dueState: { kind: 'soon', days: 6 },
+      };
+      ACTIONS.unshift(newAction);
+      if (dec) {
+        dec.status = 'converted';
+        dec.actionIds = [...dec.actionIds, newAction.id];
+      }
+      return {
+        decision: dec ?? DECISIONS[0],
+        actions: [newAction],
+      } as T;
+    }
+
+    if (method === 'PATCH') {
+      const parts = clean.split('/');
+      const id = parts[2];
+      const dec = DECISIONS.find((d) => d.id === id);
+      if (dec) {
+        Object.assign(dec, options.body);
+        return dec as T;
+      }
+    }
+
+    if (method === 'DELETE') {
+      const parts = clean.split('/');
+      const id = parts[2];
+      const idx = DECISIONS.findIndex((d) => d.id === id);
+      if (idx !== -1) DECISIONS.splice(idx, 1);
+      return undefined as T;
+    }
+
+    const parts = clean.split('/');
+    const id = parts[2];
+    const dec = DECISIONS.find((d) => d.id === id) ?? DECISIONS[0];
+    return dec as T;
+  }
+
+  // Meetings endpoints
+  if (clean.startsWith('/meetings')) {
+    if (clean === '/meetings') {
+      if (method === 'POST') {
+        const input = options.body as Partial<MeetingDTO> | undefined;
+        const newMeeting: MeetingDTO = {
+          id: 'mt-' + Date.now(),
+          title: input?.title ?? 'New meeting',
+          date: input?.date ?? '2026-11-10',
+          startTime: input?.startTime ?? '10:00',
+          durationMin: input?.durationMin ?? 45,
+          attendeeIds: input?.attendeeIds ?? [M1.id],
+          attendees: (input?.attendeeIds ?? [M1.id]).map(
+            (id) => MEMBERS.find((m) => m.id === id) ?? M1,
+          ),
+          agenda: input?.agenda ?? '',
+          notes: input?.notes ?? '',
+          tags: input?.tags ?? ['planning'],
+          stats: {
+            decisions: 0,
+            pendingDecisions: 0,
+            actions: 0,
+            doneActions: 0,
+            overdueActions: 0,
+          },
+        };
+        MEETINGS.unshift(newMeeting);
+        return newMeeting as T;
+      }
+      return {
+        data: MEETINGS,
+        meta: { page: 1, limit: 50, total: MEETINGS.length, totalPages: 1 },
+      } as T;
+    }
+
+    if (clean.includes('/actions') && method === 'POST') {
+      const parts = clean.split('/');
+      const meetingId = parts[2] ?? MT1.id;
+      const mt = MEETINGS.find((m) => m.id === meetingId) ?? MT1;
+      const input = options.body as Partial<ActionDTO> | undefined;
+      const newAction: ActionDTO = {
+        id: 'act-' + Date.now(),
+        meetingId,
+        meetingTitle: mt.title,
+        decisionId: (options.body as { decisionId?: string | null })?.decisionId ?? null,
+        title: input?.title ?? 'New action',
+        description: input?.description ?? '',
+        ownerId: input?.ownerId ?? M1.id,
+        owner: MEMBERS.find((m) => m.id === input?.ownerId) ?? M1,
+        dueDate: input?.dueDate ?? '2026-11-10',
+        priority: input?.priority ?? 'medium',
+        status: 'open',
+        completedAt: null,
+        isOverdue: false,
+        daysOverdue: 0,
+        dueState: { kind: 'soon', days: 4 },
+      };
+      ACTIONS.unshift(newAction);
+      mt.stats.actions += 1;
+      return newAction as T;
+    }
+
+    if (clean.includes('/decisions') && method === 'POST') {
+      const parts = clean.split('/');
+      const meetingId = parts[2] ?? MT1.id;
+      const mt = MEETINGS.find((m) => m.id === meetingId) ?? MT1;
+      const input = options.body as Partial<DecisionDTO> | undefined;
+      const newDec: DecisionDTO = {
+        id: 'dec-' + Date.now(),
+        meetingId,
+        meetingTitle: mt.title,
+        text: input?.text ?? 'New decision',
+        rationale: input?.rationale ?? '',
+        decidedById: input?.decidedById ?? M1.id,
+        decidedBy: MEMBERS.find((m) => m.id === input?.decidedById) ?? M1,
+        decidedAt: new Date().toISOString().slice(0, 10),
+        ageDays: 0,
+        status: 'pending',
+        noActionReason: '',
+        actionIds: [],
+      };
+      DECISIONS.unshift(newDec);
+      mt.stats.decisions += 1;
+      mt.stats.pendingDecisions += 1;
+      return newDec as T;
+    }
+
+    const parts = clean.split('/');
+    const id = parts[2];
     const mt = MEETINGS.find((m) => m.id === id) ?? MT1;
+    if (method === 'PATCH') {
+      Object.assign(mt, options.body);
+      return mt as T;
+    }
+    if (method === 'DELETE') {
+      const idx = MEETINGS.findIndex((m) => m.id === id);
+      if (idx !== -1) MEETINGS.splice(idx, 1);
+      return undefined as T;
+    }
     const meetingActions = ACTIONS.filter((a) => a.meetingId === mt.id);
     const meetingDecisions = DECISIONS.filter((d) => d.meetingId === mt.id);
     return {
@@ -485,9 +708,10 @@ export function getDemoFallback<T>(
     } as T;
   }
 
-  if (norm.startsWith('/actions')) {
-    if (method === 'PATCH' && norm.includes('/status')) {
-      const parts = norm.split('/');
+  // Actions endpoints
+  if (clean.startsWith('/actions')) {
+    if (method === 'PATCH' && clean.includes('/status')) {
+      const parts = clean.split('/');
       const id = parts[2];
       const act = ACTIONS.find((a) => a.id === id);
       const newStatus = (options.body as { status?: string } | undefined)?.status ?? 'done';
@@ -496,39 +720,90 @@ export function getDemoFallback<T>(
         if (newStatus === 'done') {
           act.completedAt = new Date().toISOString();
           act.isOverdue = false;
+          act.dueState = { kind: 'done', days: 0 };
+        } else {
+          act.completedAt = null;
         }
         return act as T;
       }
     }
+
+    if (method === 'POST' && clean.includes('/extend')) {
+      const parts = clean.split('/');
+      const id = parts[2];
+      const act = ACTIONS.find((a) => a.id === id);
+      if (act) {
+        act.daysOverdue = Math.max(0, act.daysOverdue - 3);
+        if (act.daysOverdue === 0) {
+          act.isOverdue = false;
+          act.dueState = { kind: 'today', days: 0 };
+        }
+        return act as T;
+      }
+    }
+
+    if (method === 'PATCH') {
+      const parts = clean.split('/');
+      const id = parts[2];
+      const act = ACTIONS.find((a) => a.id === id);
+      if (act) {
+        Object.assign(act, options.body);
+        return act as T;
+      }
+    }
+
+    if (method === 'DELETE') {
+      const parts = clean.split('/');
+      const id = parts[2];
+      const idx = ACTIONS.findIndex((a) => a.id === id);
+      if (idx !== -1) ACTIONS.splice(idx, 1);
+      return undefined as T;
+    }
+
     return {
       data: ACTIONS,
       meta: { page: 1, limit: 50, total: ACTIONS.length, totalPages: 1 },
     } as T;
   }
 
-  if (norm.startsWith('/members')) {
-    return MEMBERS as T;
-  }
+  // Members endpoints
+  if (clean.startsWith('/members')) {
+    if (method === 'DELETE') {
+      const parts = clean.split('/');
+      const id = parts[2];
+      const idx = MEMBERS.findIndex((m) => m.id === id);
+      if (idx !== -1) MEMBERS.splice(idx, 1);
+      return undefined as T;
+    }
 
-  if (norm.startsWith('/auth/profile')) {
+    if (method === 'PATCH') {
+      const parts = clean.split('/');
+      const id = parts[2];
+      const m = MEMBERS.find((member) => member.id === id);
+      if (m) {
+        Object.assign(m, options.body);
+        return m as T;
+      }
+    }
+
+    if (method === 'POST') {
+      const input = options.body as Partial<MemberDTO> | undefined;
+      const newMember: MemberDTO = {
+        id: '00000000000000000000000' + (MEMBERS.length + 1),
+        name: input?.name ?? 'New Member',
+        email: input?.email ?? 'member@meetingactionlog.dev',
+        role: input?.role ?? 'Contributor',
+        avatarHue: input?.avatarHue ?? 180,
+        openActions: 0,
+        overdueActions: 0,
+      };
+      MEMBERS.push(newMember);
+      return newMember as T;
+    }
+
     return {
-      user: {
-        id: M3.id,
-        name: M3.name,
-        email: M3.email,
-        role: M3.role,
-        avatarHue: M3.avatarHue,
-        memberId: M3.id,
-        createdAt: '2026-10-15T00:00:00Z',
-      },
-      stats: {
-        actionsCount: 3,
-        openActionsCount: 2,
-        overdueActionsCount: 0,
-        completedActionsCount: 1,
-        meetingsCount: 2,
-        decisionsCount: 1,
-      },
+      data: MEMBERS,
+      meta: { page: 1, limit: 50, total: MEMBERS.length, totalPages: 1 },
     } as T;
   }
 
