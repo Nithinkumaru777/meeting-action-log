@@ -17,7 +17,13 @@ export function IntroPage() {
   const { user, status, login, register, demoUsers, fetchDemoUsers } = useAuthStore();
   const { theme, toggleTheme } = useShellStore();
 
-  // Interactive sentence simulator state
+  // View mode: 'showcase' or in-built 'auth'
+  const [view, setView] = useState<'showcase' | 'auth'>('showcase');
+  const [authMode, setAuthMode] = useState<'login' | 'register'>('register');
+  const [authSubmitting, setAuthSubmitting] = useState(false);
+  const [authError, setAuthError] = useState<string | null>(null);
+
+  // Simulator state
   const [sim, setSim] = useState<SimState>({
     meetingType: 'sprint sync',
     members: 5,
@@ -26,28 +32,18 @@ export function IntroPage() {
     days: 5,
   });
 
-  // Auth Modal state
-  const [authModalOpen, setAuthModalOpen] = useState(false);
-  const [authTab, setAuthTab] = useState<'demo' | 'login' | 'register'>('demo');
-  const [authSubmitting, setAuthSubmitting] = useState(false);
-  const [authError, setAuthError] = useState<string | null>(null);
-
   // Student info modal state
   const [studentModalOpen, setStudentModalOpen] = useState(false);
 
-  // Login form state
+  // Form states matching Image 2
+  const [regName, setRegName] = useState('unithinkumar');
+  const [regEmail, setRegEmail] = useState('unithinkumar6@gmail.com');
+  const [regPassword, setRegPassword] = useState('');
+
   const [loginEmail, setLoginEmail] = useState('');
   const [loginPassword, setLoginPassword] = useState('');
 
-  // Register form state
-  const [regName, setRegName] = useState('');
-  const [regEmail, setRegEmail] = useState('');
-  const [regRole, setRegRole] = useState('Customer');
-  const [regAvatarHue, setRegAvatarHue] = useState<number>(200);
-  const [regPassword, setRegPassword] = useState('');
-
   // Calculate dynamic slip risk
-  // Baseline load ratio: actions / (members * sqrt(days))
   const workloadRatio = sim.actions / (sim.members * Math.max(1, Math.sqrt(sim.days)));
   const decisionRatio = sim.decisions / Math.max(1, sim.members);
   const typeWeight =
@@ -90,7 +86,7 @@ export function IntroPage() {
       navigate('/today');
     } else {
       void fetchDemoUsers();
-      setAuthModalOpen(true);
+      setView('auth');
     }
   };
 
@@ -99,7 +95,6 @@ export function IntroPage() {
     setAuthSubmitting(true);
     try {
       await login({ email: demo.email, password: 'Password123!' });
-      setAuthModalOpen(false);
       navigate('/today');
     } catch (err: unknown) {
       const msg = err instanceof Error ? err.message : 'Demo sign in failed';
@@ -119,7 +114,6 @@ export function IntroPage() {
     setAuthSubmitting(true);
     try {
       await login({ email: loginEmail.trim().toLowerCase(), password: loginPassword });
-      setAuthModalOpen(false);
       navigate('/today');
     } catch (err: unknown) {
       const msg = err instanceof Error ? err.message : 'Login failed';
@@ -145,11 +139,10 @@ export function IntroPage() {
       await register({
         name: regName.trim(),
         email: regEmail.trim().toLowerCase(),
-        role: regRole.trim() || 'Customer',
-        avatarHue: regAvatarHue,
+        role: 'Customer',
+        avatarHue: 200,
         password: regPassword,
       });
-      setAuthModalOpen(false);
       navigate('/today');
     } catch (err: unknown) {
       const msg = err instanceof Error ? err.message : 'Registration failed';
@@ -279,216 +272,400 @@ export function IntroPage() {
         </div>
       </header>
 
-      {/* Main Hero Section */}
-      <main className="intro-main">
-        <div className="intro-hero-container">
-          <h1 className="intro-headline">
-            Know who owns what
-            <br />
-            <em>before things slip.</em>
-          </h1>
+      {/* Main Content: Showcase Mode or Inbuild Auth Mode */}
+      {view === 'showcase' ? (
+        <main className="intro-main">
+          <div className="intro-hero-container">
+            <h1 className="intro-headline">
+              Know who owns what
+              <br />
+              <em>before things slip.</em>
+            </h1>
 
-          <p className="intro-subhead">
-            MeetingActionLog reads meeting decisions, estimates execution risk, assigns accountable
-            owners with strict due dates, and shows exactly which commitments moved forward.
-          </p>
+            <p className="intro-subhead">
+              MeetingActionLog reads meeting decisions, estimates execution risk, assigns
+              accountable owners with strict due dates, and shows exactly which commitments moved
+              forward.
+            </p>
 
-          {/* Interactive Underline Sentence Simulator */}
-          <div className="intro-simulator-box" aria-label="Interactive meeting ledger simulator">
-            <div className="intro-sim-indicator">
-              <span className="bullet-sq" aria-hidden="true">
-                &#9632;
-              </span>
-              <span>Change any underlined value</span>
-            </div>
-
-            <div className="intro-sentence">
-              <span className="sentence-text">A </span>
-              <span className="inline-select-wrap">
-                <select
-                  aria-label="Meeting type"
-                  value={sim.meetingType}
-                  onChange={(e) => setSim({ ...sim, meetingType: e.target.value })}
-                  className="inline-select"
-                >
-                  <option value="sprint sync">sprint sync</option>
-                  <option value="architecture review">architecture review</option>
-                  <option value="incident postmortem">incident postmortem</option>
-                  <option value="executive sync">executive sync</option>
-                  <option value="client kickoff">client kickoff</option>
-                </select>
-                <span className="underline-anchor">{sim.meetingType}</span>
-              </span>
-
-              <span className="sentence-text"> with </span>
-              <span className="inline-select-wrap">
-                <select
-                  aria-label="Number of members"
-                  value={sim.members}
-                  onChange={(e) => setSim({ ...sim, members: Number(e.target.value) })}
-                  className="inline-select"
-                >
-                  <option value={2}>2 members</option>
-                  <option value={3}>3 members</option>
-                  <option value={5}>5 members</option>
-                  <option value={8}>8 members</option>
-                  <option value={12}>12 members</option>
-                </select>
-                <span className="underline-anchor">{sim.members} members</span>
-              </span>
-
-              <span className="sentence-text"> logs </span>
-              <span className="inline-select-wrap">
-                <select
-                  aria-label="Number of decisions"
-                  value={sim.decisions}
-                  onChange={(e) => setSim({ ...sim, decisions: Number(e.target.value) })}
-                  className="inline-select"
-                >
-                  <option value={2}>2 decisions</option>
-                  <option value={4}>4 decisions</option>
-                  <option value={6}>6 decisions</option>
-                  <option value={10}>10 decisions</option>
-                </select>
-                <span className="underline-anchor">{sim.decisions} decisions</span>
-              </span>
-
-              <span className="sentence-text">, creating </span>
-              <span className="inline-select-wrap">
-                <select
-                  aria-label="Number of action items"
-                  value={sim.actions}
-                  onChange={(e) => setSim({ ...sim, actions: Number(e.target.value) })}
-                  className="inline-select"
-                >
-                  <option value={1}>1 action item</option>
-                  <option value={3}>3 action items</option>
-                  <option value={6}>6 action items</option>
-                  <option value={10}>10 action items</option>
-                  <option value={16}>16 action items</option>
-                </select>
-                <span className="underline-anchor">
-                  {sim.actions} {sim.actions === 1 ? 'action item' : 'action items'}
+            {/* Interactive Underline Sentence Simulator */}
+            <div className="intro-simulator-box" aria-label="Interactive meeting ledger simulator">
+              <div className="intro-sim-indicator">
+                <span className="bullet-sq" aria-hidden="true">
+                  &#9632;
                 </span>
-              </span>
-
-              <span className="sentence-text"> due within </span>
-              <span className="inline-select-wrap">
-                <select
-                  aria-label="Deadline days"
-                  value={sim.days}
-                  onChange={(e) => setSim({ ...sim, days: Number(e.target.value) })}
-                  className="inline-select"
-                >
-                  <option value={2}>2 days</option>
-                  <option value={5}>5 days</option>
-                  <option value={7}>7 days</option>
-                  <option value={14}>14 days</option>
-                  <option value={30}>30 days</option>
-                </select>
-                <span className="underline-anchor">{sim.days} days</span>
-              </span>
-              <span className="sentence-text">.</span>
-            </div>
-
-            {/* Live Calculated Evaluation Strip */}
-            <div className="intro-metric-strip">
-              <div className="metric-primary">
-                <span className="metric-val">{slipChance}%</span>
-                <span className="metric-lbl">
-                  estimated chance
-                  <br />
-                  of slip
-                </span>
+                <span>Change any underlined value</span>
               </div>
 
-              <div className="metric-badge-wrap">
-                <span className={`risk-grade-badge ${riskTier.badgeClass}`}>
-                  <b>{riskTier.grade}</b> {riskTier.label}
+              <div className="intro-sentence">
+                <span className="sentence-text">A </span>
+                <span className="inline-select-wrap">
+                  <select
+                    aria-label="Meeting type"
+                    value={sim.meetingType}
+                    onChange={(e) => setSim({ ...sim, meetingType: e.target.value })}
+                    className="inline-select"
+                  >
+                    <option value="sprint sync">sprint sync</option>
+                    <option value="architecture review">architecture review</option>
+                    <option value="incident postmortem">incident postmortem</option>
+                    <option value="executive sync">executive sync</option>
+                    <option value="client kickoff">client kickoff</option>
+                  </select>
+                  <span className="underline-anchor">{sim.meetingType}</span>
                 </span>
+
+                <span className="sentence-text"> with </span>
+                <span className="inline-select-wrap">
+                  <select
+                    aria-label="Number of members"
+                    value={sim.members}
+                    onChange={(e) => setSim({ ...sim, members: Number(e.target.value) })}
+                    className="inline-select"
+                  >
+                    <option value={2}>2 members</option>
+                    <option value={3}>3 members</option>
+                    <option value={5}>5 members</option>
+                    <option value={8}>8 members</option>
+                    <option value={12}>12 members</option>
+                  </select>
+                  <span className="underline-anchor">{sim.members} members</span>
+                </span>
+
+                <span className="sentence-text"> logs </span>
+                <span className="inline-select-wrap">
+                  <select
+                    aria-label="Number of decisions"
+                    value={sim.decisions}
+                    onChange={(e) => setSim({ ...sim, decisions: Number(e.target.value) })}
+                    className="inline-select"
+                  >
+                    <option value={2}>2 decisions</option>
+                    <option value={4}>4 decisions</option>
+                    <option value={6}>6 decisions</option>
+                    <option value={10}>10 decisions</option>
+                  </select>
+                  <span className="underline-anchor">{sim.decisions} decisions</span>
+                </span>
+
+                <span className="sentence-text">, creating </span>
+                <span className="inline-select-wrap">
+                  <select
+                    aria-label="Number of action items"
+                    value={sim.actions}
+                    onChange={(e) => setSim({ ...sim, actions: Number(e.target.value) })}
+                    className="inline-select"
+                  >
+                    <option value={1}>1 action item</option>
+                    <option value={3}>3 action items</option>
+                    <option value={6}>6 action items</option>
+                    <option value={10}>10 action items</option>
+                    <option value={16}>16 action items</option>
+                  </select>
+                  <span className="underline-anchor">
+                    {sim.actions} {sim.actions === 1 ? 'action item' : 'action items'}
+                  </span>
+                </span>
+
+                <span className="sentence-text"> due within </span>
+                <span className="inline-select-wrap">
+                  <select
+                    aria-label="Deadline days"
+                    value={sim.days}
+                    onChange={(e) => setSim({ ...sim, days: Number(e.target.value) })}
+                    className="inline-select"
+                  >
+                    <option value={2}>2 days</option>
+                    <option value={5}>5 days</option>
+                    <option value={7}>7 days</option>
+                    <option value={14}>14 days</option>
+                    <option value={30}>30 days</option>
+                  </select>
+                  <span className="underline-anchor">{sim.days} days</span>
+                </span>
+                <span className="sentence-text">.</span>
               </div>
 
-              <div className="metric-status-wrap">
-                <span className="metric-status-chip">
-                  <AnimatedIcon name="check" />
-                  <span>{riskTier.status}</span>
-                </span>
+              {/* Live Calculated Evaluation Strip */}
+              <div className="intro-metric-strip">
+                <div className="metric-primary">
+                  <span className="metric-val">{slipChance}%</span>
+                  <span className="metric-lbl">
+                    estimated chance
+                    <br />
+                    of slip
+                  </span>
+                </div>
+
+                <div className="metric-badge-wrap">
+                  <span className={`risk-grade-badge ${riskTier.badgeClass}`}>
+                    <b>{riskTier.grade}</b> {riskTier.label}
+                  </span>
+                </div>
+
+                <div className="metric-status-wrap">
+                  <span className="metric-status-chip">
+                    <AnimatedIcon name="check" />
+                    <span>{riskTier.status}</span>
+                  </span>
+                </div>
+              </div>
+            </div>
+
+            {/* Action Row */}
+            <div className="intro-cta-row">
+              <button type="button" className="btn-access-application" onClick={handleAccessClick}>
+                <span>Access full application</span>
+                <AnimatedIcon name="arrow" />
+              </button>
+
+              <Link to="/tutorials" className="btn-intro-secondary">
+                <AnimatedIcon name="play" />
+                <span>Watch tutorials</span>
+              </Link>
+
+              <Link to="/about" className="btn-intro-secondary">
+                <AnimatedIcon name="help" />
+                <span>System specs</span>
+              </Link>
+            </div>
+
+            {!user && (
+              <p className="intro-cta-hint">
+                Requires customer login or profile creation. 1-click team demo logins are available.
+              </p>
+            )}
+
+            {/* Feature Highlights Grid */}
+            <div className="intro-features-grid">
+              <div className="intro-feature-card">
+                <div className="feature-icon">
+                  <AnimatedIcon name="bulb" />
+                </div>
+                <h3>Decisions With Owners</h3>
+                <p>
+                  Every decision captured during meetings leaves with a named owner, rationale, and
+                  immutable audit trail.
+                </p>
+              </div>
+
+              <div className="intro-feature-card">
+                <div className="feature-icon">
+                  <AnimatedIcon name="flame" />
+                </div>
+                <h3>Proactive Overdue Escalation</h3>
+                <p>
+                  Automatic timezone-aware calculation flags slipping actions before team sprint
+                  velocity degrades.
+                </p>
+              </div>
+
+              <div className="intro-feature-card">
+                <div className="feature-icon">
+                  <AnimatedIcon name="users" />
+                </div>
+                <h3>Customer Profiles &amp; Activity</h3>
+                <p>
+                  Individual customer profiles with customized avatar hues and real-time personal
+                  ledger activity tracking.
+                </p>
+              </div>
+
+              <div className="intro-feature-card">
+                <div className="feature-icon">
+                  <AnimatedIcon name="listcheck" />
+                </div>
+                <h3>Zero-Polling Live Sync</h3>
+                <p>
+                  Multi-client SSE broadcasts ensure meetings, converted decisions, and check-offs
+                  synchronize immediately.
+                </p>
               </div>
             </div>
           </div>
-
-          {/* Action Row */}
-          <div className="intro-cta-row">
-            <button type="button" className="btn-access-application" onClick={handleAccessClick}>
-              <span>Access full application</span>
-              <AnimatedIcon name="arrow" />
+        </main>
+      ) : (
+        /* INBUILD AUTH UI (Exact Match to Reference Image 2) */
+        <main className="inbuild-auth-container" aria-label="Customer authentication view">
+          <div className="inbuild-auth-card">
+            <button
+              type="button"
+              className="inbuild-back-btn"
+              onClick={() => {
+                setView('showcase');
+                setAuthError(null);
+              }}
+              aria-label="Return to showcase"
+            >
+              &larr; Back to showcase
             </button>
 
-            <Link to="/tutorials" className="btn-intro-secondary">
-              <AnimatedIcon name="play" />
-              <span>Watch tutorials</span>
-            </Link>
+            <h2 className="inbuild-auth-title">
+              {authMode === 'register' ? 'Create your account' : 'Sign in to your account'}
+            </h2>
 
-            <Link to="/about" className="btn-intro-secondary">
-              <AnimatedIcon name="help" />
-              <span>System specs</span>
-            </Link>
-          </div>
-
-          {!user && (
-            <p className="intro-cta-hint">
-              Requires customer login or profile creation. 1-click team demo logins are available.
+            <p className="inbuild-auth-subhead">
+              {authMode === 'register'
+                ? 'Create a free account to run assessments and keep your history.'
+                : 'Sign in to access your meetings, decisions, and personal ledger.'}
             </p>
-          )}
 
-          {/* Feature Highlights Grid */}
-          <div className="intro-features-grid">
-            <div className="intro-feature-card">
-              <div className="feature-icon">
-                <AnimatedIcon name="bulb" />
-              </div>
-              <h3>Decisions With Owners</h3>
-              <p>
-                Every decision captured during meetings leaves with a named owner, rationale, and
-                immutable audit trail.
-              </p>
+            {/* Segmented Control Switcher */}
+            <div className="inbuild-tabs" role="tablist">
+              <button
+                type="button"
+                role="tab"
+                aria-selected={authMode === 'login'}
+                className={`inbuild-tab ${authMode === 'login' ? 'active' : ''}`}
+                onClick={() => {
+                  setAuthMode('login');
+                  setAuthError(null);
+                }}
+              >
+                Sign in
+              </button>
+              <button
+                type="button"
+                role="tab"
+                aria-selected={authMode === 'register'}
+                className={`inbuild-tab ${authMode === 'register' ? 'active' : ''}`}
+                onClick={() => {
+                  setAuthMode('register');
+                  setAuthError(null);
+                }}
+              >
+                Create account
+              </button>
             </div>
 
-            <div className="intro-feature-card">
-              <div className="feature-icon">
-                <AnimatedIcon name="flame" />
+            {authError && (
+              <div className="auth-error-alert" role="alert">
+                <AnimatedIcon name="alert" />
+                <span>{authError}</span>
               </div>
-              <h3>Proactive Overdue Escalation</h3>
-              <p>
-                Automatic timezone-aware calculation flags slipping actions before team sprint
-                velocity degrades.
-              </p>
-            </div>
+            )}
 
-            <div className="intro-feature-card">
-              <div className="feature-icon">
-                <AnimatedIcon name="users" />
-              </div>
-              <h3>Customer Profiles &amp; Activity</h3>
-              <p>
-                Individual customer profiles with customized avatar hues and real-time personal
-                ledger activity tracking.
-              </p>
-            </div>
+            {/* Form */}
+            {authMode === 'register' ? (
+              <form onSubmit={handleRegisterSubmit} className="inbuild-form" noValidate>
+                <div className="inbuild-field">
+                  <label htmlFor="inbuild-name">Full name</label>
+                  <input
+                    id="inbuild-name"
+                    type="text"
+                    required
+                    placeholder="e.g. unithinkumar"
+                    value={regName}
+                    onChange={(e) => setRegName(e.target.value)}
+                    className="inbuild-input"
+                  />
+                </div>
 
-            <div className="intro-feature-card">
-              <div className="feature-icon">
-                <AnimatedIcon name="listcheck" />
+                <div className="inbuild-field">
+                  <label htmlFor="inbuild-email">Email</label>
+                  <input
+                    id="inbuild-email"
+                    type="email"
+                    required
+                    placeholder="unithinkumar6@gmail.com"
+                    value={regEmail}
+                    onChange={(e) => setRegEmail(e.target.value)}
+                    className="inbuild-input"
+                  />
+                </div>
+
+                <div className="inbuild-field">
+                  <label htmlFor="inbuild-password">Password</label>
+                  <input
+                    id="inbuild-password"
+                    type="password"
+                    required
+                    placeholder="Enter password"
+                    value={regPassword}
+                    onChange={(e) => setRegPassword(e.target.value)}
+                    className="inbuild-input"
+                  />
+                  <span className="inbuild-hint">
+                    At least 8 characters with a letter and a number.
+                  </span>
+                </div>
+
+                <button
+                  type="submit"
+                  disabled={authSubmitting || status === 'loading'}
+                  className="inbuild-submit-btn"
+                >
+                  {authSubmitting ? 'Creating account...' : 'Create account'}
+                </button>
+              </form>
+            ) : (
+              <form onSubmit={handleLoginSubmit} className="inbuild-form" noValidate>
+                <div className="inbuild-field">
+                  <label htmlFor="inbuild-login-email">Email</label>
+                  <input
+                    id="inbuild-login-email"
+                    type="email"
+                    required
+                    placeholder="name@domain.com"
+                    value={loginEmail}
+                    onChange={(e) => setLoginEmail(e.target.value)}
+                    className="inbuild-input"
+                  />
+                </div>
+
+                <div className="inbuild-field">
+                  <label htmlFor="inbuild-login-password">Password</label>
+                  <input
+                    id="inbuild-login-password"
+                    type="password"
+                    required
+                    placeholder="Enter password"
+                    value={loginPassword}
+                    onChange={(e) => setLoginPassword(e.target.value)}
+                    className="inbuild-input"
+                  />
+                </div>
+
+                <button
+                  type="submit"
+                  disabled={authSubmitting || status === 'loading'}
+                  className="inbuild-submit-btn"
+                >
+                  {authSubmitting ? 'Signing in...' : 'Sign in'}
+                </button>
+              </form>
+            )}
+
+            <p className="inbuild-disclaimer">
+              By continuing you agree that MeetingActionLog is a demonstration system trained on
+              synthetic data. Decisions shown are illustrative.
+            </p>
+
+            {/* Quick 1-Click Demo Accounts */}
+            <div className="inbuild-demo-section">
+              <div className="inbuild-demo-label">1-Click Quick Demo Access</div>
+              <div className="inbuild-demo-chips">
+                {demoList.map((demo) => (
+                  <button
+                    key={demo.email}
+                    type="button"
+                    disabled={authSubmitting}
+                    className="inbuild-demo-chip"
+                    onClick={() => handleDemoSelect(demo)}
+                    title={`Sign in as ${demo.name} (${demo.role})`}
+                  >
+                    <span
+                      className="dot"
+                      style={{ backgroundColor: `hsl(${demo.avatarHue}, 65%, 45%)` }}
+                    />
+                    <span>{demo.name}</span>
+                  </button>
+                ))}
               </div>
-              <h3>Zero-Polling Live Sync</h3>
-              <p>
-                Multi-client SSE broadcasts ensure meetings, converted decisions, and check-offs
-                synchronize immediately.
-              </p>
             </div>
           </div>
-        </div>
-      </main>
+        </main>
+      )}
 
       {/* Footer */}
       <footer className="intro-footer">
@@ -500,251 +677,6 @@ export function IntroPage() {
           <span className="mono">USN 2102508611</span>
         </div>
       </footer>
-
-      {/* Authentication Prompt Modal */}
-      {authModalOpen && (
-        <div
-          className="intro-modal-scrim"
-          onClick={() => setAuthModalOpen(false)}
-          role="dialog"
-          aria-modal="true"
-          aria-labelledby="auth-modal-title"
-        >
-          <div className="intro-modal-box" onClick={(e) => e.stopPropagation()}>
-            <div className="intro-modal-header">
-              <div>
-                <span className="eyebrow">Customer Access</span>
-                <h2 id="auth-modal-title">Sign in to access the full application</h2>
-                <p className="modal-subhead">
-                  Select a 1-click team account or sign in with your customer credentials to unlock
-                  the complete ledger.
-                </p>
-              </div>
-              <button
-                type="button"
-                className="modal-close-btn"
-                onClick={() => setAuthModalOpen(false)}
-                aria-label="Close dialog"
-              >
-                <AnimatedIcon name="x" />
-              </button>
-            </div>
-
-            <div className="auth-tabs" role="tablist">
-              <button
-                type="button"
-                role="tab"
-                aria-selected={authTab === 'demo'}
-                className={`auth-tab ${authTab === 'demo' ? 'active' : ''}`}
-                onClick={() => {
-                  setAuthTab('demo');
-                  setAuthError(null);
-                }}
-              >
-                <AnimatedIcon name="users" />
-                <span>1-Click Demo</span>
-              </button>
-
-              <button
-                type="button"
-                role="tab"
-                aria-selected={authTab === 'login'}
-                className={`auth-tab ${authTab === 'login' ? 'active' : ''}`}
-                onClick={() => {
-                  setAuthTab('login');
-                  setAuthError(null);
-                }}
-              >
-                <AnimatedIcon name="user" />
-                <span>Sign in</span>
-              </button>
-
-              <button
-                type="button"
-                role="tab"
-                aria-selected={authTab === 'register'}
-                className={`auth-tab ${authTab === 'register' ? 'active' : ''}`}
-                onClick={() => {
-                  setAuthTab('register');
-                  setAuthError(null);
-                }}
-              >
-                <AnimatedIcon name="plus" />
-                <span>Create profile</span>
-              </button>
-            </div>
-
-            {authError && (
-              <div className="auth-error-alert" role="alert">
-                <AnimatedIcon name="alert" />
-                <span>{authError}</span>
-              </div>
-            )}
-
-            {/* Tab 1: 1-Click Demo Logins */}
-            {authTab === 'demo' && (
-              <div className="modal-demo-grid">
-                <p className="demo-hint-text">
-                  Click any team account to log in instantly with full permissions (password is
-                  pre-filled):
-                </p>
-                <div className="demo-users-list">
-                  {demoList.map((demo) => (
-                    <button
-                      key={demo.email}
-                      type="button"
-                      disabled={authSubmitting}
-                      className="demo-user-card"
-                      onClick={() => handleDemoSelect(demo)}
-                    >
-                      <span
-                        className="demo-avatar"
-                        style={{ backgroundColor: `hsl(${demo.avatarHue}, 65%, 45%)` }}
-                      >
-                        {getInitials(demo.name)}
-                      </span>
-                      <div className="demo-info">
-                        <div className="demo-name">{demo.name}</div>
-                        <div className="demo-role">{demo.role}</div>
-                        <div className="demo-email">{demo.email}</div>
-                      </div>
-                      <span className="demo-arrow">&rarr;</span>
-                    </button>
-                  ))}
-                </div>
-              </div>
-            )}
-
-            {/* Tab 2: Regular Email/Password Login */}
-            {authTab === 'login' && (
-              <form onSubmit={handleLoginSubmit} className="auth-form" noValidate>
-                <div className="field">
-                  <label htmlFor="modal-login-email">Email address</label>
-                  <input
-                    id="modal-login-email"
-                    type="email"
-                    required
-                    placeholder="name@domain.com"
-                    value={loginEmail}
-                    onChange={(e) => setLoginEmail(e.target.value)}
-                  />
-                </div>
-
-                <div className="field">
-                  <label htmlFor="modal-login-password">Password</label>
-                  <input
-                    id="modal-login-password"
-                    type="password"
-                    required
-                    placeholder="Enter your password"
-                    value={loginPassword}
-                    onChange={(e) => setLoginPassword(e.target.value)}
-                  />
-                </div>
-
-                <div className="auth-submit-row">
-                  <button
-                    type="submit"
-                    disabled={authSubmitting || status === 'loading'}
-                    className="btn btn-primary auth-submit-btn"
-                  >
-                    {authSubmitting ? 'Signing in...' : 'Sign in & access full application'}
-                  </button>
-                </div>
-              </form>
-            )}
-
-            {/* Tab 3: Create Customer Profile */}
-            {authTab === 'register' && (
-              <form onSubmit={handleRegisterSubmit} className="auth-form" noValidate>
-                <div className="field">
-                  <label htmlFor="modal-reg-name">Full name</label>
-                  <input
-                    id="modal-reg-name"
-                    type="text"
-                    required
-                    placeholder="e.g. Jordan Blake"
-                    value={regName}
-                    onChange={(e) => setRegName(e.target.value)}
-                  />
-                </div>
-
-                <div className="field">
-                  <label htmlFor="modal-reg-email">Email address</label>
-                  <input
-                    id="modal-reg-email"
-                    type="email"
-                    required
-                    placeholder="name@company.com"
-                    value={regEmail}
-                    onChange={(e) => setRegEmail(e.target.value)}
-                  />
-                </div>
-
-                <div className="field-grid-2">
-                  <div className="field">
-                    <label htmlFor="modal-reg-role">Role / Title</label>
-                    <input
-                      id="modal-reg-role"
-                      type="text"
-                      placeholder="e.g. Customer, Lead"
-                      value={regRole}
-                      onChange={(e) => setRegRole(e.target.value)}
-                    />
-                  </div>
-
-                  <div className="field">
-                    <label htmlFor="modal-reg-hue">Avatar color hue ({regAvatarHue}&deg;)</label>
-                    <div className="hue-input-row">
-                      <input
-                        id="modal-reg-hue"
-                        type="range"
-                        min="0"
-                        max="360"
-                        step="5"
-                        value={regAvatarHue}
-                        onChange={(e) => setRegAvatarHue(Number(e.target.value))}
-                      />
-                      <span
-                        className="hue-preview-dot"
-                        style={{ backgroundColor: `hsl(${regAvatarHue}, 65%, 45%)` }}
-                      />
-                    </div>
-                  </div>
-                </div>
-
-                <div className="field">
-                  <label htmlFor="modal-reg-pwd">Password (min 8 chars)</label>
-                  <input
-                    id="modal-reg-pwd"
-                    type="password"
-                    required
-                    placeholder="Create a strong password"
-                    value={regPassword}
-                    onChange={(e) => setRegPassword(e.target.value)}
-                  />
-                </div>
-
-                <div className="auth-submit-row">
-                  <button
-                    type="submit"
-                    disabled={authSubmitting || status === 'loading'}
-                    className="btn btn-primary auth-submit-btn"
-                  >
-                    {authSubmitting ? 'Creating profile...' : 'Create profile & access application'}
-                  </button>
-                </div>
-              </form>
-            )}
-
-            <div className="modal-footer-nav">
-              <Link to="/login" className="btn-link" onClick={() => setAuthModalOpen(false)}>
-                Go to dedicated sign-in page &rarr;
-              </Link>
-            </div>
-          </div>
-        </div>
-      )}
 
       {/* Student Details Modal */}
       {studentModalOpen && (

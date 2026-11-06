@@ -11,20 +11,17 @@ export function LoginPage() {
   const { user, status, error, login, register, fetchDemoUsers, demoUsers, clearError } =
     useAuthStore();
 
-  const [tab, setTab] = useState<'login' | 'register'>('login');
+  const [authMode, setAuthMode] = useState<'login' | 'register'>('register');
   const [submitting, setSubmitting] = useState(false);
   const [formError, setFormError] = useState<string | null>(null);
 
-  // Login form state
+  // Form states matching Image 2
+  const [regName, setRegName] = useState('unithinkumar');
+  const [regEmail, setRegEmail] = useState('unithinkumar6@gmail.com');
+  const [regPassword, setRegPassword] = useState('');
+
   const [loginEmail, setLoginEmail] = useState('');
   const [loginPassword, setLoginPassword] = useState('');
-
-  // Register form state
-  const [regName, setRegName] = useState('');
-  const [regEmail, setRegEmail] = useState('');
-  const [regRole, setRegRole] = useState('Customer');
-  const [regAvatarHue, setRegAvatarHue] = useState<number>(200);
-  const [regPassword, setRegPassword] = useState('');
 
   useEffect(() => {
     void fetchDemoUsers();
@@ -33,7 +30,7 @@ export function LoginPage() {
   useEffect(() => {
     clearError();
     setFormError(null);
-  }, [tab, clearError]);
+  }, [authMode, clearError]);
 
   const handleLoginSubmit = async (e: FormEvent) => {
     e.preventDefault();
@@ -70,11 +67,11 @@ export function LoginPage() {
       await register({
         name: regName.trim(),
         email: regEmail.trim().toLowerCase(),
-        role: regRole.trim() || 'Customer',
-        avatarHue: regAvatarHue,
+        role: 'Customer',
+        avatarHue: 200,
         password: regPassword,
       });
-      navigate('/profile');
+      navigate(redirectPath);
     } catch (err: unknown) {
       const msg = err instanceof Error ? err.message : 'Registration failed';
       setFormError(msg);
@@ -97,6 +94,52 @@ export function LoginPage() {
     }
   };
 
+  const demoList: DemoUserCard[] =
+    demoUsers.length > 0
+      ? demoUsers
+      : [
+          {
+            id: '1',
+            name: 'Ananya Rao',
+            email: 'ananya.rao@meetingactionlog.dev',
+            role: 'Product Lead',
+            avatarHue: 176,
+            memberId: 'm1',
+          },
+          {
+            id: '2',
+            name: 'Karthik Shetty',
+            email: 'karthik.shetty@meetingactionlog.dev',
+            role: 'Backend Engineer',
+            avatarHue: 28,
+            memberId: 'm2',
+          },
+          {
+            id: '3',
+            name: 'Meera Iyer',
+            email: 'meera.iyer@meetingactionlog.dev',
+            role: 'Designer',
+            avatarHue: 320,
+            memberId: 'm3',
+          },
+          {
+            id: '4',
+            name: 'Priya Menon',
+            email: 'priya.menon@meetingactionlog.dev',
+            role: 'Marketing',
+            avatarHue: 250,
+            memberId: 'm4',
+          },
+          {
+            id: '5',
+            name: 'Rahul Nair',
+            email: 'rahul.nair@meetingactionlog.dev',
+            role: 'QA Engineer',
+            avatarHue: 46,
+            memberId: 'm5',
+          },
+        ];
+
   const getInitials = (name: string): string => {
     const parts = name.trim().split(/\s+/).filter(Boolean);
     const first = parts[0];
@@ -111,18 +154,7 @@ export function LoginPage() {
   };
 
   return (
-    <div className="auth-page-container">
-      <header className="page-head">
-        <div>
-          <span className="eyebrow">Customer Portal</span>
-          <h1>Access your workspace</h1>
-          <p className="lead">
-            Sign in to manage decisions, attend meetings, track action items, and personalize your
-            customer profile.
-          </p>
-        </div>
-      </header>
-
+    <div className="inbuild-auth-container">
       {user && (
         <section className="auth-status-banner" aria-label="Current session">
           <div className="auth-status-info">
@@ -131,8 +163,8 @@ export function LoginPage() {
               style={{
                 backgroundColor: `hsl(${user.avatarHue}, 60%, 45%)`,
                 color: '#fff',
-                width: 38,
-                height: 38,
+                width: 36,
+                height: 36,
                 borderRadius: '50%',
                 display: 'inline-flex',
                 alignItems: 'center',
@@ -144,7 +176,7 @@ export function LoginPage() {
               {getInitials(user.name)}
             </span>
             <div>
-              <strong>Currently signed in as {user.name}</strong>
+              <strong>Signed in as {user.name}</strong>
               <div className="text-muted">
                 {user.email} &middot; {user.role}
               </div>
@@ -161,271 +193,163 @@ export function LoginPage() {
         </section>
       )}
 
-      <div className="auth-layout-grid">
-        <section className="auth-card" aria-label="Authentication form">
-          <div className="auth-tabs" role="tablist">
-            <button
-              type="button"
-              role="tab"
-              aria-selected={tab === 'login'}
-              className={`auth-tab ${tab === 'login' ? 'active' : ''}`}
-              onClick={() => setTab('login')}
-            >
-              <AnimatedIcon name="user" />
-              <span>Sign in</span>
-            </button>
-            <button
-              type="button"
-              role="tab"
-              aria-selected={tab === 'register'}
-              className={`auth-tab ${tab === 'register' ? 'active' : ''}`}
-              onClick={() => setTab('register')}
-            >
-              <AnimatedIcon name="plus" />
-              <span>Create profile</span>
-            </button>
-          </div>
+      <div className="inbuild-auth-card">
+        <h2 className="inbuild-auth-title">
+          {authMode === 'register' ? 'Create your account' : 'Sign in to your account'}
+        </h2>
 
-          {(formError || error) && (
-            <div className="auth-error-alert" role="alert">
-              <AnimatedIcon name="alert" />
-              <span>{formError || error}</span>
+        <p className="inbuild-auth-subhead">
+          {authMode === 'register'
+            ? 'Create a free account to run assessments and keep your history.'
+            : 'Sign in to access your meetings, decisions, and personal ledger.'}
+        </p>
+
+        {/* Segmented Control Switcher */}
+        <div className="inbuild-tabs" role="tablist">
+          <button
+            type="button"
+            role="tab"
+            aria-selected={authMode === 'login'}
+            className={`inbuild-tab ${authMode === 'login' ? 'active' : ''}`}
+            onClick={() => setAuthMode('login')}
+          >
+            Sign in
+          </button>
+          <button
+            type="button"
+            role="tab"
+            aria-selected={authMode === 'register'}
+            className={`inbuild-tab ${authMode === 'register' ? 'active' : ''}`}
+            onClick={() => setAuthMode('register')}
+          >
+            Create account
+          </button>
+        </div>
+
+        {(formError || error) && (
+          <div className="auth-error-alert" role="alert">
+            <AnimatedIcon name="alert" />
+            <span>{formError || error}</span>
+          </div>
+        )}
+
+        {authMode === 'register' ? (
+          <form onSubmit={handleRegisterSubmit} className="inbuild-form" noValidate>
+            <div className="inbuild-field">
+              <label htmlFor="login-page-reg-name">Full name</label>
+              <input
+                id="login-page-reg-name"
+                type="text"
+                required
+                placeholder="e.g. unithinkumar"
+                value={regName}
+                onChange={(e) => setRegName(e.target.value)}
+                className="inbuild-input"
+              />
             </div>
-          )}
 
-          {tab === 'login' ? (
-            <form onSubmit={handleLoginSubmit} className="auth-form" noValidate>
-              <div className="field">
-                <label htmlFor="login-email">Email address</label>
-                <input
-                  id="login-email"
-                  type="email"
-                  required
-                  autoComplete="email"
-                  placeholder="name@domain.com"
-                  value={loginEmail}
-                  onChange={(e) => setLoginEmail(e.target.value)}
-                />
-              </div>
+            <div className="inbuild-field">
+              <label htmlFor="login-page-reg-email">Email</label>
+              <input
+                id="login-page-reg-email"
+                type="email"
+                required
+                placeholder="unithinkumar6@gmail.com"
+                value={regEmail}
+                onChange={(e) => setRegEmail(e.target.value)}
+                className="inbuild-input"
+              />
+            </div>
 
-              <div className="field">
-                <label htmlFor="login-password">Password</label>
-                <input
-                  id="login-password"
-                  type="password"
-                  required
-                  autoComplete="current-password"
-                  placeholder="Enter your account password"
-                  value={loginPassword}
-                  onChange={(e) => setLoginPassword(e.target.value)}
-                />
-              </div>
+            <div className="inbuild-field">
+              <label htmlFor="login-page-reg-pwd">Password</label>
+              <input
+                id="login-page-reg-pwd"
+                type="password"
+                required
+                placeholder="Enter password"
+                value={regPassword}
+                onChange={(e) => setRegPassword(e.target.value)}
+                className="inbuild-input"
+              />
+              <span className="inbuild-hint">
+                At least 8 characters with a letter and a number.
+              </span>
+            </div>
 
-              <div className="auth-submit-row">
-                <button
-                  type="submit"
-                  disabled={submitting || status === 'loading'}
-                  className="btn btn-primary auth-submit-btn"
-                >
-                  {submitting ? 'Signing in...' : 'Sign in to ledger'}
-                </button>
-              </div>
+            <button
+              type="submit"
+              disabled={submitting || status === 'loading'}
+              className="inbuild-submit-btn"
+            >
+              {submitting ? 'Creating account...' : 'Create account'}
+            </button>
+          </form>
+        ) : (
+          <form onSubmit={handleLoginSubmit} className="inbuild-form" noValidate>
+            <div className="inbuild-field">
+              <label htmlFor="login-page-email">Email</label>
+              <input
+                id="login-page-email"
+                type="email"
+                required
+                placeholder="name@domain.com"
+                value={loginEmail}
+                onChange={(e) => setLoginEmail(e.target.value)}
+                className="inbuild-input"
+              />
+            </div>
 
-              <p className="auth-footer-hint">
-                Need a new account? Switch to the{' '}
-                <button type="button" className="btn-link" onClick={() => setTab('register')}>
-                  Create profile
-                </button>{' '}
-                tab to get started.
-              </p>
-            </form>
-          ) : (
-            <form onSubmit={handleRegisterSubmit} className="auth-form" noValidate>
-              <div className="field">
-                <label htmlFor="reg-name">Full name</label>
-                <input
-                  id="reg-name"
-                  type="text"
-                  required
-                  autoComplete="name"
-                  placeholder="e.g. Jordan Blake"
-                  value={regName}
-                  onChange={(e) => setRegName(e.target.value)}
-                />
-              </div>
+            <div className="inbuild-field">
+              <label htmlFor="login-page-pwd">Password</label>
+              <input
+                id="login-page-pwd"
+                type="password"
+                required
+                placeholder="Enter password"
+                value={loginPassword}
+                onChange={(e) => setLoginPassword(e.target.value)}
+                className="inbuild-input"
+              />
+            </div>
 
-              <div className="field">
-                <label htmlFor="reg-email">Email address</label>
-                <input
-                  id="reg-email"
-                  type="email"
-                  required
-                  autoComplete="email"
-                  placeholder="name@company.com"
-                  value={regEmail}
-                  onChange={(e) => setRegEmail(e.target.value)}
-                />
-              </div>
+            <button
+              type="submit"
+              disabled={submitting || status === 'loading'}
+              className="inbuild-submit-btn"
+            >
+              {submitting ? 'Signing in...' : 'Sign in'}
+            </button>
+          </form>
+        )}
 
-              <div className="field-grid-2">
-                <div className="field">
-                  <label htmlFor="reg-role">Role / Title</label>
-                  <input
-                    id="reg-role"
-                    type="text"
-                    placeholder="e.g. Product Lead, Customer"
-                    value={regRole}
-                    onChange={(e) => setRegRole(e.target.value)}
-                  />
-                </div>
+        <p className="inbuild-disclaimer">
+          By continuing you agree that MeetingActionLog is a demonstration system trained on
+          synthetic data. Decisions shown are illustrative.
+        </p>
 
-                <div className="field">
-                  <label htmlFor="reg-hue">Avatar color hue ({regAvatarHue}&deg;)</label>
-                  <div className="hue-input-row">
-                    <input
-                      id="reg-hue"
-                      type="range"
-                      min="0"
-                      max="360"
-                      step="5"
-                      value={regAvatarHue}
-                      onChange={(e) => setRegAvatarHue(Number(e.target.value))}
-                    />
-                    <span
-                      className="hue-preview-dot"
-                      style={{
-                        backgroundColor: `hsl(${regAvatarHue}, 65%, 45%)`,
-                      }}
-                      title="Color preview"
-                    />
-                  </div>
-                </div>
-              </div>
-
-              <div className="field">
-                <label htmlFor="reg-password">Password (min 8 chars, 1 digit, 1 special)</label>
-                <input
-                  id="reg-password"
-                  type="password"
-                  required
-                  autoComplete="new-password"
-                  placeholder="Create a strong password"
-                  value={regPassword}
-                  onChange={(e) => setRegPassword(e.target.value)}
-                />
-              </div>
-
-              <div className="auth-profile-preview">
-                <span
-                  className="preview-avatar"
-                  style={{ backgroundColor: `hsl(${regAvatarHue}, 65%, 45%)` }}
-                >
-                  {getInitials(regName || 'Customer')}
-                </span>
-                <div className="preview-meta">
-                  <div className="preview-name">{regName || 'Customer Name'}</div>
-                  <div className="preview-role">{regRole || 'Customer'} &middot; New profile</div>
-                </div>
-              </div>
-
-              <div className="auth-submit-row">
-                <button
-                  type="submit"
-                  disabled={submitting || status === 'loading'}
-                  className="btn btn-primary auth-submit-btn"
-                >
-                  {submitting ? 'Creating profile...' : 'Create profile and sign in'}
-                </button>
-              </div>
-            </form>
-          )}
-        </section>
-
-        <aside className="auth-demo-sidebar" aria-label="Demo customer logins">
-          <div className="demo-header">
-            <h3>1-Click Quick Demo Logins</h3>
-            <p>
-              Explore the ledger immediately with any of the pre-configured team accounts. Password
-              for all demo users is <code>Password123!</code>.
-            </p>
-          </div>
-
-          <div className="demo-users-list">
-            {(demoUsers.length > 0
-              ? demoUsers
-              : [
-                  {
-                    id: '1',
-                    name: 'Ananya Rao',
-                    email: 'ananya.rao@meetingactionlog.dev',
-                    role: 'Product Lead',
-                    avatarHue: 200,
-                    memberId: 'm1',
-                  },
-                  {
-                    id: '2',
-                    name: 'Karthik Shetty',
-                    email: 'karthik.shetty@meetingactionlog.dev',
-                    role: 'Backend Engineer',
-                    avatarHue: 35,
-                    memberId: 'm2',
-                  },
-                  {
-                    id: '3',
-                    name: 'Meera Iyer',
-                    email: 'meera.iyer@meetingactionlog.dev',
-                    role: 'Designer',
-                    avatarHue: 280,
-                    memberId: 'm3',
-                  },
-                  {
-                    id: '4',
-                    name: 'Priya Menon',
-                    email: 'priya.menon@meetingactionlog.dev',
-                    role: 'Marketing',
-                    avatarHue: 150,
-                    memberId: 'm4',
-                  },
-                  {
-                    id: '5',
-                    name: 'Rahul Nair',
-                    email: 'rahul.nair@meetingactionlog.dev',
-                    role: 'QA Engineer',
-                    avatarHue: 10,
-                    memberId: 'm5',
-                  },
-                ]
-            ).map((demo) => (
+        {/* Quick 1-Click Demo Accounts */}
+        <div className="inbuild-demo-section">
+          <div className="inbuild-demo-label">1-Click Quick Demo Access</div>
+          <div className="inbuild-demo-chips">
+            {demoList.map((demo) => (
               <button
                 key={demo.email}
                 type="button"
-                className="demo-user-card"
                 disabled={submitting}
+                className="inbuild-demo-chip"
                 onClick={() => handleDemoLogin(demo)}
+                title={`Sign in as ${demo.name} (${demo.role})`}
               >
                 <span
-                  className="demo-avatar"
+                  className="dot"
                   style={{ backgroundColor: `hsl(${demo.avatarHue}, 65%, 45%)` }}
-                >
-                  {getInitials(demo.name)}
-                </span>
-                <div className="demo-info">
-                  <div className="demo-name">{demo.name}</div>
-                  <div className="demo-role">{demo.role}</div>
-                  <div className="demo-email">{demo.email}</div>
-                </div>
-                <span className="demo-arrow">&rarr;</span>
+                />
+                <span>{demo.name}</span>
               </button>
             ))}
           </div>
-
-          <div className="demo-note">
-            <AnimatedIcon name="info" />
-            <span>
-              Customer profiles automatically sync with meeting attendees and action item ownership.
-            </span>
-          </div>
-        </aside>
+        </div>
       </div>
     </div>
   );

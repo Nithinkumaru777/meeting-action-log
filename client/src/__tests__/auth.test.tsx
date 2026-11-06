@@ -66,7 +66,7 @@ describe('Client Authentication & Customer Profile (100x)', () => {
   });
 
   it(
-    'renders LoginPage with sign-in and create-profile tabs and demo accounts',
+    'renders LoginPage with sign-in and create-account tabs and demo accounts',
     { repeats: 100 },
     () => {
       const { unmount } = render(
@@ -75,26 +75,24 @@ describe('Client Authentication & Customer Profile (100x)', () => {
         </MemoryRouter>,
       );
 
-      expect(screen.getByRole('heading', { name: /access your workspace/i })).toBeInTheDocument();
+      expect(screen.getByRole('heading', { name: /create your account/i })).toBeInTheDocument();
       expect(screen.getByRole('tab', { name: /sign in/i })).toBeInTheDocument();
-      expect(screen.getByRole('tab', { name: /create profile/i })).toBeInTheDocument();
+      expect(screen.getByRole('tab', { name: /create account/i })).toBeInTheDocument();
 
-      // Sign in form fields
-      expect(screen.getByLabelText(/email address/i)).toBeInTheDocument();
+      // Create account form fields
+      expect(screen.getByLabelText(/full name/i)).toBeInTheDocument();
+      expect(screen.getByLabelText(/^email/i)).toBeInTheDocument();
       expect(screen.getByLabelText(/^password/i)).toBeInTheDocument();
-      expect(screen.getByRole('button', { name: /sign in to ledger/i })).toBeInTheDocument();
+      expect(screen.getByRole('button', { name: /create account/i })).toBeInTheDocument();
 
       // Demo section
-      expect(screen.getByText(/1-click quick demo logins/i)).toBeInTheDocument();
+      expect(screen.getByText(/1-click quick demo access/i)).toBeInTheDocument();
       expect(screen.getByText('Ananya Rao')).toBeInTheDocument();
 
-      // Switch to create profile tab
-      fireEvent.click(screen.getByRole('tab', { name: /create profile/i }));
-      expect(screen.getByLabelText(/full name/i)).toBeInTheDocument();
-      expect(screen.getByLabelText(/role \/ title/i)).toBeInTheDocument();
-      expect(
-        screen.getByRole('button', { name: /create profile and sign in/i }),
-      ).toBeInTheDocument();
+      // Switch to sign in tab
+      fireEvent.click(screen.getByRole('tab', { name: /sign in/i }));
+      expect(screen.getByRole('heading', { name: /sign in to your account/i })).toBeInTheDocument();
+      expect(screen.getByRole('button', { name: /^sign in$/i })).toBeInTheDocument();
 
       unmount();
     },

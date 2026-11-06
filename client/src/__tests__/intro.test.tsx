@@ -100,7 +100,7 @@ describe('IntroPage (100x)', () => {
   });
 
   it(
-    'opens Auth Modal when unauthenticated user clicks Access full application',
+    'switches to Inbuild Auth UI when unauthenticated user clicks Access full application',
     { repeats: 100 },
     () => {
       const { unmount } = render(
@@ -112,23 +112,22 @@ describe('IntroPage (100x)', () => {
       const accessBtn = screen.getByRole('button', { name: /access full application/i });
       fireEvent.click(accessBtn);
 
-      // Modal opens
-      expect(
-        screen.getByRole('heading', { name: /sign in to access the full application/i }),
-      ).toBeInTheDocument();
-      expect(screen.getByRole('tab', { name: /1-click demo/i })).toBeInTheDocument();
+      // Inbuild Auth UI is displayed matching Image 2
+      expect(screen.getByRole('heading', { name: /create your account/i })).toBeInTheDocument();
       expect(screen.getByRole('tab', { name: /sign in/i })).toBeInTheDocument();
-      expect(screen.getByRole('tab', { name: /create profile/i })).toBeInTheDocument();
+      expect(screen.getByRole('tab', { name: /create account/i })).toBeInTheDocument();
 
-      // Demo account card is visible
+      // Form fields and demo access chips are visible
+      expect(screen.getByLabelText(/full name/i)).toBeInTheDocument();
+      expect(screen.getByLabelText(/^email/i)).toBeInTheDocument();
+      expect(screen.getByLabelText(/^password/i)).toBeInTheDocument();
+      expect(screen.getByRole('button', { name: /create account/i })).toBeInTheDocument();
       expect(screen.getByText('Ananya Rao')).toBeInTheDocument();
 
-      // Close button
-      const closeBtn = screen.getByRole('button', { name: /close dialog/i });
-      fireEvent.click(closeBtn);
-      expect(
-        screen.queryByRole('heading', { name: /sign in to access the full application/i }),
-      ).not.toBeInTheDocument();
+      // Return back to showcase
+      const backBtn = screen.getByRole('button', { name: /return to showcase/i });
+      fireEvent.click(backBtn);
+      expect(screen.getByRole('heading', { name: /know who owns what/i })).toBeInTheDocument();
 
       unmount();
     },

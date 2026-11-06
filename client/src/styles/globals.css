@@ -4501,3 +4501,214 @@ body.dw-open .tour-pop {
     justify-content: center;
   }
 }
+
+/* ==========================================================================
+   INBUILD AUTH UI (Exact Match to Reference Screenshot)
+   ========================================================================== */
+
+.inbuild-auth-container {
+  min-height: calc(100vh - 72px);
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  padding: 40px 20px 60px;
+}
+
+.inbuild-auth-card {
+  width: 100%;
+  max-width: 450px;
+  background: #0f1319;
+  border: 1px solid #232936;
+  border-radius: 8px;
+  padding: 36px 32px;
+  box-shadow: 0 20px 48px rgba(0, 0, 0, 0.45);
+  color: #f8fafc;
+}
+
+.inbuild-back-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  font: 500 13px/1 var(--f-sans);
+  color: #94a3b8;
+  background: transparent;
+  border: none;
+  cursor: pointer;
+  margin-bottom: 20px;
+  padding: 0;
+  transition: color 0.15s ease;
+}
+
+.inbuild-back-btn:hover {
+  color: #f8fafc;
+}
+
+.inbuild-auth-title {
+  font: 600 32px/1.15 var(--f-display);
+  letter-spacing: -0.02em;
+  margin: 0 0 8px;
+  color: #f8fafc;
+}
+
+.inbuild-auth-subhead {
+  font: 400 14px/1.5 var(--f-sans);
+  color: #94a3b8;
+  margin: 0 0 22px;
+}
+
+/* Two-Pill Segmented Control matching Image 2 */
+.inbuild-tabs {
+  display: inline-flex;
+  background: #090c10;
+  border: 1px solid #232936;
+  border-radius: 6px;
+  padding: 4px;
+  margin-bottom: 24px;
+  gap: 2px;
+}
+
+.inbuild-tab {
+  padding: 7px 16px;
+  font: 500 13px/1 var(--f-sans);
+  border: none;
+  background: transparent;
+  color: #94a3b8;
+  border-radius: 4px;
+  cursor: pointer;
+  transition: all 0.15s ease;
+}
+
+.inbuild-tab.active {
+  background: #f8fafc;
+  color: #0b0e14;
+  font-weight: 600;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.25);
+}
+
+.inbuild-form {
+  display: flex;
+  flex-direction: column;
+  gap: 18px;
+}
+
+.inbuild-field {
+  display: flex;
+  flex-direction: column;
+  gap: 7px;
+}
+
+.inbuild-field label {
+  font: 500 13px/1 var(--f-sans);
+  color: #e2e8f0;
+}
+
+.inbuild-input {
+  width: 100%;
+  background: #0b0e14;
+  border: 1px solid #232936;
+  border-radius: 4px;
+  padding: 12px 14px;
+  color: #f8fafc;
+  font: 400 14px/1.4 var(--f-sans);
+  outline: none;
+  transition: border-color 0.15s ease;
+}
+
+.inbuild-input:focus {
+  border-color: #eab308;
+}
+
+.inbuild-hint {
+  font-size: 12px;
+  color: #94a3b8;
+  margin-top: 4px;
+}
+
+/* Golden Yellow Button matching Image 2 with tactile bevel */
+.inbuild-submit-btn {
+  width: 100%;
+  background: #eab308;
+  color: #0b0e14;
+  border: none;
+  border-radius: 4px;
+  font: 700 15px/1 var(--f-sans);
+  padding: 13px;
+  cursor: pointer;
+  margin-top: 8px;
+  box-shadow: 0 4px 0 #ca8a04;
+  transition:
+    transform 0.1s ease,
+    box-shadow 0.1s ease,
+    background-color 0.15s ease;
+}
+
+.inbuild-submit-btn:hover {
+  background: #facc15;
+}
+
+.inbuild-submit-btn:active {
+  transform: translateY(2px);
+  box-shadow: 0 2px 0 #ca8a04;
+}
+
+.inbuild-submit-btn:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+  transform: none;
+  box-shadow: none;
+}
+
+.inbuild-disclaimer {
+  font: 400 12px/1.55 var(--f-sans);
+  color: #64748b;
+  margin: 18px 0 0;
+}
+
+/* 1-Click Quick Demo strip */
+.inbuild-demo-section {
+  margin-top: 24px;
+  padding-top: 18px;
+  border-top: 1px solid #232936;
+}
+
+.inbuild-demo-label {
+  font: 500 11px/1 var(--f-mono);
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+  color: #94a3b8;
+  margin-bottom: 10px;
+}
+
+.inbuild-demo-chips {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+
+.inbuild-demo-chip {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 6px 10px;
+  background: #161b22;
+  border: 1px solid #283141;
+  border-radius: 4px;
+  color: #cbd5e1;
+  font: 500 12px/1 var(--f-sans);
+  cursor: pointer;
+  transition: all 0.15s ease;
+}
+
+.inbuild-demo-chip:hover {
+  border-color: #eab308;
+  color: #f8fafc;
+  transform: translateY(-1px);
+}
+
+.inbuild-demo-chip .dot {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+}
