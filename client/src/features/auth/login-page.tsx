@@ -15,9 +15,9 @@ export function LoginPage() {
   const [submitting, setSubmitting] = useState(false);
   const [formError, setFormError] = useState<string | null>(null);
 
-  // Form states matching Image 2
-  const [regName, setRegName] = useState('unithinkumar');
-  const [regEmail, setRegEmail] = useState('unithinkumar6@gmail.com');
+  // Form states
+  const [regName, setRegName] = useState('');
+  const [regEmail, setRegEmail] = useState('');
   const [regPassword, setRegPassword] = useState('');
 
   const [loginEmail, setLoginEmail] = useState('');
@@ -241,7 +241,7 @@ export function LoginPage() {
                 id="login-page-reg-name"
                 type="text"
                 required
-                placeholder="e.g. unithinkumar"
+                placeholder="e.g. Alex Morgan"
                 value={regName}
                 onChange={(e) => setRegName(e.target.value)}
                 className="inbuild-input"
@@ -254,7 +254,7 @@ export function LoginPage() {
                 id="login-page-reg-email"
                 type="email"
                 required
-                placeholder="unithinkumar6@gmail.com"
+                placeholder="name@example.com"
                 value={regEmail}
                 onChange={(e) => setRegEmail(e.target.value)}
                 className="inbuild-input"
