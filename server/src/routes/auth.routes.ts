@@ -9,6 +9,7 @@ export const authRouter = Router();
 authRouter.post('/register', validate({ body: registerSchema }), AuthController.register);
 authRouter.post('/login', validate({ body: loginSchema }), AuthController.login);
 authRouter.get('/me', requireAuth, AuthController.me);
+authRouter.get('/profile', requireAuth, AuthController.getProfile);
 authRouter.patch(
   '/profile',
   requireAuth,

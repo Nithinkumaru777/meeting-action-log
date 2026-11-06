@@ -92,11 +92,19 @@ describe('Auth API (100x)', () => {
       const noAuthRes = await request(app).get('/api/auth/me');
       expect(noAuthRes.status).toBe(401);
 
-      // GET /me with token returns user + stats
+      // GET /me with token returns user
       const meRes = await request(app).get('/api/auth/me').set('Authorization', `Bearer ${token}`);
       expect(meRes.status).toBe(200);
-      expect(meRes.body.data.user.email).toBe('alex.johnson@example.com');
-      expect(meRes.body.data.stats).toEqual({
+      expect(meRes.body.data.email).toBe('alex.johnson@example.com');
+      expect(meRes.body.data.name).toBe('Alex Johnson');
+
+      // GET /profile with token returns user + stats
+      const profileRes = await request(app)
+        .get('/api/auth/profile')
+        .set('Authorization', `Bearer ${token}`);
+      expect(profileRes.status).toBe(200);
+      expect(profileRes.body.data.user.email).toBe('alex.johnson@example.com');
+      expect(profileRes.body.data.stats).toEqual({
         actionsCount: 0,
         openActionsCount: 0,
         overdueActionsCount: 0,
