@@ -12,6 +12,8 @@ import { DecisionsInboxPage } from '../features/decisions/decisions-inbox-page';
 import { MembersPage } from '../features/members/members-page';
 import { GuidedTourOverlay, TOUR_STEPS } from '../features/tour/tour-overlay';
 import { AppRoutes } from '../App';
+import { useAuthStore } from '../lib/auth';
+import { setAuthToken } from '../lib/auth-token';
 
 const MEMBER_1 = {
   id: '000000000000000000000001',
@@ -194,11 +196,15 @@ const server = setupServer(
       meta: { page: 1, limit: 50, total: 0, totalPages: 1 },
     }),
   ),
+  http.get('*/api/auth/demo-users', () => HttpResponse.json({ data: [] })),
+  http.get('*/api/auth/me', () => HttpResponse.json({ data: null })),
 );
 
 beforeAll(() => server.listen({ onUnhandledRequest: 'error' }));
 afterEach(() => {
   server.resetHandlers();
+  setAuthToken(null);
+  window.localStorage.removeItem('mal.auth.user');
   useShellStore.setState({
     searchQuery: '',
     newMeetingOpen: false,
@@ -207,6 +213,13 @@ afterEach(() => {
     theme: 'light',
   });
   useToastStore.getState().clear();
+  useAuthStore.setState({
+    user: null,
+    stats: null,
+    token: null,
+    status: 'unauthenticated',
+    error: null,
+  });
 });
 afterAll(() => server.close());
 
@@ -251,6 +264,32 @@ describe('Step 13: Overdue + Decision Inbox + Members + Guided Demo Tour (100x)'
     'MembersPage CRUD and 409 delete conflict toast + 8-step GuidedTourOverlay + AppRoutes',
     { repeats: 100 },
     async () => {
+      setAuthToken('test-token');
+      window.localStorage.setItem(
+        'mal.auth.user',
+        JSON.stringify({
+          id: 'u-1',
+          memberId: MEMBER_1.id,
+          name: MEMBER_1.name,
+          email: MEMBER_1.email,
+          role: MEMBER_1.role,
+          avatarHue: MEMBER_1.avatarHue,
+          createdAt: '2026-11-01T00:00:00.000Z',
+        }),
+      );
+      useAuthStore.setState({
+        token: 'test-token',
+        user: {
+          id: 'u-1',
+          memberId: MEMBER_1.id,
+          name: MEMBER_1.name,
+          email: MEMBER_1.email,
+          role: MEMBER_1.role,
+          avatarHue: MEMBER_1.avatarHue,
+          createdAt: '2026-11-01T00:00:00.000Z',
+        },
+        status: 'authenticated',
+      });
       expect(TOUR_STEPS.length).toBe(8);
       const qc = createQueryClient();
       const { unmount } = render(
@@ -263,7 +302,13 @@ describe('Step 13: Overdue + Decision Inbox + Members + Guided Demo Tour (100x)'
         </QueryClientProvider>,
       );
 
-      await waitFor(() => expect(screen.getAllByText('Ananya Rao').length).toBeGreaterThan(0));
+      await waitFor(() =>
+        expect(
+          screen.getAllByRole('button', {
+            name: /Remove Ananya Rao/i,
+          }).length,
+        ).toBeGreaterThan(0),
+      );
 
       const removeBtns = screen.getAllByRole('button', {
         name: /Remove Ananya Rao/i,

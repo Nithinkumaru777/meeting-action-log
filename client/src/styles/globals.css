@@ -4712,3 +4712,49 @@ body.dw-open .tour-pop {
   height: 8px;
   border-radius: 50%;
 }
+
+.intro-about-container {
+  min-height: calc(100vh - 72px);
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 40px 20px 60px;
+}
+
+.intro-about-card {
+  width: 100%;
+  max-width: 1080px;
+  background: #0f1319;
+  border: 1px solid #232936;
+  border-radius: 8px;
+  padding: 36px 32px;
+  box-shadow: 0 20px 48px rgba(0, 0, 0, 0.45);
+  color: #f8fafc;
+}
+
+.intro-about-card .about-panel {
+  background: #090c10;
+  border-color: #232936;
+  color: #f8fafc;
+}
+
+.intro-about-card .about-dl dt {
+  color: #94a3b8;
+}
+
+.intro-about-card .about-dl dd {
+  color: #f8fafc;
+}
+
+.intro-about-card .about-subtitle {
+  color: #f8fafc;
+}
+
+.intro-about-card .about-uses {
+  color: #94a3b8;
+}
+
+.intro-about-card .about-uses b {
+  color: #f8fafc;
+}

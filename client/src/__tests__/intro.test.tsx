@@ -170,4 +170,26 @@ describe('IntroPage (100x)', () => {
 
     unmount();
   });
+
+  it('switches to Public About view when clicking About the project link', { repeats: 100 }, () => {
+    const { unmount } = render(
+      <MemoryRouter>
+        <IntroPage />
+      </MemoryRouter>,
+    );
+
+    const aboutLink = screen.getByRole('link', { name: /about the project/i });
+    fireEvent.click(aboutLink);
+
+    expect(screen.getByRole('heading', { name: /about this project/i })).toBeInTheDocument();
+    expect(screen.getByText('Nithin Kumar U')).toBeInTheDocument();
+    expect(screen.getByText('2102508611')).toBeInTheDocument();
+    expect(screen.getByText(/sprint ceremonies/i)).toBeInTheDocument();
+
+    const backBtn = screen.getByRole('button', { name: /return to showcase/i });
+    fireEvent.click(backBtn);
+    expect(screen.getByRole('heading', { name: /know who owns what/i })).toBeInTheDocument();
+
+    unmount();
+  });
 });

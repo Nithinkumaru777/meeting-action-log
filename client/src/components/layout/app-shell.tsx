@@ -99,32 +99,57 @@ export interface NavItem {
   label: string;
   mobileLabel: string;
   icon: IconName;
+  requiresAuth?: boolean;
 }
 
 export const NAV_ITEMS: NavItem[] = [
-  { key: 'dashboard', path: '/', label: 'Today', mobileLabel: 'Today', icon: 'grid' },
+  {
+    key: 'dashboard',
+    path: '/',
+    label: 'Today',
+    mobileLabel: 'Today',
+    icon: 'grid',
+    requiresAuth: true,
+  },
   {
     key: 'meetings',
     path: '/meetings',
     label: 'Meetings',
     mobileLabel: 'Meetings',
     icon: 'calendar',
+    requiresAuth: true,
   },
-  { key: 'overdue', path: '/overdue', label: 'Overdue', mobileLabel: 'Overdue', icon: 'flame' },
+  {
+    key: 'overdue',
+    path: '/overdue',
+    label: 'Overdue',
+    mobileLabel: 'Overdue',
+    icon: 'flame',
+    requiresAuth: true,
+  },
   {
     key: 'decisions',
     path: '/decisions',
     label: 'Decision inbox',
     mobileLabel: 'Inbox',
     icon: 'bulb',
+    requiresAuth: true,
   },
-  { key: 'members', path: '/members', label: 'Members', mobileLabel: 'Members', icon: 'users' },
+  {
+    key: 'members',
+    path: '/members',
+    label: 'Members',
+    mobileLabel: 'Members',
+    icon: 'users',
+    requiresAuth: true,
+  },
   {
     key: 'tutorials',
     path: '/tutorials',
     label: 'Tutorials',
     mobileLabel: 'Tutorials',
     icon: 'play',
+    requiresAuth: true,
   },
   {
     key: 'intro',
@@ -132,6 +157,7 @@ export const NAV_ITEMS: NavItem[] = [
     label: 'Intro',
     mobileLabel: 'Intro',
     icon: 'sparkles',
+    requiresAuth: false,
   },
   {
     key: 'profile',
@@ -139,6 +165,7 @@ export const NAV_ITEMS: NavItem[] = [
     label: 'Profile',
     mobileLabel: 'Profile',
     icon: 'user',
+    requiresAuth: true,
   },
   {
     key: 'about',
@@ -146,6 +173,7 @@ export const NAV_ITEMS: NavItem[] = [
     label: 'About',
     mobileLabel: 'About',
     icon: 'help',
+    requiresAuth: false,
   },
 ];
 
@@ -431,6 +459,10 @@ export function AppShell({
   }, [setCmdkOpen]);
 
   const handleNewMeeting = () => {
+    if (!user) {
+      navigate('/login?redirect=/meetings');
+      return;
+    }
     if (onNewMeetingClick) {
       onNewMeetingClick();
     } else {
@@ -468,6 +500,12 @@ export function AppShell({
                   className="ah"
                   data-nav={item.key}
                   aria-current={active ? 'page' : undefined}
+                  onClick={(e) => {
+                    if (item.requiresAuth && !user) {
+                      e.preventDefault();
+                      navigate(`/login?redirect=${encodeURIComponent(item.path)}`);
+                    }
+                  }}
                 >
                   <AnimatedIcon name={item.icon} />
                   <span>{item.label}</span>
@@ -515,6 +553,10 @@ export function AppShell({
                 onChange={(e) => {
                   const val = e.target.value;
                   setSearchQuery(val);
+                  if (!user) {
+                    navigate('/login?redirect=/meetings');
+                    return;
+                  }
                   if (location.pathname !== '/meetings') {
                     navigate('/meetings');
                   }
@@ -528,7 +570,13 @@ export function AppShell({
               className="btn btn-line btn-demo ah"
               id="demoBtn"
               aria-label="Start guided demo"
-              onClick={startTour}
+              onClick={() => {
+                if (!user) {
+                  navigate('/login');
+                  return;
+                }
+                startTour();
+              }}
             >
               <span className="lbl" id="demoLbl">
                 <AnimatedIcon name="play" />

@@ -1,5 +1,5 @@
-import { useEffect, useState } from 'react';
-import { BrowserRouter, Route, Routes, useLocation } from 'react-router';
+import { useEffect, useState, type ReactNode } from 'react';
+import { BrowserRouter, Navigate, Route, Routes, useLocation } from 'react-router';
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
 import { queryClient as defaultQueryClient } from './lib/queryClient';
 import { ErrorBoundary } from './components/feedback/error-boundary';
@@ -23,6 +23,22 @@ import { ActionFormSheet } from './features/actions/action-form-sheet';
 import { GuidedTourOverlay } from './features/tour/tour-overlay';
 import { useLiveUpdates } from './lib/live';
 import { useAuthStore } from './lib/auth';
+
+export function RequireAuth({ children }: { children: ReactNode }) {
+  const { user } = useAuthStore();
+  const location = useLocation();
+
+  if (!user) {
+    return (
+      <Navigate
+        to={`/login?redirect=${encodeURIComponent(location.pathname + location.search)}`}
+        replace
+      />
+    );
+  }
+
+  return <>{children}</>;
+}
 
 export function AppRoutes() {
   const location = useLocation();
@@ -73,12 +89,22 @@ export function AppRoutes() {
     document.title = `${label} · MeetingActionLog`;
   }, [location.pathname, user]);
 
-  const isIntroView = location.pathname === '/intro' || (!user && location.pathname === '/');
+  const isIntroView =
+    location.pathname === '/intro' ||
+    (!user && (location.pathname === '/' || location.pathname === '/about'));
 
   if (isIntroView) {
     return (
       <ErrorBoundary>
-        <IntroPage />
+        <IntroPage initialView={location.pathname === '/about' ? 'about' : 'showcase'} />
+      </ErrorBoundary>
+    );
+  }
+
+  if (!user && location.pathname === '/login') {
+    return (
+      <ErrorBoundary>
+        <LoginPage />
       </ErrorBoundary>
     );
   }
@@ -97,35 +123,83 @@ export function AppRoutes() {
           <Route
             path="/"
             element={
-              <TodayPage
-                onConvertDecision={(decision, cardEl) => setConvertingState({ decision, cardEl })}
-              />
+              <RequireAuth>
+                <TodayPage
+                  onConvertDecision={(decision, cardEl) => setConvertingState({ decision, cardEl })}
+                />
+              </RequireAuth>
             }
           />
           <Route
             path="/today"
             element={
-              <TodayPage
-                onConvertDecision={(decision, cardEl) => setConvertingState({ decision, cardEl })}
-              />
+              <RequireAuth>
+                <TodayPage
+                  onConvertDecision={(decision, cardEl) => setConvertingState({ decision, cardEl })}
+                />
+              </RequireAuth>
             }
           />
           <Route path="/intro" element={<IntroPage />} />
-          <Route path="/meetings" element={<MeetingsPage />} />
-          <Route path="/meetings/:id" element={<MeetingDetailPage />} />
-          <Route path="/overdue" element={<OverduePage />} />
+          <Route
+            path="/meetings"
+            element={
+              <RequireAuth>
+                <MeetingsPage />
+              </RequireAuth>
+            }
+          />
+          <Route
+            path="/meetings/:id"
+            element={
+              <RequireAuth>
+                <MeetingDetailPage />
+              </RequireAuth>
+            }
+          />
+          <Route
+            path="/overdue"
+            element={
+              <RequireAuth>
+                <OverduePage />
+              </RequireAuth>
+            }
+          />
           <Route
             path="/decisions"
             element={
-              <DecisionsInboxPage
-                onConvertDecision={(decision, cardEl) => setConvertingState({ decision, cardEl })}
-              />
+              <RequireAuth>
+                <DecisionsInboxPage
+                  onConvertDecision={(decision, cardEl) => setConvertingState({ decision, cardEl })}
+                />
+              </RequireAuth>
             }
           />
-          <Route path="/members" element={<MembersPage />} />
-          <Route path="/tutorials" element={<TutorialsPage />} />
+          <Route
+            path="/members"
+            element={
+              <RequireAuth>
+                <MembersPage />
+              </RequireAuth>
+            }
+          />
+          <Route
+            path="/tutorials"
+            element={
+              <RequireAuth>
+                <TutorialsPage />
+              </RequireAuth>
+            }
+          />
           <Route path="/login" element={<LoginPage />} />
-          <Route path="/profile" element={<ProfilePage />} />
+          <Route
+            path="/profile"
+            element={
+              <RequireAuth>
+                <ProfilePage />
+              </RequireAuth>
+            }
+          />
           <Route path="/about" element={<AboutPage />} />
           <Route path="*" element={<NotFoundPage />} />
         </Routes>

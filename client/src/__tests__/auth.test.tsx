@@ -1,11 +1,13 @@
 import { cleanup, fireEvent, render, screen } from '@testing-library/react';
 import { MemoryRouter } from 'react-router';
+import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
 import { afterEach, beforeEach, describe, expect, it, vi } from 'vitest';
 import { useAuthStore } from '../lib/auth';
 import { getAuthToken, setAuthToken } from '../lib/auth-token';
 import { LoginPage } from '../features/auth/login-page';
 import { ProfilePage } from '../features/auth/profile-page';
 import { AppShell } from '../components/layout/app-shell';
+import { AppRoutes } from '../App';
 import type { AuthUser, UserProfileResponse } from '@mal/shared';
 
 const mockUser: AuthUser = {
@@ -198,6 +200,30 @@ describe('Client Authentication & Customer Profile (100x)', () => {
       expect(screen.getByText('Ananya Rao')).toBeInTheDocument();
 
       unmount2();
+    },
+  );
+
+  it(
+    'redirects unauthenticated user accessing protected routes to /login',
+    { repeats: 100 },
+    () => {
+      useAuthStore.setState({ user: null, status: 'unauthenticated' });
+      const qc = new QueryClient();
+
+      const { unmount } = render(
+        <QueryClientProvider client={qc}>
+          <MemoryRouter initialEntries={['/meetings']}>
+            <AppRoutes />
+          </MemoryRouter>
+        </QueryClientProvider>,
+      );
+
+      // Should be redirected to in-built LoginPage instead of MeetingsPage
+      expect(screen.getByRole('heading', { name: /create your account/i })).toBeInTheDocument();
+      expect(screen.getByRole('tab', { name: /sign in/i })).toBeInTheDocument();
+
+      unmount();
+      qc.clear();
     },
   );
 });
